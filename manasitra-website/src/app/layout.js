@@ -1,4 +1,5 @@
 import { Quicksand } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const quicksand = Quicksand({
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${quicksand.className} antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
