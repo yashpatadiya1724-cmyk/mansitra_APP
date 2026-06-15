@@ -27,7 +27,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-36 pb-20 overflow-hidden">
+      <section className="relative pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden">
         {/* Background glow effects */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--primary)]/20 rounded-full blur-[100px] -z-10"></div>
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-teal-400/10 rounded-full blur-[100px] -z-10"></div>
@@ -44,7 +44,7 @@ export default function Home() {
               <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-wide">100% Private & Anonymous</span>
             </div>
             
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-balance">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-balance">
               Your Private <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-blue-400">
                 AI Companion
@@ -73,7 +73,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative mx-auto lg:ml-auto w-full max-w-[320px] aspect-[1/2] bg-[var(--background)] border-[8px] border-[var(--surface-2)] rounded-[48px] shadow-2xl overflow-hidden"
+            className="relative mx-auto lg:ml-auto w-full max-w-[280px] sm:max-w-[320px] aspect-[1/2] bg-[var(--background)] border-[8px] border-[var(--surface-2)] rounded-[48px] shadow-2xl overflow-hidden"
           >
             {/* Mockup Screen content */}
             <div className="w-full h-full bg-[var(--surface-2)] p-4 flex flex-col">
@@ -142,7 +142,7 @@ export default function Home() {
             {/* Decorative blob */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -z-10"></div>
             
-            <div className="flex flex-col md:flex-row gap-10 items-center">
+            <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center text-center md:text-left">
               <div className="w-32 h-32 shrink-0 rounded-full bg-gradient-to-tr from-[var(--primary)] to-blue-400 p-1">
                 <div className="w-full h-full rounded-full border-4 border-[var(--surface)] overflow-hidden bg-[var(--surface-2)]">
                   <img src="/creator.jpg" alt="Yash - Creator of Manasitra" className="w-full h-full object-cover" />
@@ -155,7 +155,7 @@ export default function Home() {
                 <p className="text-[var(--text-2)] text-lg leading-relaxed mb-6">
                   "I built Manasitra because I realized that sometimes, the hardest thing to do is simply talk to someone. We worry about being judged, being a burden, or just not being understood. I wanted to create a tool that is always there—a silent, supportive friend that genuinely cares about your mental well-being while fiercely protecting your privacy."
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap justify-center md:justify-start gap-3">
                   <span className="inline-flex items-center gap-2 text-sm font-semibold bg-[var(--surface-2)] border border-[var(--border)] px-4 py-2 rounded-full">
                     <CheckCircle2 size={16} className="text-[var(--primary)]" /> Built with Care
                   </span>
