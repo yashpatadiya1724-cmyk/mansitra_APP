@@ -1,0 +1,38 @@
+[
+  {
+    "id": "icall",
+    "name": "iCall",
+    "org": "TISS, Mumbai",
+    "number": "9152987821",
+    "hours": "Mon–Sat, 8am–10pm",
+    "description": "Trained counselors for emotional support",
+    "languages": ["en", "hi"]
+  },
+  {
+    "id": "vandrevala",
+    "name": "Vandrevala Foundation",
+    "org": "Vandrevala Foundation",
+    "number": "1860-2662-345",
+    "hours": "24x7",
+    "description": "24/7 mental health helpline",
+    "languages": ["en", "hi"]
+  },
+  {
+    "id": "aasra",
+    "name": "AASRA",
+    "org": "AASRA",
+    "number": "9820466627",
+    "hours": "24x7",
+    "description": "Suicide prevention and crisis support",
+    "languages": ["en", "hi"]
+  },
+  {
+    "id": "ihelp",
+    "name": "iHelp",
+    "org": "iHelp",
+    "number": "9152987821",
+    "hours": "Mon–Sat, 8am–10pm",
+    "description": "Student mental health support",
+    "languages": ["en", "hi", "gu"]
+  }
+]

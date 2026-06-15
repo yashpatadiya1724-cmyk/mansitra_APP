@@ -1,0 +1,15 @@
+{
+  "appId": "com.manasitra.app",
+  "appName": "Manasitra",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1500,
+      "backgroundColor": "#F5F1E8",
+      "showSpinner": false
+    }
+  }
+}

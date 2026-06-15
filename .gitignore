@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+*.local
+.DS_Store
+Thumbs.db
+.next/
+android/app/build/
+android/.gradle/
+android/local.properties
+dist-electron/

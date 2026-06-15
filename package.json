@@ -1,0 +1,58 @@
+{
+  "name": "manasitra",
+  "version": "1.0.0",
+  "description": "Your private AI emotional companion",
+  "main": "electron/main.js",
+  "author": "Manasitra Team",
+  "license": "ISC",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
+    "dev:backend": "node --watch backend/server.js",
+    "dev:frontend": "npm run dev --prefix manasitra-web",
+    "build:frontend": "npm run build --prefix manasitra-web",
+    "dist:win": "npm run build:frontend && electron-packager . Manasitra --platform=win32 --arch=x64 --out=dist-electron --overwrite --ignore=dist-electron --ignore=manasitra-web/src --ignore=manasitra-web/node_modules --ignore=node_modules/.cache"
+  },
+  "build": {
+    "appId": "com.manasitra.app",
+    "productName": "Manasitra",
+    "copyright": "Copyright © 2025 Manasitra",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "electron/**/*",
+      "backend/**/*",
+      "manasitra-web/dist/**/*",
+      "!backend/node_modules/.cache",
+      "!**/node_modules/.cache"
+    ],
+    "extraResources": [
+      {
+        "from": "backend/node_modules",
+        "to": "backend/node_modules",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "@electron/packager": "^19.1.0",
+    "concurrently": "*",
+    "cross-env": "^10.1.0",
+    "electron": "*",
+    "electron-builder": "*",
+    "wait-on": "*"
+  }
+}
