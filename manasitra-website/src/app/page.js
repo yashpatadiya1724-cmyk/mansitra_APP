@@ -235,9 +235,75 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-white border-t border-slate-200 text-center text-sm text-slate-500">
-        <p>© {new Date().getFullYear()} Manasitra (Mann Ka Mitra). Founded & Developed by Yash Patadiya.</p>
-        <p className="mt-2">Not a substitute for professional mental health care.</p>
+      <footer className="bg-slate-900 text-slate-300 pt-16 pb-8 border-t border-slate-800">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          {/* Brand Info */}
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-[10px] overflow-hidden bg-transparent">
+                <img src="/icon-192.png" alt="Manasitra Logo" className="w-full h-full object-cover" />
+              </div>
+              <span className="font-bold text-lg text-white">Manasitra</span>
+            </div>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Your anonymous, judgment-free AI companion. Designed to support emotional resilience and student well-being.
+            </p>
+          </div>
+
+          {/* Core Features */}
+          <div>
+            <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Features</h4>
+            <ul className="flex flex-col gap-2.5 text-sm text-slate-400">
+              <li>Anonymous AI Chat</li>
+              <li>10+ Regional Languages</li>
+              <li>Calming Mini-Games</li>
+              <li>Self-Reflection Tools</li>
+            </ul>
+          </div>
+
+          {/* Quick Helplines */}
+          <div>
+            <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Helplines</h4>
+            <ul className="flex flex-col gap-2.5 text-sm text-slate-400">
+              <li className="flex justify-between">
+                <span>iCall (TISS):</span>
+                <a href="tel:9152987821" className="text-teal-400 font-semibold hover:underline">9152987821</a>
+              </li>
+              <li className="flex justify-between">
+                <span>Vandrevala:</span>
+                <a href="tel:18602662345" className="text-teal-400 font-semibold hover:underline">1860-2662-345</a>
+              </li>
+              <li className="flex justify-between">
+                <span>AASRA:</span>
+                <a href="tel:9820466627" className="text-teal-400 font-semibold hover:underline">9820466627</a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Initiative */}
+          <div>
+            <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Initiative</h4>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Developed for <strong className="text-slate-200">Ideathon Viksit Bharat 2047</strong> at Silver Oak University to bridge the student mental health support gap.
+            </p>
+          </div>
+        </div>
+
+        {/* Disclaimer Banner */}
+        <div className="max-w-6xl mx-auto px-6 mb-8">
+          <div className="bg-slate-800/50 border border-slate-700/60 p-4 rounded-2xl text-xs text-slate-400 leading-relaxed text-center">
+            <strong className="text-amber-400 block mb-1">⚠️ Medical Disclaimer</strong>
+            Manasitra is a supportive AI companion, not a replacement for professional mental health services, therapy, or medical diagnosis. If you are experiencing a crisis, please reach out to one of the helplines listed above or seek professional help immediately.
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="max-w-6xl mx-auto px-6 border-t border-slate-800/80 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p>© {new Date().getFullYear()} Manasitra (Mann Ka Mitra). All rights reserved.</p>
+          <p>
+            Founded by <a href="https://github.com/yashpatadiya1724-cmyk" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 underline">Yash Patadiya</a> · Advised by <a href="https://github.com/utkarshbhai007" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 underline">Utkarsh Barad</a>
+          </p>
+        </div>
       </footer>
     </div>
   );
