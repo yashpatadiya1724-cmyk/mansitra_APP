@@ -323,11 +323,11 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-slate-900">Utkarsh Barad</h3>
-                    <p className="text-[var(--primary)] font-bold text-sm">Project Mentor & Main Advisor</p>
+                    <p className="text-[var(--primary)] font-bold text-sm">Social Media Executive</p>
                   </div>
                 </div>
                 <p className="text-[var(--text-2)] text-base leading-relaxed mb-6 italic">
-                  "Guiding Manasitra has been an inspiring journey. Mental health resources need to be accessible, completely private, and culturally relevant. By combining advanced AI models with direct client privacy layers, we are empowering students to seek guidance anonymously and confidently, creating a safer digital space for self-reflection."
+                  "Connecting with our community online is all about building trust and showing that no one has to go through tough times alone. Through Manasitra's social platforms, I want to create a warm, inviting space where every student feels seen, heard, and supported. Let's make mental health conversations normal and friendly!"
                 </p>
               </div>
               <div>
