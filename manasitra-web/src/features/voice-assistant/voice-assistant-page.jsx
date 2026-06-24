@@ -11,7 +11,7 @@ import { useGardenStore, XP_REWARDS } from '@store/garden-store'
 import { sendChatMessage, getFallbackResponse } from '@utils/groq-service'
 import { classifyRiskFromKeywords, detectResponseMode, sanitizeUserInput } from '@utils/safety-classifier'
 import { RISK_LEVELS } from '@/app/config/constants'
-import { ManasitaLogo } from '@components/logo'
+import { MansitraLogo } from '@components/logo'
 
 const VOICE_PROMPTS = {
   en: ['Tell me what\'s on your mind...', 'I\'m listening...', 'How are you feeling?', 'Talk to me...'],
@@ -227,7 +227,7 @@ export const VoiceAssistantPage = () => {
       {/* Header */}
       <div style={{ padding: '20px 24px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <ManasitaLogo size={36} />
+          <MansitraLogo size={36} />
           <div>
             <p style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 700, color: 'var(--text)' }}>Voice Mode</p>
             <p style={{ fontSize: 11, color: 'var(--text-3)' }}>Bolke baat karo</p>

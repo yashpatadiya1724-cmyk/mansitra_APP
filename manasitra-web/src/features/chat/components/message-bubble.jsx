@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { formatTime } from '@utils/date-utils'
 import { useNavigate } from 'react-router-dom'
 import { ReportModal } from '@features/settings/components/report-modal'
-import { ManasitaLogo } from '@components/logo'
 
 const TOOL_ROUTES = { breathing: '/games/breathing', grounding: '/games/grounding', tap: '/games/tap' }
 const TOOL_LABELS = { breathing: '🌬️ Try breathing exercise', grounding: '⚓ Try grounding guide', tap: '✋ Try tap to calm' }

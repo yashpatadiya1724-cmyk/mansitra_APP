@@ -1,4 +1,4 @@
-export const ManasitaLogo = ({ size = 44 }) => (
+export const MansitraLogo = ({ size = 44 }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width={size} height={size}>
     <defs>
       <linearGradient id="lg-bubble" x1="0%" y1="0%" x2="100%" y2="100%">

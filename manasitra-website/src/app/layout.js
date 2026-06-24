@@ -7,10 +7,10 @@ const quicksand = Quicksand({
 });
 
 export const metadata = {
-  title: "Manasitra — Your Private AI Emotional Companion",
-  description: "Manasitra (Mann Ka Mitra) is a 100% anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
+  title: "Mansitra — Your Private AI Emotional Companion",
+  description: "Mansitra (Mann Ka Mitra) is a 100% anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
   keywords: [
-    "Manasitra",
+    "Mansitra",
     "Mann Ka Mitra",
     "AI Companion",
     "Mental Health AI",
@@ -44,10 +44,10 @@ export const metadata = {
     apple: "/icon-192.png",
   },
   openGraph: {
-    title: "Manasitra — Your Private AI Emotional Companion",
+    title: "Mansitra — Your Private AI Emotional Companion",
     description: "An anonymous, judgment-free, and multilingual AI companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
     url: "https://mansitra-app.vercel.app",
-    siteName: "Manasitra",
+    siteName: "Mansitra",
     locale: "en_IN",
     type: "website",
     images: [
@@ -55,13 +55,13 @@ export const metadata = {
         url: "/icon-512.png",
         width: 512,
         height: 512,
-        alt: "Manasitra Logo",
+        alt: "Mansitra Logo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Manasitra — Your Private AI Emotional Companion",
+    title: "Mansitra — Your Private AI Emotional Companion",
     description: "An anonymous, judgment-free, and multilingual AI companion built specifically for Indian students.",
     images: ["/icon-512.png"],
   },
@@ -71,7 +71,7 @@ export default function RootLayout({ children }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Manasitra",
+    "name": "Mansitra",
     "operatingSystem": "Android",
     "applicationCategory": "HealthApplication",
     "downloadUrl": "https://mansitra-app.vercel.app/app-debug.apk",

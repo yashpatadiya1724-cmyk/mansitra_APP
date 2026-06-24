@@ -1,12 +1,17 @@
 import { createBrowserRouter, createHashRouter, Navigate } from 'react-router-dom'
 
-// Use hash router when loaded as file:// (Electron production build)
-const isFileProtocol = typeof window !== 'undefined' && window.location.protocol === 'file:'
-const createRouter = isFileProtocol ? createHashRouter : createBrowserRouter
+// Use hash router when loaded as file:// or in Capacitor (which runs on localhost)
+const isHashRouterNeeded = typeof window !== 'undefined' && (
+  window.location.protocol === 'file:' || 
+  window.location.hostname === 'localhost' || 
+  !!window.Capacitor
+)
+const createRouter = isHashRouterNeeded ? createHashRouter : createBrowserRouter
 import { lazy, Suspense } from 'react'
 import { MainLayout } from '../layouts/main-layout'
 import { OnboardingPage } from '@features/onboarding/onboarding-page'
 import { NotFound } from '@components/not-found/not-found'
+const LoginPage         = lazy(() => import('@features/auth/login-page').then(m => ({ default: m.LoginPage })))
 
 // Lazy-load heavy pages for faster initial load
 const ChatPage          = lazy(() => import('@features/chat/chat-page').then(m => ({ default: m.ChatPage })))
@@ -51,11 +56,15 @@ const hasOnboarded = () => localStorage.getItem('manasitra_onboarded') === 'true
 export const router = createRouter([
   {
     path: '/',
-    element: <Navigate to={hasOnboarded() ? '/chat' : '/onboarding'} replace />,
+    element: <Navigate to={hasOnboarded() ? '/login' : '/onboarding'} replace />,
   },
   {
     path: '/onboarding',
     element: <OnboardingPage />,
+  },
+  {
+    path: '/login',
+    element: <Lazy><LoginPage /></Lazy>,
   },
   {
     element: <MainLayout />,

@@ -12,10 +12,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-[14px] bg-transparent flex items-center justify-center overflow-hidden">
-              <img src="/icon-192.png" alt="Manasitra Logo" className="w-full h-full object-cover" />
+              <img src="/icon-192.png" alt="Mansitra Logo" className="w-full h-full object-cover" />
             </div>
             <div>
-              <h1 className="font-bold text-xl leading-none">Manasitra</h1>
+              <h1 className="font-bold text-xl leading-none">Mansitra</h1>
               <p className="text-[10px] uppercase tracking-widest text-[var(--text-3)] font-bold mt-1">Mann Ka Mitra</p>
             </div>
           </div>
@@ -52,7 +52,7 @@ export default function Home() {
             </h1>
             
             <p className="text-lg sm:text-xl text-[var(--text-2)] leading-relaxed max-w-lg">
-              Manasitra is a judgment-free space designed to help you navigate life's challenges. Track your mood, express your feelings, and play calming mini-games.
+              Mansitra is a judgment-free space designed to help you navigate life's challenges. Track your mood, express your feelings, and play calming mini-games.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
@@ -129,17 +129,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Manasitra Section */}
+      {/* About Mansitra Section */}
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest block mb-3">01 — Overview</span>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">What is Manasitra?</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">What is Mansitra?</h2>
             <p className="text-[var(--text-2)] text-lg leading-relaxed mb-6">
-              Manasitra (मनसित्र) combines the Sanskrit words <strong>Mana</strong> (mind) and <strong>Mitra</strong> (friend). It is a trustworthy, non-judgmental friend for every student navigating the pressures of academic life in India.
+              Mansitra (मनसित्र) combines the Sanskrit words <strong>Mana</strong> (mind) and <strong>Mitra</strong> (friend). It is a trustworthy, non-judgmental friend for every student navigating the pressures of academic life in India.
             </p>
             <p className="text-[var(--text-2)] text-base leading-relaxed">
-              Built at the intersection of AI engineering, psychology, and human-centered design, Manasitra is a secure, privacy-first emotional wellness platform that uses real-time AI conversation and culturally-aware support to help students manage stress and anxiety.
+              Built at the intersection of AI engineering, psychology, and human-centered design, Mansitra is a secure, privacy-first emotional wellness platform that uses real-time AI conversation and culturally-aware support to help students manage stress and anxiety.
             </p>
           </div>
 
@@ -205,7 +205,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest block mb-3">03 — Designed with Empathy</span>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">How Manasitra Was Built</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">How Mansitra Was Built</h2>
             <p className="text-[var(--text-2)] text-lg">
               We mapped user personas, simplified the visual load, and created safe AI prompts to build a product designed explicitly around student stress.
             </p>
@@ -235,7 +235,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest block mb-3">04 — Future Vision</span>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">The Road Ahead for Manasitra</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">The Road Ahead for Mansitra</h2>
             <p className="text-[var(--text-2)] text-lg">
               We plan to expand our features to reach students across campuses and cities in India.
             </p>
@@ -263,7 +263,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest block mb-3">05 — Team & Mentorship</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">Meet the Minds Behind Manasitra</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">Meet the Minds Behind Mansitra</h2>
             <p className="text-[var(--text-2)] text-lg max-w-xl mx-auto">
               The passionate team working together to build a safe, empathetic mental health companion for students.
             </p>
@@ -285,7 +285,7 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-[var(--text-2)] text-base leading-relaxed mb-6 italic">
-                  "I built Manasitra because I realized that sometimes, the hardest thing to do is simply talk to someone. We worry about being judged, being a burden, or just not being understood. I wanted to create a tool that is always there—a silent, supportive friend that genuinely cares about your mental well-being while fiercely protecting your privacy."
+                  "I built Mansitra because I realized that sometimes, the hardest thing to do is simply talk to someone. We worry about being judged, being a burden, or just not being understood. I wanted to create a tool that is always there—a silent, supportive friend that genuinely cares about your mental well-being while fiercely protecting your privacy."
                 </p>
               </div>
               <div>
@@ -327,7 +327,7 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-[var(--text-2)] text-base leading-relaxed mb-6 italic">
-                  "Guiding Manasitra has been an inspiring journey. Mental health resources need to be accessible, completely private, and culturally relevant. By combining advanced AI models with direct client privacy layers, we are empowering students to seek guidance anonymously and confidently, creating a safer digital space for self-reflection."
+                  "Guiding Mansitra has been an inspiring journey. Mental health resources need to be accessible, completely private, and culturally relevant. By combining advanced AI models with direct client privacy layers, we are empowering students to seek guidance anonymously and confidently, creating a safer digital space for self-reflection."
                 </p>
               </div>
               <div>
@@ -369,7 +369,7 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-[var(--text-2)] text-base leading-relaxed mb-6 italic">
-                  "Connecting with our community online is all about building trust and showing that no one has to go through tough times alone. Through Manasitra's social platforms, I want to create a warm, inviting space where every student feels seen, heard, and supported. Let's make mental health conversations normal and friendly!"
+                  "Connecting with our community online is all about building trust and showing that no one has to go through tough times alone. Through Mansitra's social platforms, I want to create a warm, inviting space where every student feels seen, heard, and supported. Let's make mental health conversations normal and friendly!"
                 </p>
               </div>
               <div>
@@ -422,9 +422,9 @@ export default function Home() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-[10px] overflow-hidden bg-transparent">
-                <img src="/icon-192.png" alt="Manasitra Logo" className="w-full h-full object-cover" />
+                <img src="/icon-192.png" alt="Mansitra Logo" className="w-full h-full object-cover" />
               </div>
-              <span className="font-bold text-lg text-white">Manasitra</span>
+              <span className="font-bold text-lg text-white">Mansitra</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
               Your anonymous, judgment-free AI companion. Designed to support emotional resilience and student well-being.
@@ -480,7 +480,7 @@ export default function Home() {
 
         {/* Divider */}
         <div className="max-w-6xl mx-auto px-6 border-t border-slate-800/80 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Manasitra (Mann Ka Mitra). All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Mansitra (Mann Ka Mitra). All rights reserved.</p>
           <p>
             Founded by <a href="https://github.com/yashpatadiya1724-cmyk" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 underline">Yash Patadiya</a> · Advised by <a href="https://github.com/utkarshbhai007" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 underline">Utkarsh Barad</a>
           </p>

@@ -6,36 +6,41 @@ import { useSafetyStore } from '@store/safety-store'
 import { CrisisScreen } from '@features/crisis-support/components/crisis-screen'
 import { motion } from 'framer-motion'
 import { useSessionStore } from '@store/session-store'
-import { ManasitaLogo } from '@components/logo'
+import { MansitraLogo } from '@components/logo'
 
 // 4 tabs on sides + 1 center Voice FAB
 const LEFT_NAV  = [
   { to: '/chat',      icon: MessageCircle, key: 'chat' },
   { to: '/mood',      icon: Smile,         key: 'mood' },
 ]
+
 const RIGHT_NAV = [
-  { to: '/garden',    icon: Leaf,          key: 'garden' },
+  { to: '/games',     icon: Gamepad2,      key: 'games' },
   { to: '/settings',  icon: Settings,      key: 'settings' },
 ]
 
-// Desktop sidebar — all routes
 const SIDEBAR_NAV = [
   { to: '/chat',      icon: MessageCircle, key: 'chat' },
   { to: '/mood',      icon: Smile,         key: 'mood' },
-  { to: '/voice',     icon: Mic,           key: 'voice' },
-  { to: '/garden',    icon: Leaf,          key: 'garden' },
   { to: '/dashboard', icon: BarChart2,     key: 'dashboard' },
+  { to: '/garden',    icon: Leaf,          key: 'garden' },
   { to: '/games',     icon: Gamepad2,      key: 'games' },
+  { to: '/voice',     icon: Mic,           key: 'voice' },
   { to: '/settings',  icon: Settings,      key: 'settings' },
 ]
 
 export const MainLayout = () => {
   const { t } = useTranslation()
-  const crisisVisible = useSafetyStore(s => s.crisisScreenVisible)
   const location = useLocation()
   const navigate = useNavigate()
-  const nickname = useSessionStore(s => s.nickname)
-  const isVoice = location.pathname === '/voice'
+  const crisisVisible = useSafetyStore(state => state.crisisVisible)
+  const clearSession = useSessionStore(state => state.clearSession)
+
+  // hide bottom tabs on standalone game screens for focus
+  const isGameRoute = location.pathname.includes('/games/') && location.pathname !== '/games'
+  const isVoiceRoute = location.pathname === '/voice'
+  const isSettingsSub = location.pathname.includes('/settings/') && location.pathname !== '/settings'
+  const hideBottomNav = isGameRoute || isVoiceRoute || isSettingsSub
 
   return (
     <div className="app-shell" style={{ minHeight: '100vh', display: 'flex' }}>
@@ -50,9 +55,9 @@ export const MainLayout = () => {
       }} className="desktop-sidebar">
         <div style={{ padding: '28px 20px 20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 4 }}>
-            <ManasitaLogo size={40} />
+            <MansitraLogo size={40} />
             <div>
-              <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--primary)' }}>Manasitra</p>
+              <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--primary)' }}>Mansitra</p>
               <p style={{ fontSize: 11, color: 'var(--text-3)' }}>Mann Ka Mitra</p>
             </div>
           </div>

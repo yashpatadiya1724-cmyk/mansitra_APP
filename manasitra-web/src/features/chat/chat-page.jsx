@@ -14,21 +14,21 @@ import { Shield, ChevronDown, Gamepad2, BarChart2 } from 'lucide-react'
 import { useMoodStore } from '@store/mood-store'
 import { useProgressStore } from '@store/progress-store'
 import quotes from '@data/quotes/quotes.json'
-import { ManasitaLogo } from '@components/logo'
+import { MansitraLogo } from '@components/logo'
 import { PermissionDialog, shouldShowPermissionDialog } from '@components/permission-dialog/permission-dialog'
 import { useSpeaker } from '@hooks/use-speaker'
 
 const WELCOME_MESSAGES = {
   en: [
-    "Hey, I'm Manasitra — your private companion. Whatever's on your mind, I'm here to listen. What's going on today?",
-    "Hi! I'm Manasitra. I was just waiting for you. How are you feeling right now?",
+    "Hey, I'm Mansitra — your private companion. Whatever's on your mind, I'm here to listen. What's going on today?",
+    "Hi! I'm Mansitra. I was just waiting for you. How are you feeling right now?",
     "Hey friend, it's good to see you. I'm here if you want to talk or just vent about something."
   ],
   hi: [
-    "नमस्ते, मैं मनसित्र हूँ — तुम्हारा निजी साथी। जो भी मन में है, मैं सुनने के लिए यहाँ हूँ। आज क्या चल रहा है?",
-    "नमस्ते! मैं तुम्हारा दोस्त मनसित्र। मैं तुम्हारा ही इंतज़ार कर रहा था। अभी कैसा महसूस कर रहे हो?",
+    "नमस्ते, मैं मन्सित्रा हूँ — तुम्हारा निजी साथी। जो भी मन में है, मैं सुनने के लिए यहाँ हूँ। आज क्या चल रहा है?",
+    "नमस्ते! मैं तुम्हारा दोस्त मन्सित्रा। मैं तुम्हारा ही इंतज़ार कर रहा था। अभी कैसा महसूस कर रहे हो?",
     "हेलो दोस्त, तुम्हें देख कर अच्छा लगा। अगर कुछ बात करनी हो या बस मन हल्का करना हो, तो मैं यहीं हूँ।"
-  ]
+  ],
 }
 
 const CHIP_POOL = {
@@ -103,7 +103,7 @@ export const ChatPage = () => {
               <img src="/robot.png" alt="Bobo" style={{ width: '80%', height: '80%', objectFit: 'contain' }} />
             </div>
             <div>
-              <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: 'var(--text)', lineHeight: 1.2 }}>Manasitra</h1>
+              <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: 'var(--text)', lineHeight: 1.2 }}>Mansitra</h1>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success)', animation: 'pulse-ring 2s infinite' }} />
                 <p style={{ fontSize: 12, color: 'var(--text-2)', fontWeight: 500 }}>Online</p>

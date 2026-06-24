@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Heart, Shield, Globe, Sparkles, Users, Lock, MessageCircle, Smile, BarChart2, Wind, AlertTriangle } from 'lucide-react'
 import { APP_VERSION } from '@/app/config/constants'
-import { ManasitaLogo } from '@components/logo'
+import { MansitraLogo } from '@components/logo'
 
 const Pill = ({ icon:Icon, label, color }) => (
   <div style={{ display:'inline-flex', alignItems:'center', gap:6, padding:'6px 12px', borderRadius:999, background:`${color}12`, border:`1px solid ${color}28`, color }}>
@@ -36,15 +36,15 @@ export const AboutModal = ({ isOpen, onClose }) => {
         <motion.div initial={{ opacity:0, scale:0.94, y:12 }} animate={{ opacity:1, scale:1, y:0 }} exit={{ opacity:0, scale:0.94, y:12 }}
           transition={{ duration:0.2 }}
           style={{ position:'relative', width:'100%', maxWidth:500, maxHeight:'90vh', overflowY:'auto', background:'var(--bg-3)', border:'1px solid var(--border)', borderRadius:20, zIndex:1 }}
-          role="dialog" aria-modal="true" aria-label="About Manasitra"
+          role="dialog" aria-modal="true" aria-label="About Mansitra"
         >
           {/* Header */}
           <div style={{ padding:'24px 24px 20px', borderBottom:'1px solid var(--border)', display:'flex', alignItems:'flex-start', justifyContent:'space-between' }}>
             <div style={{ display:'flex', alignItems:'center', gap:14 }}>
-              <ManasitaLogo size={56} />
+              <MansitraLogo size={56} />
               <div>
                 <h2 style={{ fontFamily:'var(--font-display)', fontSize:22, fontWeight:800, color:'var(--primary)' }}>
-                  Manasitra
+                  Mansitra
                 </h2>
                 <p style={{ fontSize:13, color:'var(--text-2)', marginTop:2 }}>Mann Ka Mitra · v{APP_VERSION}</p>
               </div>

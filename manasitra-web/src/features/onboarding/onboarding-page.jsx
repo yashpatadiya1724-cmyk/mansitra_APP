@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useLanguageStore } from '@store/language-store'
 import { SUPPORTED_LANGUAGES, STORAGE_KEYS } from '@/app/config/constants'
 import { Shield, Lock, Trash2, ChevronRight, Heart, Eye, EyeOff, Sparkles } from 'lucide-react'
-import { ManasitaLogo } from '@components/logo'
+import { MansitraLogo } from '@components/logo'
 
 const STEPS = ['language', 'welcome', 'privacy']
 
@@ -30,7 +30,7 @@ export const OnboardingPage = () => {
     setLanguage(lang)
     if (nickname.trim()) sessionStorage.setItem('manasitra_nickname', nickname.trim())
     localStorage.setItem(STORAGE_KEYS.ONBOARDED, 'true')
-    navigate('/chat', { replace: true })
+    navigate('/login', { replace: true })
   }
 
   return (
@@ -62,7 +62,7 @@ export const OnboardingPage = () => {
                     transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                     style={{ margin: '0 auto 20px', width: 80, height: 80 }}
                   >
-                    <ManasitaLogo size={80} />
+                    <MansitraLogo size={80} />
                   </motion.div>
                   <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 800, marginBottom: 6 }}>
                     <span className="gradient-text">मनसित्र</span>

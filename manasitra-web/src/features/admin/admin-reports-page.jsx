@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Flag, CheckCircle, Clock, RefreshCw, Lock, AlertTriangle, MessageSquare, Globe, Filter } from 'lucide-react'
-
-const isNative = typeof window !== 'undefined' && (window.location.protocol === 'capacitor:' || window.location.protocol === 'file:')
-const API_BASE = isNative ? 'http://10.179.44.214:3001/api' : '/api'
+import { supabase } from '@utils/supabase-client'
 
 const REASON_META = {
   harmful:        { label: 'Harmful / Unsafe',        color: 'var(--danger)',    icon: AlertTriangle },
@@ -33,14 +31,27 @@ export const AdminReportsPage = () => {
   const fetchReports = async (key = adminKey) => {
     setLoading(true)
     setError(null)
+    if (key !== 'manasitra-admin-2026') {
+      setError('Invalid admin key')
+      setAuthed(false)
+      setLoading(false)
+      return
+    }
     try {
-      const url = filter === 'all' ? `${API_BASE}/report` : `${API_BASE}/report?status=${filter}`
-      const res = await fetch(url, { headers: { 'x-admin-key': key } })
-      if (res.status === 401) { setError('Invalid admin key'); setAuthed(false); return }
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const data = await res.json()
-      setReports(data.reports)
-      setTotal(data.total)
+      let query = supabase
+        .from('reports')
+        .select('*', { count: 'exact' })
+
+      if (filter !== 'all') {
+        query = query.eq('status', filter)
+      }
+
+      const { data, count, error } = await query
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+      setReports(data || [])
+      setTotal(count || 0)
       setAuthed(true)
     } catch (e) {
       setError(e.message)
@@ -52,12 +63,12 @@ export const AdminReportsPage = () => {
   const updateStatus = async (id, status) => {
     setUpdating(id)
     try {
-      const res = await fetch(`${API_BASE}/report/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
-        body: JSON.stringify({ status }),
-      })
-      if (!res.ok) throw new Error('Update failed')
+      const { error } = await supabase
+        .from('reports')
+        .update({ status })
+        .eq('id', id)
+
+      if (error) throw error
       setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r))
     } catch (e) {
       setError(e.message)
