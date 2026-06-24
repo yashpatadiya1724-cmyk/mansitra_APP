@@ -129,7 +129,7 @@ export const MainLayout = () => {
                   borderRadius: '50%',
                   border: 'none',
                   cursor: 'pointer',
-                  background: isVoice
+                  background: isVoiceRoute
                     ? '#7C3AED'
                     : 'var(--primary)',
                   color: 'white',
