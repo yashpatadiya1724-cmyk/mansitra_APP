@@ -107,13 +107,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Stats Bar */}
+      <section className="bg-slate-50 border-b border-slate-200 py-10">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <p className="font-display text-4xl font-extrabold text-[var(--primary)] mb-1">300M+</p>
+            <p className="text-xs text-[var(--text-3)] font-bold uppercase tracking-wider">Students in India</p>
+          </div>
+          <div>
+            <p className="font-display text-4xl font-extrabold text-[var(--primary)] mb-1">1 in 5</p>
+            <p className="text-xs text-[var(--text-3)] font-bold uppercase tracking-wider">Face Mental Health Issues</p>
+          </div>
+          <div>
+            <p className="font-display text-4xl font-extrabold text-[var(--primary)] mb-1">&lt;10%</p>
+            <p className="text-xs text-[var(--text-3)] font-bold uppercase tracking-wider">Seek Professional Help</p>
+          </div>
+          <div>
+            <p className="font-display text-4xl font-extrabold text-[var(--primary)] mb-1">24/7</p>
+            <p className="text-xs text-[var(--text-3)] font-bold uppercase tracking-wider">AI Companion Access</p>
+          </div>
+        </div>
+      </section>
+
       {/* About Manasitra Section */}
-      <section className="py-24 bg-slate-50 border-y border-slate-200">
+      <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="max-w-2xl mx-auto text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">What is Manasitra?</h2>
-            <p className="text-[var(--text-2)] text-lg leading-relaxed">
-              Manasitra was created to be a safe haven. A place where you can share your deepest thoughts without the fear of judgment, data mining, or privacy breaches.
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest block mb-3">01 — Overview</span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">What is Manasitra?</h2>
+            <p className="text-[var(--text-2)] text-lg leading-relaxed mb-6">
+              Manasitra (मनसित्र) combines the Sanskrit words <strong>Mana</strong> (mind) and <strong>Mitra</strong> (friend). It is a trustworthy, non-judgmental friend for every student navigating the pressures of academic life in India.
+            </p>
+            <p className="text-[var(--text-2)] text-base leading-relaxed">
+              Built at the intersection of AI engineering, psychology, and human-centered design, Manasitra is a secure, privacy-first emotional wellness platform that uses real-time AI conversation and culturally-aware support to help students manage stress and anxiety.
             </p>
           </div>
 
@@ -124,7 +150,7 @@ export default function Home() {
               { icon: Gamepad2, title: "Calming Tools", desc: "Engage with an interactive breathing bubble, grounding guide, focus puzzles, and mood canvas to relieve anxiety instantly." },
               { icon: Volume2, title: "Voice Companion", desc: "Speak and listen with hands-free voice companion mode, allowing a more natural comforting dialogue." }
             ].map((feature, i) => (
-              <div key={i} className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm hover:border-teal-400 transition-colors">
+              <div key={i} className="bg-slate-50 p-8 rounded-[32px] border border-slate-200 shadow-sm hover:border-teal-400 transition-colors">
                 <div className="w-14 h-14 rounded-full bg-[var(--primary-soft)] text-[var(--primary)] flex items-center justify-center mb-6">
                   <feature.icon size={28} />
                 </div>
@@ -136,10 +162,107 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Problem Statement Section */}
+      <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-500/5 rounded-full blur-[120px] -z-0"></div>
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <span className="text-xs font-bold text-red-400 uppercase tracking-widest block mb-3">02 — The Crisis</span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">A Crisis Hiding in Plain Sight</h2>
+            <p className="text-slate-400 text-lg leading-relaxed">
+              India has one of the world's largest student populations — yet mental health support remains critically underdeveloped. Stigma, affordability, and privacy concerns create a barrier that prevents students from seeking help.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white/5 border border-white/10 p-8 rounded-3xl">
+              <span className="text-3xl mb-4 block">🧠</span>
+              <h4 className="text-lg font-bold text-red-400 mb-2">Stigma & Silence</h4>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Over 80% of students facing mental distress never speak about it due to fear of judgment from family, peers, and society.
+              </p>
+            </div>
+            <div className="bg-white/5 border border-white/10 p-8 rounded-3xl">
+              <span className="text-3xl mb-4 block">🔒</span>
+              <h4 className="text-lg font-bold text-red-400 mb-2">Privacy Fears</h4>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Students distrust digital platforms with sensitive emotional data, fearing data tracking, logs, or social exposure.
+              </p>
+            </div>
+            <div className="bg-white/5 border border-white/10 p-8 rounded-3xl">
+              <span className="text-3xl mb-4 block">💸</span>
+              <h4 className="text-lg font-bold text-red-400 mb-2">Inaccessibility</h4>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Professional therapy is unaffordable or unavailable to the majority of Indian students, especially in Tier 2 and Tier 3 cities.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Design and Development Process */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest block mb-3">03 — Designed with Empathy</span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">How Manasitra Was Built</h2>
+            <p className="text-[var(--text-2)] text-lg">
+              We mapped user personas, simplified the visual load, and created safe AI prompts to build a product designed explicitly around student stress.
+            </p>
+          </div>
+
+          <div className="border border-slate-200 rounded-[32px] overflow-hidden divide-y divide-slate-200">
+            {[
+              { num: "01", title: "User Research & Personas", desc: "Studied the emotional journeys of Indian students — IIT/NIT aspirants, college-goers, and placement-year stress. Identified trust barriers and privacy expectations." },
+              { num: "02", title: "Tone & Visual Palette", desc: "Selected calm sage greens, soft warm gradients, and clean typography. The interface minimizes cognitive load for emotionally exhausted users." },
+              { num: "03", title: "Core AI Conversation", desc: "Engineered strict system prompts incorporating Cognitive Behavioral Therapy (CBT) principles, active listening, and deep sensitivity to Indian academic pressures." },
+              { num: "04", title: "Privacy Architecture", desc: "Implemented zero-knowledge encrypted database triggers, session-only volatile memory, and a layout that allows completely anonymous, login-free usage." }
+            ].map((step, idx) => (
+              <div key={idx} className="p-8 flex gap-6 items-start">
+                <span className="font-display text-3xl font-bold text-slate-300 leading-none shrink-0">{step.num}</span>
+                <div>
+                  <h4 className="text-lg font-bold text-slate-900 mb-2">{step.title}</h4>
+                  <p className="text-[var(--text-2)] text-sm leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Impact & Future Vision */}
+      <section className="py-24 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest block mb-3">04 — Future Vision</span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">The Road Ahead for Manasitra</h2>
+            <p className="text-[var(--text-2)] text-lg">
+              We plan to expand our features to reach students across campuses and cities in India.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "🏫 Campus Pilot Program", desc: "Partner with 5–10 colleges for a structured pilot, gathering feedback and refining the AI model on genuine student use cases." },
+              { title: "🗣️ Extended Multilingual Support", desc: "Scale local voice engines in Hindi, Tamil, Telugu, and other regional languages to speak in students' comforting native tongues." },
+              { title: "👨‍⚕️ Therapist Handoff Module", desc: "Build a secure bridge between the AI companion and college counseling departments for seamless clinical escalation." },
+              { title: "📱 Native Mobile App", desc: "Deliver a full-featured iOS and Android application with offline journaling and push-based daily resilience streaks." },
+              { title: "📈 Institutional Dashboard", desc: "Anonymized aggregate insights for college counseling units to identify campus-wide stress trends without compromising student privacy." }
+            ].map((item, idx) => (
+              <div key={idx} className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                <h4 className="text-lg font-bold text-slate-900 mb-3">{item.title}</h4>
+                <p className="text-[var(--text-2)] text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* About the Team Section */}
-      <section className="py-24 relative overflow-hidden bg-slate-50 border-t border-slate-200">
+      <section className="py-24 relative overflow-hidden bg-white">
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
+            <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest block mb-3">05 — Team & Mentorship</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">Meet the Minds Behind Manasitra</h2>
             <p className="text-[var(--text-2)] text-lg max-w-xl mx-auto">
               The passionate developer and mentor working together to build a safe, empathetic mental health companion for students.
@@ -218,6 +341,22 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Hackathon Quote / Experience Section */}
+      <section className="py-24 bg-slate-900 text-white relative">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <span className="text-xs font-bold text-amber-400 uppercase tracking-widest block mb-3">06 — Hackathon Experience</span>
+          <h2 className="text-3xl font-bold mb-6">Built Under Pressure — Just Like Our Users</h2>
+          <p className="text-slate-400 text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+            Developed during the <strong className="text-white">Ideathon Viksit Bharat 2047</strong> at Silver Oak University. Designing stress-management tech under a high-pressure timeline gave us deep empathy for the students we seek to help.
+          </p>
+          <div className="bg-white/5 border-l-4 border-amber-400 p-8 rounded-r-3xl text-left max-w-3xl mx-auto">
+            <p className="text-lg italic text-slate-200 font-serif leading-relaxed">
+              "The hardest part wasn't the code — it was deciding what the AI should say when a student tells it they can't take the pressure anymore. That question, and the weight behind it, shaped every design decision we made."
+            </p>
           </div>
         </div>
       </section>
