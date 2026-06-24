@@ -56,16 +56,20 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
-              <a href="/mansitra.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-8 py-4 rounded-full text-white font-bold shadow-lg shadow-[var(--primary)]/20">
-                <Download size={20} />
-                Download APK
+              <a href="/mansitra.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-6 py-3.5 rounded-full text-white font-bold shadow-lg shadow-[var(--primary)]/20 text-sm">
+                <Download size={18} />
+                Android (.APK)
               </a>
-              <div className="inline-flex items-center justify-center gap-3 bg-[var(--surface)] border border-[var(--border)] px-8 py-4 rounded-full text-[var(--foreground)] font-bold shadow-sm">
-                No Login Required
-              </div>
+              <button 
+                onClick={() => alert("Mansitra iOS (.ipa) build is in development. Directly installing .ipa requires Apple Developer signing or AltStore. iOS version will be available on the App Store soon!")}
+                className="inline-flex items-center justify-center gap-3 bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3.5 rounded-full transition-colors active:scale-95 text-sm"
+              >
+                <Download size={18} />
+                iOS (.IPA)
+              </button>
             </div>
             <p className="text-sm text-[var(--text-3)] font-medium mt-2">
-              For Android Devices • 100% Free
+              Supports Android 8.0+ and iOS 15.0+ • 100% Free
             </p>
           </motion.div>
 
@@ -409,10 +413,19 @@ export default function Home() {
         <p className="text-[var(--text-2)] text-lg mb-8 max-w-xl mx-auto">
           Download the app today. Minimal login is used purely for active user counting. Just you and your private space.
         </p>
-        <a href="/mansitra.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-10 py-5 rounded-full text-white font-bold shadow-xl shadow-[var(--primary)]/20 text-lg">
-          <Download size={24} />
-          Download for Android
-        </a>
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="/mansitra.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-8 py-4.5 rounded-full text-white font-bold shadow-xl shadow-[var(--primary)]/20 text-md">
+            <Download size={22} />
+            Download for Android
+          </a>
+          <button 
+            onClick={() => alert("Mansitra iOS (.ipa) build is in development. Directly installing .ipa requires Apple Developer signing or AltStore. iOS version will be available on the App Store soon!")}
+            className="inline-flex items-center justify-center gap-3 bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4.5 rounded-full transition-colors active:scale-95 text-md"
+          >
+            <Download size={22} />
+            Download for iOS
+          </button>
+        </div>
       </section>
 
       {/* Footer */}
