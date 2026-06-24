@@ -31,7 +31,7 @@ export const AdminReportsPage = () => {
   const fetchReports = async (key = adminKey) => {
     setLoading(true)
     setError(null)
-    if (key !== 'manasitra-admin-2026') {
+    if (key !== 'pinkyyash123') {
       setError('Invalid admin key')
       setAuthed(false)
       setLoading(false)
