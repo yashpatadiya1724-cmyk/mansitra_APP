@@ -19,7 +19,7 @@ export default function Home() {
               <p className="text-[10px] uppercase tracking-widest text-[var(--text-3)] font-bold mt-1">Mann Ka Mitra</p>
             </div>
           </div>
-          <a href="/app-debug.apk" download className="hidden sm:flex items-center gap-2 bg-[var(--surface-2)] border border-[var(--border)] hover:border-[var(--primary)] transition-colors px-5 py-2.5 rounded-full text-sm font-bold text-[var(--foreground)] shadow-sm">
+          <a href="/mansitra.apk" download className="hidden sm:flex items-center gap-2 bg-[var(--surface-2)] border border-[var(--border)] hover:border-[var(--primary)] transition-colors px-5 py-2.5 rounded-full text-sm font-bold text-[var(--foreground)] shadow-sm">
             <Download size={16} />
             Get the App
           </a>
@@ -56,7 +56,7 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
-              <a href="/app-debug.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-8 py-4 rounded-full text-white font-bold shadow-lg shadow-[var(--primary)]/20">
+              <a href="/mansitra.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-8 py-4 rounded-full text-white font-bold shadow-lg shadow-[var(--primary)]/20">
                 <Download size={20} />
                 Download APK
               </a>
@@ -409,7 +409,7 @@ export default function Home() {
         <p className="text-[var(--text-2)] text-lg mb-8 max-w-xl mx-auto">
           Download the app today. Minimal login is used purely for active user counting. Just you and your private space.
         </p>
-        <a href="/app-debug.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-10 py-5 rounded-full text-white font-bold shadow-xl shadow-[var(--primary)]/20 text-lg">
+        <a href="/mansitra.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-10 py-5 rounded-full text-white font-bold shadow-xl shadow-[var(--primary)]/20 text-lg">
           <Download size={24} />
           Download for Android
         </a>

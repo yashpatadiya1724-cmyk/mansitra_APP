@@ -74,7 +74,7 @@ export default function RootLayout({ children }) {
     "name": "Mansitra",
     "operatingSystem": "Android",
     "applicationCategory": "HealthApplication",
-    "downloadUrl": "https://mansitra-app.vercel.app/app-debug.apk",
+    "downloadUrl": "https://mansitra-app.vercel.app/mansitra.apk",
     "offers": {
       "@type": "Offer",
       "price": "0",
