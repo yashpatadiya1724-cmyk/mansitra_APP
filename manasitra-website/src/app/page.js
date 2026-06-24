@@ -189,7 +189,7 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-6 items-center text-center sm:text-left mb-6">
                   <div className="w-24 h-24 shrink-0 rounded-full bg-gradient-to-tr from-teal-400 to-blue-400 p-1">
                     <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-slate-100">
-                      <img src="https://github.com/utkarshbhai007.png" alt="Utkarsh Barad" className="w-full h-full object-cover" />
+                      <img src="/utkarsh.jpg" alt="Utkarsh Barad" className="w-full h-full object-cover" />
                     </div>
                   </div>
                   <div>
