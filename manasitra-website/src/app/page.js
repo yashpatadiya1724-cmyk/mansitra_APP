@@ -145,7 +145,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Lock, title: "Absolute Privacy", desc: "No sign-ups, no cloud sync, no tracking. Everything stays locally on your device." },
+              { icon: Lock, title: "Absolute Privacy", desc: "Minimal email login is used only for active user counting. No personal data, chat history, or journals are collected or stored." },
               { icon: Globe, title: "10+ Indian Languages", desc: "Chat naturally in regional languages like Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, and more." },
               { icon: Gamepad2, title: "Calming Tools", desc: "Engage with an interactive breathing bubble, grounding guide, focus puzzles, and mood canvas to relieve anxiety instantly." },
               { icon: Volume2, title: "Voice Companion", desc: "Speak and listen with hands-free voice companion mode, allowing a more natural comforting dialogue." }
@@ -407,7 +407,7 @@ export default function Home() {
       <section className="py-20 bg-[var(--primary-soft)] border-t border-[var(--primary)]/10 text-center px-6">
         <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">Ready to find your peace?</h2>
         <p className="text-[var(--text-2)] text-lg mb-8 max-w-xl mx-auto">
-          Download the app today. No account creation, no subscriptions. Just you and your private space.
+          Download the app today. Minimal login is used purely for active user counting. Just you and your private space.
         </p>
         <a href="/app-debug.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-10 py-5 rounded-full text-white font-bold shadow-xl shadow-[var(--primary)]/20 text-lg">
           <Download size={24} />
