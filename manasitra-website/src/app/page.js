@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Download, Shield, Gamepad2, Heart, Lock, User, CheckCircle2 } from "lucide-react";
+import { Download, Shield, Gamepad2, Heart, Lock, User, CheckCircle2, Globe, Volume2, Github, Linkedin } from "lucide-react";
 
 export default function Home() {
   return (
@@ -117,25 +117,26 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Lock, title: "Absolute Privacy", desc: "No sign-ups, no cloud sync, no tracking. Everything you type stays exactly where it belongs: on your device." },
-              { icon: Gamepad2, title: "Calming Tools", desc: "When words aren't enough, engage with interactive mini-games designed to ground your senses and relieve anxiety." },
-              { icon: Heart, title: "Emotional Support", desc: "Track your daily moods, build resilience streaks, and receive thoughtful, empathetic responses whenever you need them." }
+              { icon: Lock, title: "Absolute Privacy", desc: "No sign-ups, no cloud sync, no tracking. Everything stays locally on your device." },
+              { icon: Globe, title: "10+ Indian Languages", desc: "Chat naturally in regional languages like Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, and more." },
+              { icon: Gamepad2, title: "Calming Tools", desc: "Engage with an interactive breathing bubble, grounding guide, focus puzzles, and mood canvas to relieve anxiety instantly." },
+              { icon: Volume2, title: "Voice Companion", desc: "Speak and listen with hands-free voice companion mode, allowing a more natural comforting dialogue." }
             ].map((feature, i) => (
               <div key={i} className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm hover:border-teal-400 transition-colors">
                 <div className="w-14 h-14 rounded-full bg-[var(--primary-soft)] text-[var(--primary)] flex items-center justify-center mb-6">
                   <feature.icon size={28} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-[var(--text-2)] leading-relaxed">{feature.desc}</p>
+                <p className="text-[var(--text-2)] leading-relaxed text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* About the Creator Section */}
+      {/* About the Founder Section */}
       <section className="py-24 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <div className="bg-white p-8 sm:p-12 rounded-[40px] border border-slate-200 shadow-xl relative overflow-hidden">
@@ -145,23 +146,34 @@ export default function Home() {
             <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center text-center md:text-left">
               <div className="w-32 h-32 shrink-0 rounded-full bg-gradient-to-tr from-[var(--primary)] to-blue-400 p-1">
                 <div className="w-full h-full rounded-full border-4 border-[var(--surface)] overflow-hidden bg-[var(--surface-2)]">
-                  <img src="/creator.jpg" alt="Yash - Creator of Manasitra" className="w-full h-full object-cover" />
+                  <img src="/creator.jpg" alt="Yash Patadiya - Founder of Manasitra" className="w-full h-full object-cover" />
                 </div>
               </div>
               
               <div>
-                <h2 className="text-3xl font-bold mb-2">Meet the Creator</h2>
-                <h3 className="text-xl text-[var(--primary)] font-bold mb-4">Yash</h3>
+                <h2 className="text-3xl font-bold mb-2">Meet the Founder</h2>
+                <h3 className="text-xl text-[var(--primary)] font-bold mb-4">Yash Patadiya</h3>
                 <p className="text-[var(--text-2)] text-lg leading-relaxed mb-6">
                   "I built Manasitra because I realized that sometimes, the hardest thing to do is simply talk to someone. We worry about being judged, being a burden, or just not being understood. I wanted to create a tool that is always there—a silent, supportive friend that genuinely cares about your mental well-being while fiercely protecting your privacy."
                 </p>
-                <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-6">
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold bg-[var(--surface-2)] border border-[var(--border)] px-4 py-2 rounded-full">
+                    <CheckCircle2 size={16} className="text-[var(--primary)]" /> Founder & Lead Developer
+                  </span>
                   <span className="inline-flex items-center gap-2 text-sm font-semibold bg-[var(--surface-2)] border border-[var(--border)] px-4 py-2 rounded-full">
                     <CheckCircle2 size={16} className="text-[var(--primary)]" /> Built with Care
                   </span>
                   <span className="inline-flex items-center gap-2 text-sm font-semibold bg-[var(--surface-2)] border border-[var(--border)] px-4 py-2 rounded-full">
                     <CheckCircle2 size={16} className="text-[var(--primary)]" /> Privacy First
                   </span>
+                </div>
+                <div className="flex justify-center md:justify-start gap-4">
+                  <a href="https://github.com/yashpatadiya1724-cmyk" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold px-5 py-2.5 rounded-full text-sm transition-colors shadow-sm">
+                    <Github size={16} /> GitHub
+                  </a>
+                  <a href="https://www.linkedin.com/in/yash-patadiya-973161272/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#0a66c2] hover:bg-[#084e96] text-white font-bold px-5 py-2.5 rounded-full text-sm transition-colors shadow-sm">
+                    <Linkedin size={16} /> LinkedIn
+                  </a>
                 </div>
               </div>
             </div>
@@ -183,7 +195,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-8 bg-white border-t border-slate-200 text-center text-sm text-slate-500">
-        <p>© {new Date().getFullYear()} Manasitra (Mann Ka Mitra). Created by Yash.</p>
+        <p>© {new Date().getFullYear()} Manasitra (Mann Ka Mitra). Founded & Developed by Yash Patadiya.</p>
         <p className="mt-2">Not a substitute for professional mental health care.</p>
       </footer>
     </div>
