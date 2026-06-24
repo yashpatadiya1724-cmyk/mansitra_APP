@@ -265,11 +265,11 @@ export default function Home() {
             <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest block mb-3">05 — Team & Mentorship</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">Meet the Minds Behind Manasitra</h2>
             <p className="text-[var(--text-2)] text-lg max-w-xl mx-auto">
-              The passionate developer and mentor working together to build a safe, empathetic mental health companion for students.
+              The passionate team working together to build a safe, empathetic mental health companion for students.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Founder Card */}
             <div className="bg-white p-8 sm:p-10 rounded-[40px] border border-slate-200 shadow-lg flex flex-col justify-between">
               <div>
@@ -345,6 +345,36 @@ export default function Home() {
                     LinkedIn
                   </a>
                   <a href="https://www.instagram.com/utkarsh_955?igsh=ajVja2ZqbnlraTVj" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#e1306c] hover:bg-[#d82d64] text-white font-bold px-4 py-2 rounded-full text-xs transition-colors shadow-sm">
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    Instagram
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Media Executive Card */}
+            <div className="bg-white p-8 sm:p-10 rounded-[40px] border border-slate-200 shadow-lg flex flex-col justify-between">
+              <div>
+                <div className="flex flex-col sm:flex-row gap-6 items-center text-center sm:text-left mb-6">
+                  <div className="w-24 h-24 shrink-0 rounded-full bg-gradient-to-tr from-pink-400 to-purple-400 p-1">
+                    <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-slate-100">
+                      <img src="/harshil.jpg" alt="Harshil Vaghela" className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900">Harshil Vaghela</h3>
+                    <p className="text-[var(--primary)] font-bold text-sm">Social Media Executive</p>
+                  </div>
+                </div>
+                <p className="text-[var(--text-2)] text-base leading-relaxed mb-6 italic">
+                  "Connecting with our community online is all about building trust and showing that no one has to go through tough times alone. Through Manasitra's social platforms, I want to create a warm, inviting space where every student feels seen, heard, and supported. Let's make mental health conversations normal and friendly!"
+                </p>
+              </div>
+              <div>
+                <div className="flex gap-4">
+                  <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#e1306c] hover:bg-[#d82d64] text-white font-bold px-4 py-2 rounded-full text-xs transition-colors shadow-sm">
                     <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                     </svg>
