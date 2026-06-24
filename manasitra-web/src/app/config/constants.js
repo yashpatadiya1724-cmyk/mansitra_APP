@@ -9,6 +9,8 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'kn', name: 'Kannada',   nativeName: 'ಕನ್ನಡ',       script: 'Kannada' },
   { code: 'ml', name: 'Malayalam', nativeName: 'മലയാളം',     script: 'Malayalam' },
   { code: 'pa', name: 'Punjabi',   nativeName: 'ਪੰਜਾਬੀ',     script: 'Gurmukhi' },
+  { code: 'hg', name: 'Hinglish',  nativeName: 'Hinglish',   script: 'Latin' },
+  { code: 'gj', name: 'Gujalish',  nativeName: 'Gujalish',   script: 'Latin' },
 ]
 
 export const MOOD_STATES = [

@@ -1,7 +1,8 @@
-﻿export const LANGUAGE_NAMES = {
+export const LANGUAGE_NAMES = {
   en: 'English', hi: 'Hindi', gu: 'Gujarati',
   mr: 'Marathi', bn: 'Bengali', ta: 'Tamil',
   te: 'Telugu', kn: 'Kannada', ml: 'Malayalam', pa: 'Punjabi',
+  hg: 'Hinglish', gj: 'Gujalish',
 }
 
 export const buildSystemPrompt = (language, responseMode) => {

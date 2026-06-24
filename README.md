@@ -17,7 +17,7 @@ Manasitra is a **privacy-first, culturally-aware** mental wellness platform buil
 ### 🚀 Why Manasitra?
 - **Zero Privacy Compromise:** All your data (mood logs, streaks, personal notes) stays locally on your device. Nothing is stored on our servers.
 - **Cultural Resonance:** AI responses are tuned to understand Indian student life, using familiar terms like *"Dost"* and *"Yaar"*.
-- **Multilingual Support:** Communicate fluently in English, Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, or Punjabi.
+- **Multilingual Support:** Communicate fluently in English, Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, Hinglish, or Gujalish.
 - **Resilience Focused:** We don't just track moods; we help you grow a literal garden of resilience through positive actions.
 
 ---
