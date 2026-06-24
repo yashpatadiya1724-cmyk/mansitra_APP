@@ -67,9 +67,33 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Manasitra",
+    "operatingSystem": "Android",
+    "applicationCategory": "HealthApplication",
+    "downloadUrl": "https://mansitra-app.vercel.app/app-debug.apk",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    },
+    "description": "An anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
+    "author": {
+      "@type": "Person",
+      "name": "Yash Patadiya",
+      "url": "https://github.com/yashpatadiya1724-cmyk"
+    }
+  };
+
   return (
     <html lang="en">
       <body className={`${quicksand.className} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
       </body>
     </html>
