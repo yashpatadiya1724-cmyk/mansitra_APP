@@ -17,11 +17,13 @@ export const LoginPage = () => {
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    checkUser().then(() => {
-      if (user) {
-        navigate('/chat', { replace: true })
-      }
-    })
+    checkUser()
+  }, [])
+
+  useEffect(() => {
+    if (user) {
+      navigate('/chat', { replace: true })
+    }
   }, [user, navigate])
 
   const handleSubmit = async (e) => {
