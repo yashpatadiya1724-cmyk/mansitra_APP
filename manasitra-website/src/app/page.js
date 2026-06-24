@@ -60,13 +60,14 @@ export default function Home() {
                 <Download size={18} />
                 Android (.APK)
               </a>
-              <button 
-                onClick={() => alert("Mansitra iOS (.ipa) build is in development. Directly installing .ipa requires Apple Developer signing or AltStore. iOS version will be available on the App Store soon!")}
+              <a 
+                href="/mansitra.ipa" 
+                download 
                 className="inline-flex items-center justify-center gap-3 bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3.5 rounded-full transition-colors active:scale-95 text-sm"
               >
                 <Download size={18} />
                 iOS (.IPA)
-              </button>
+              </a>
             </div>
             <p className="text-sm text-[var(--text-3)] font-medium mt-2">
               Supports Android 8.0+ and iOS 15.0+ • 100% Free
@@ -418,13 +419,14 @@ export default function Home() {
             <Download size={22} />
             Download for Android
           </a>
-          <button 
-            onClick={() => alert("Mansitra iOS (.ipa) build is in development. Directly installing .ipa requires Apple Developer signing or AltStore. iOS version will be available on the App Store soon!")}
+          <a 
+            href="/mansitra.ipa" 
+            download 
             className="inline-flex items-center justify-center gap-3 bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4.5 rounded-full transition-colors active:scale-95 text-md"
           >
             <Download size={22} />
             Download for iOS
-          </button>
+          </a>
         </div>
       </section>
 
