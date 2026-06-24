@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Heart, Shield, Globe, Sparkles, Users, Lock, MessageCircle, Smile, BarChart2, Wind, AlertTriangle } from 'lucide-react'
+import { X, Heart, Shield, Globe, Sparkles, Users, Lock, MessageCircle, Smile, BarChart2, Wind, AlertTriangle, Github, Linkedin } from 'lucide-react'
 import { APP_VERSION } from '@/app/config/constants'
 import { ManasitaLogo } from '@components/logo'
 
@@ -87,6 +87,25 @@ export const AboutModal = ({ isOpen, onClose }) => {
               <p style={{ fontSize:13, color:'var(--text-2)', lineHeight:1.65 }}>
                 Developed for <strong style={{ color:'var(--text)' }}>Ideathon Viksit Bharat 2047</strong> at Silver Oak University. Designed to address the mental health gap for students facing exam pressure, placement anxiety, family expectations, and social isolation.
               </p>
+            </div>
+
+            {/* Founder */}
+            <div style={{ marginTop:16, padding:'16px 18px', borderRadius:14, background:'var(--bg-2)', border:'1px solid var(--border)' }}>
+              <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:8 }}>
+                <Users size={15} style={{ color:'var(--secondary)' }} />
+                <p style={{ fontSize:13, fontWeight:600, color:'var(--text)' }}>Founder & Lead Developer</p>
+              </div>
+              <p style={{ fontSize:13, color:'var(--text-2)', lineHeight:1.65, marginBottom:10 }}>
+                Created and developed by <strong style={{ color:'var(--text)' }}>Yash Patadiya</strong>.
+              </p>
+              <div style={{ display:'flex', gap:16 }}>
+                <a href="https://github.com/yashpatadiya1724-cmyk" target="_blank" rel="noopener noreferrer" style={{ color:'var(--primary)', fontSize:13, fontWeight:600, textDecoration:'none', display:'flex', alignItems:'center', gap:6 }}>
+                  <Github size={14} /> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/yash-patadiya-973161272/" target="_blank" rel="noopener noreferrer" style={{ color:'var(--primary)', fontSize:13, fontWeight:600, textDecoration:'none', display:'flex', alignItems:'center', gap:6 }}>
+                  <Linkedin size={14} /> LinkedIn
+                </a>
+              </div>
             </div>
 
             {/* Helplines quick ref */}
