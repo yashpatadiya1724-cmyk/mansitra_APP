@@ -136,43 +136,72 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About the Founder Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-6 relative z-10">
-          <div className="bg-white p-8 sm:p-12 rounded-[40px] border border-slate-200 shadow-xl relative overflow-hidden">
-            {/* Decorative blob */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -z-10"></div>
-            
-            <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center text-center md:text-left">
-              <div className="w-32 h-32 shrink-0 rounded-full bg-gradient-to-tr from-[var(--primary)] to-blue-400 p-1">
-                <div className="w-full h-full rounded-full border-4 border-[var(--surface)] overflow-hidden bg-[var(--surface-2)]">
-                  <img src="/creator.jpg" alt="Yash Patadiya - Founder of Manasitra" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              
+      {/* About the Team Section */}
+      <section className="py-24 relative overflow-hidden bg-slate-50 border-t border-slate-200">
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">Meet the Minds Behind Manasitra</h2>
+            <p className="text-[var(--text-2)] text-lg max-w-xl mx-auto">
+              The passionate developer and mentor working together to build a safe, empathetic mental health companion for students.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Founder Card */}
+            <div className="bg-white p-8 sm:p-10 rounded-[40px] border border-slate-200 shadow-lg flex flex-col justify-between">
               <div>
-                <h2 className="text-3xl font-bold mb-2">Meet the Founder</h2>
-                <h3 className="text-xl text-[var(--primary)] font-bold mb-4">Yash Patadiya</h3>
-                <p className="text-[var(--text-2)] text-lg leading-relaxed mb-6">
+                <div className="flex flex-col sm:flex-row gap-6 items-center text-center sm:text-left mb-6">
+                  <div className="w-24 h-24 shrink-0 rounded-full bg-gradient-to-tr from-[var(--primary)] to-blue-400 p-1">
+                    <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-slate-100">
+                      <img src="/creator.jpg" alt="Yash Patadiya" className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900">Yash Patadiya</h3>
+                    <p className="text-[var(--primary)] font-bold text-sm">Founder & Lead Developer</p>
+                  </div>
+                </div>
+                <p className="text-[var(--text-2)] text-base leading-relaxed mb-6 italic">
                   "I built Manasitra because I realized that sometimes, the hardest thing to do is simply talk to someone. We worry about being judged, being a burden, or just not being understood. I wanted to create a tool that is always there—a silent, supportive friend that genuinely cares about your mental well-being while fiercely protecting your privacy."
                 </p>
-                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-6">
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold bg-[var(--surface-2)] border border-[var(--border)] px-4 py-2 rounded-full">
-                    <CheckCircle2 size={16} className="text-[var(--primary)]" /> Founder & Lead Developer
-                  </span>
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold bg-[var(--surface-2)] border border-[var(--border)] px-4 py-2 rounded-full">
-                    <CheckCircle2 size={16} className="text-[var(--primary)]" /> Built with Care
-                  </span>
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold bg-[var(--surface-2)] border border-[var(--border)] px-4 py-2 rounded-full">
-                    <CheckCircle2 size={16} className="text-[var(--primary)]" /> Privacy First
-                  </span>
-                </div>
-                <div className="flex justify-center md:justify-start gap-4">
-                  <a href="https://github.com/yashpatadiya1724-cmyk" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold px-5 py-2.5 rounded-full text-sm transition-colors shadow-sm">
-                    <Github size={16} /> GitHub
+              </div>
+              <div>
+                <div className="flex gap-4">
+                  <a href="https://github.com/yashpatadiya1724-cmyk" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-full text-xs transition-colors shadow-sm">
+                    <Github size={14} /> GitHub
                   </a>
-                  <a href="https://www.linkedin.com/in/yash-patadiya-973161272/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#0a66c2] hover:bg-[#084e96] text-white font-bold px-5 py-2.5 rounded-full text-sm transition-colors shadow-sm">
-                    <Linkedin size={16} /> LinkedIn
+                  <a href="https://www.linkedin.com/in/yash-patadiya-973161272/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#0a66c2] hover:bg-[#084e96] text-white font-bold px-4 py-2 rounded-full text-xs transition-colors shadow-sm">
+                    <Linkedin size={14} /> LinkedIn
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Advisor Card */}
+            <div className="bg-white p-8 sm:p-10 rounded-[40px] border border-slate-200 shadow-lg flex flex-col justify-between">
+              <div>
+                <div className="flex flex-col sm:flex-row gap-6 items-center text-center sm:text-left mb-6">
+                  <div className="w-24 h-24 shrink-0 rounded-full bg-gradient-to-tr from-teal-400 to-blue-400 p-1">
+                    <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-slate-100">
+                      <img src="https://github.com/utkarshbhai007.png" alt="Utkarsh Barad" className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900">Utkarsh Barad</h3>
+                    <p className="text-[var(--primary)] font-bold text-sm">Project Mentor & Main Advisor</p>
+                  </div>
+                </div>
+                <p className="text-[var(--text-2)] text-base leading-relaxed mb-6 italic">
+                  "Guiding Manasitra has been an inspiring journey. Mental health resources need to be accessible, completely private, and culturally relevant. By combining advanced AI models with direct client privacy layers, we are empowering students to seek guidance anonymously and confidently, creating a safer digital space for self-reflection."
+                </p>
+              </div>
+              <div>
+                <div className="flex gap-4">
+                  <a href="https://github.com/utkarshbhai007" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-full text-xs transition-colors shadow-sm">
+                    <Github size={14} /> GitHub
+                  </a>
+                  <a href="https://www.linkedin.com/in/utkarsh-barad/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#0a66c2] hover:bg-[#084e96] text-white font-bold px-4 py-2 rounded-full text-xs transition-colors shadow-sm">
+                    <Linkedin size={14} /> LinkedIn
                   </a>
                 </div>
               </div>
