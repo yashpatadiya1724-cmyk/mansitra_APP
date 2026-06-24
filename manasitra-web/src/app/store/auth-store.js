@@ -1,6 +1,13 @@
 import { create } from 'zustand'
 import { supabase } from '@utils/supabase-client'
 
+const withTimeout = (promise, ms = 8000) => {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error('Connection timeout. Please check your internet connection.')), ms))
+  ])
+}
+
 export const useAuthStore = create((set) => ({
   user: null,
   session: null,
@@ -8,24 +15,34 @@ export const useAuthStore = create((set) => ({
 
   signIn: async (email, password) => {
     set({ loading: true })
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) {
+    try {
+      const { data, error } = await withTimeout(supabase.auth.signInWithPassword({ email, password }))
+      if (error) {
+        set({ loading: false })
+        throw error
+      }
+      set({ user: data.user, session: data.session, loading: false })
+      return data
+    } catch (err) {
       set({ loading: false })
-      throw error
+      throw err
     }
-    set({ user: data.user, session: data.session, loading: false })
-    return data
   },
 
   signUp: async (email, password) => {
     set({ loading: true })
-    const { data, error } = await supabase.auth.signUp({ email, password })
-    if (error) {
+    try {
+      const { data, error } = await withTimeout(supabase.auth.signUp({ email, password }))
+      if (error) {
+        set({ loading: false })
+        throw error
+      }
+      set({ user: data.user, session: data.session, loading: false })
+      return data
+    } catch (err) {
       set({ loading: false })
-      throw error
+      throw err
     }
-    set({ user: data.user, session: data.session, loading: false })
-    return data
   },
 
   signOut: async () => {
