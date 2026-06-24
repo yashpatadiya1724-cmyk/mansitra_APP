@@ -20,7 +20,8 @@ export const metadata = {
     "Indian Student Support",
     "Stress Relief Mini Games",
     "Multilingual AI Companion",
-    "Yash Patadiya"
+    "Yash Patadiya",
+    "utkarsh barad"
   ],
   authors: [{ name: "Yash Patadiya", url: "https://github.com/yashpatadiya1724-cmyk" }],
   creator: "Yash Patadiya",
