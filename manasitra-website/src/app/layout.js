@@ -7,11 +7,62 @@ const quicksand = Quicksand({
 });
 
 export const metadata = {
-  title: "Manasitra | Your Private AI Companion",
-  description: "Manasitra is your anonymous, judgment-free AI companion designed to help you navigate life's challenges.",
+  title: "Manasitra — Your Private AI Emotional Companion",
+  description: "Manasitra (Mann Ka Mitra) is a 100% anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
+  keywords: [
+    "Manasitra",
+    "Mann Ka Mitra",
+    "AI Companion",
+    "Mental Health AI",
+    "Student Mental Health India",
+    "Anonymous AI Chatbot",
+    "Viksit Bharat Ideathon",
+    "Indian Student Support",
+    "Stress Relief Mini Games",
+    "Multilingual AI Companion",
+    "Yash Patadiya"
+  ],
+  authors: [{ name: "Yash Patadiya", url: "https://github.com/yashpatadiya1724-cmyk" }],
+  creator: "Yash Patadiya",
+  publisher: "Yash Patadiya",
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: "/favicon.svg",
     apple: "/icon-192.png",
+  },
+  openGraph: {
+    title: "Manasitra — Your Private AI Emotional Companion",
+    description: "An anonymous, judgment-free, and multilingual AI companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
+    url: "https://mansitra-app.vercel.app",
+    siteName: "Manasitra",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/icon-512.png",
+        width: 512,
+        height: 512,
+        alt: "Manasitra Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Manasitra — Your Private AI Emotional Companion",
+    description: "An anonymous, judgment-free, and multilingual AI companion built specifically for Indian students.",
+    images: ["/icon-512.png"],
   },
 };
 
