@@ -15,7 +15,7 @@ const LEFT_NAV  = [
 ]
 
 const RIGHT_NAV = [
-  { to: '/games',     icon: Gamepad2,      key: 'games' },
+  { to: '/garden',    icon: Leaf,          key: 'garden' },
   { to: '/settings',  icon: Settings,      key: 'settings' },
 ]
 
