@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Flag, CheckCircle, Clock, RefreshCw, Lock, AlertTriangle, MessageSquare, Globe, Filter } from 'lucide-react'
+import { Flag, CheckCircle, Clock, RefreshCw, Lock, AlertTriangle, MessageSquare, Globe, Filter, Users } from 'lucide-react'
 import { supabase } from '@utils/supabase-client'
 
 const REASON_META = {
@@ -23,6 +23,7 @@ export const AdminReportsPage = () => {
   const [authed, setAuthed] = useState(false)
   const [reports, setReports] = useState([])
   const [total, setTotal] = useState(0)
+  const [userCount, setUserCount] = useState(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [filter, setFilter] = useState('all')
@@ -53,6 +54,12 @@ export const AdminReportsPage = () => {
       setReports(data || [])
       setTotal(count || 0)
       setAuthed(true)
+
+      // Get user count via RPC (security definer helper function in Supabase)
+      const { data: countData, error: countErr } = await supabase.rpc('get_user_count')
+      if (!countErr && countData !== null) {
+        setUserCount(countData)
+      }
     } catch (e) {
       setError(e.message)
     } finally {
@@ -137,7 +144,15 @@ export const AdminReportsPage = () => {
               </div>
               <div>
                 <h1 className="page-title" style={{ marginBottom: 0 }}>Response Reports</h1>
-                <p style={{ fontSize: 12, color: 'var(--text-3)' }}>{total} total · {pendingCount} pending review</p>
+                <p style={{ fontSize: 12, color: 'var(--text-3)', display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                  <span>{total} total reports</span>
+                  <span>·</span>
+                  <span>{pendingCount} pending review</span>
+                  <span>·</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3, color: 'var(--primary)', fontWeight: 600 }}>
+                    <Users size={12} /> {userCount} registered users
+                  </span>
+                </p>
               </div>
             </div>
             <button onClick={() => fetchReports()} disabled={loading}
