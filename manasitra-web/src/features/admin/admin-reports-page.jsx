@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Flag, CheckCircle, Clock, RefreshCw, Lock, AlertTriangle, MessageSquare, Globe, Filter } from 'lucide-react'
 
+const isNative = typeof window !== 'undefined' && (window.location.protocol === 'capacitor:' || window.location.protocol === 'file:')
+const API_BASE = isNative ? 'http://10.179.44.214:3001/api' : '/api'
+
 const REASON_META = {
   harmful:        { label: 'Harmful / Unsafe',        color: 'var(--danger)',    icon: AlertTriangle },
   ignored:        { label: 'Ignored Distress',         color: 'var(--warning)',   icon: MessageSquare },
@@ -31,7 +34,7 @@ export const AdminReportsPage = () => {
     setLoading(true)
     setError(null)
     try {
-      const url = filter === 'all' ? '/api/report' : `/api/report?status=${filter}`
+      const url = filter === 'all' ? `${API_BASE}/report` : `${API_BASE}/report?status=${filter}`
       const res = await fetch(url, { headers: { 'x-admin-key': key } })
       if (res.status === 401) { setError('Invalid admin key'); setAuthed(false); return }
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
@@ -49,7 +52,7 @@ export const AdminReportsPage = () => {
   const updateStatus = async (id, status) => {
     setUpdating(id)
     try {
-      const res = await fetch(`/api/report/${id}`, {
+      const res = await fetch(`${API_BASE}/report/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
         body: JSON.stringify({ status }),
