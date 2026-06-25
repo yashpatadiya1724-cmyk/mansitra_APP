@@ -42,7 +42,7 @@ export const metadata = {
   },
   icons: {
     icon: "/favicon.svg",
-    apple: "/icon-192.png",
+    apple: "/logo.svg",
   },
   openGraph: {
     title: "Mansitra — Your Private AI Emotional Companion",
@@ -53,7 +53,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/icon-512.png",
+        url: "/logo.svg",
         width: 512,
         height: 512,
         alt: "Mansitra Logo",
@@ -64,7 +64,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Mansitra — Your Private AI Emotional Companion",
     description: "An anonymous, judgment-free, and multilingual AI companion built specifically for Indian students.",
-    images: ["/icon-512.png"],
+    images: ["/logo.svg"],
   },
 };
 
