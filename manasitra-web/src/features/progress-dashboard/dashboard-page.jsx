@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { useMoodStore } from '@store/mood-store'
 import { useProgressStore } from '@store/progress-store'
 import { useLanguageStore } from '@store/language-store'
+import { useGardenStore } from '@store/garden-store'
 import { MOOD_STATES } from '@/app/config/constants'
 import { getDayLabel } from '@utils/date-utils'
-import { Flame, Trophy, Plus, Trash2, Sparkles, TrendingUp, BarChart2, Brain, Target } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Trophy, Plus, Trash2, TrendingUp, BarChart2 } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import affirmations from '@data/affirmations/affirmations.json'
 import { ExamCountdown } from './components/exam-countdown'
 
@@ -18,235 +20,371 @@ const Tip = ({ active, payload }) => {
   if (!active || !payload?.length) return null
   const d = payload[0].payload
   const m = MOOD_STATES.find(x => x.id === d.mood)
-  const c = m?.color || 'var(--primary)'
+  const c = m?.color || 'var(--color-primary)'
   return (
-    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10, padding: '8px 12px', fontSize: 13, display:'flex', alignItems:'center', gap:6 }}>
-      <div style={{ width:10, height:10, borderRadius:'50%', background: c, flexShrink:0 }} />
-      <span style={{ color: 'var(--text)' }}>{d.day} · {d.mood?.replace('_',' ')}</span>
+    <div className="bg-[var(--color-surface)] border border-[var(--color-outline-variant)]/30 rounded-xl px-3 py-2 text-sm flex items-center gap-2 shadow-sm">
+      <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: c }} />
+      <span className="text-[var(--color-on-surface)]">{d.day} · {d.mood?.replace('_',' ')}</span>
     </div>
   )
 }
 
 export const DashboardPage = () => {
   const { t } = useTranslation()
-  const { getMoodTrend } = useMoodStore()
-  const { checkInStreak, resilienceScore, dailyWins, addWin, removeWin } = useProgressStore()
+  const navigate = useNavigate()
+  const { getMoodTrend, addMoodEntry } = useMoodStore()
+  const { checkInStreak, dailyWins, addWin, removeWin } = useProgressStore()
   const { selectedLanguage } = useLanguageStore()
+  const { getStage, getNextStage, getProgress } = useGardenStore()
   const [winText, setWinText] = useState('')
+  const [feedbackMood, setFeedbackMood] = useState(null)
 
   const trend = getMoodTrend(7)
   const chartData = trend.slice().reverse().map(e => ({ day: getDayLabel(e.timestamp), value: MOOD_VAL[e.mood] || 5, mood: e.mood }))
   const aff = affirmations[selectedLanguage] || affirmations.en
   const todayAff = aff[new Date().getDate() % aff.length]
 
-  const circ = 2 * Math.PI * 28
-  const dash = circ - (resilienceScore / 100) * circ
-
-  // Resilience score breakdown for tooltip
-  const weekAgo = Date.now() - 7 * 86400000
-  const recentWins = dailyWins.filter(w => w.timestamp > weekAgo).length
-  const recentTools = (useProgressStore.getState().toolsUsed || []).filter(t => t.timestamp > weekAgo).length
+  const gardenStage = getStage()
+  const nextStage = getNextStage()
+  const gardenProgress = getProgress()
 
   const addWinHandler = () => { if (!winText.trim()) return; addWin(winText.trim()); setWinText('') }
 
-  // Weekly insight — generate from mood data
-  const weeklyMoods = trend.slice(0, 7)
-  const dominantMood = weeklyMoods.length > 0
-    ? Object.entries(weeklyMoods.reduce((acc, e) => { acc[e.mood] = (acc[e.mood] || 0) + 1; return acc }, {}))
-        .sort((a, b) => b[1] - a[1])[0]?.[0]
-    : null
-
-  const WEEKLY_INSIGHTS = {
-    anxious:     "You've been carrying a lot of anxiety this week. That's real and valid. The fact that you kept checking in shows strength.",
-    overwhelmed: "This week felt heavy. But you showed up anyway. That matters more than you know.",
-    sad:         "It's been a tough week emotionally. Be gentle with yourself. Small steps still count.",
-    exhausted:   "You've been running on low energy. Rest is not laziness — it's recovery.",
-    neutral:     "A steady week. Sometimes neutral is exactly what you need to recharge.",
-    content:     "You've had a relatively calm week. That's worth acknowledging.",
-    very_happy:  "A good week! Savour it. Notice what made it good — those things matter.",
+  const handleMoodClick = (moodId, moodName) => {
+    addMoodEntry(moodId)
+    setFeedbackMood(moodName)
+    setTimeout(() => setFeedbackMood(null), 3000)
   }
 
   return (
-    <div className="app-shell">
-      <div className="page-wrap">
-
-        {/* Header */}
-        <div style={{ marginBottom: 28 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
-            <div style={{ width: 40, height: 40, borderRadius: 12, background: 'var(--primary-soft)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <BarChart2 size={20} style={{ color: 'var(--primary)' }} />
-            </div>
-            <h1 className="page-title" style={{ marginBottom: 0 }}>{t('dashboard.title')}</h1>
+    <div className="bg-[var(--color-background)] text-[var(--color-on-surface)] min-h-[calc(100vh-64px)] pb-24 md:pb-8" style={{ fontFamily: 'var(--font-body)' }}>
+      <main className="max-w-[1200px] mx-auto px-5 md:px-10 py-8 space-y-8">
+        
+        {/* ── Welcome Section ── */}
+        <section className="space-y-4">
+          <div className="space-y-1">
+            <p className="text-sm text-[var(--color-primary)] font-semibold tracking-wide uppercase">WELCOME BACK</p>
+            <h1 className="text-3xl md:text-4xl text-[var(--color-on-background)]" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, letterSpacing: '-0.02em' }}>
+              Hello, friend. How are you feeling today?
+            </h1>
           </div>
-          <p className="page-subtitle">Your journey, your pace. Every check-in counts.</p>
-        </div>
+        </section>
 
-        {/* Stats */}
-        <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
-          <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.05 }}
-            className="glass-card stat-card"
-            style={{ background: 'linear-gradient(135deg, rgba(240,184,96,0.10) 0%, rgba(240,184,96,0.04) 100%)' }}
-          >
-            <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:4 }}>
-              <Flame size={22} style={{ color:'var(--warning)' }} />
-              <span style={{ fontFamily:'var(--font-display)', fontSize:36, fontWeight:800, color:'var(--warning)', lineHeight:1 }}>{checkInStreak}</span>
-            </div>
-            <p style={{ fontSize:12, color:'var(--text-2)' }}>{t('dashboard.streak')} {t('dashboard.days')}</p>
-            {checkInStreak === 0 && <p style={{ fontSize:11, color:'var(--text-3)', marginTop:4 }}>Log a mood to start!</p>}
-            {checkInStreak > 0 && <p style={{ fontSize:11, color:'var(--warning)', marginTop:4 }}>Keep it going!</p>}
-          </motion.div>
-
-          <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.1 }}
-            className="glass-card stat-card"
-            style={{ background: 'linear-gradient(135deg, rgba(155,143,240,0.10) 0%, rgba(155,143,240,0.04) 100%)' }}
-          >
-            <div style={{ position:'relative', width:68, height:68, marginBottom:4 }}>
-              <svg width="68" height="68" viewBox="0 0 68 68" className="arc-svg">
-                <circle cx="34" cy="34" r="28" fill="none" stroke="var(--border)" strokeWidth="5" />
-                <circle cx="34" cy="34" r="28" fill="none" stroke="var(--primary)" strokeWidth="5"
-                  strokeDasharray={circ} strokeDashoffset={dash} strokeLinecap="round"
-                  style={{ transition: 'stroke-dashoffset 0.8s ease' }}
-                />
-              </svg>
-              <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'var(--font-display)', fontSize:17, fontWeight:800, color:'var(--primary)' }}>
-                {resilienceScore}
-              </div>
-            </div>
-            <p style={{ fontSize:12, color:'var(--text-2)' }}>{t('dashboard.resilience_score')}</p>
-            <p style={{ fontSize:10, color:'var(--text-3)', marginTop:3 }}>
-              Streak · Wins · Tools · Stability
-            </p>
-          </motion.div>
-        </div>
-
-        {/* Chart */}
-        {chartData.length > 0 ? (
-          <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.15 }}
-            className="glass-card" style={{ marginBottom:16 }}
-          >
-            <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:16 }}>
-              <TrendingUp size={16} style={{ color:'var(--primary)' }} />
-              <p className="section-label" style={{ marginBottom:0 }}>7-Day Mood Trend</p>
-            </div>
-            <ResponsiveContainer width="100%" height={130}>
-              <AreaChart data={chartData} margin={{ top:5, right:5, bottom:0, left:-20 }}>
-                <defs>
-                  <linearGradient id="mg" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%"  stopColor="var(--primary)" stopOpacity={0.28} />
-                    <stop offset="95%" stopColor="var(--primary)" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="day" tick={{ fontSize:11, fill:'var(--text-2)' }} axisLine={false} tickLine={false} />
-                <YAxis domain={[1,7]} hide />
-                <Tooltip content={<Tip />} />
-                <Area type="monotone" dataKey="value" stroke="var(--primary)" strokeWidth={2.5} fill="url(#mg)"
-                  dot={{ fill:'var(--primary)', r:5, strokeWidth:2, stroke:'var(--bg)' }}
-                  activeDot={{ r:7, fill:'var(--primary)' }}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </motion.div>
-        ) : (
-          <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} className="glass-card" style={{ marginBottom:16, textAlign:'center', padding:'32px 20px' }}>
-            <div style={{ width:52, height:52, borderRadius:14, background:'var(--primary-soft)', border:'1px solid var(--border)', display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 10px' }}>
-              <BarChart2 size={24} style={{ color:'var(--primary)' }} />
-            </div>
-            <p style={{ fontSize:14, color:'var(--text-2)' }}>Log your mood to see your trend here</p>
-          </motion.div>
-        )}
-
-        {/* Weekly insight */}
-        {dominantMood && WEEKLY_INSIGHTS[dominantMood] && (
-          <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.18 }}
-            style={{
-              marginBottom:16, padding:'18px 20px', borderRadius:16,
-              background:'linear-gradient(135deg, rgba(155,143,240,0.10) 0%, rgba(98,200,185,0.07) 100%)',
-              border:'1px solid var(--border-2)',
-              display:'flex', alignItems:'flex-start', gap:12,
-            }}
-          >
-            <Brain size={18} style={{ color:'var(--primary)', flexShrink:0, marginTop:2 }} />
-            <div>
-              <p style={{ fontSize:11, color:'var(--text-3)', marginBottom:6, fontWeight:600, letterSpacing:'0.07em', textTransform:'uppercase' }}>
-                This week's pattern
-              </p>
-              <p style={{ fontSize:14, color:'var(--text)', lineHeight:1.7 }}>
-                {WEEKLY_INSIGHTS[dominantMood]}
-              </p>
-              <p style={{ fontSize:12, color:'var(--text-3)', marginTop:6 }}>
-                Most common mood: {dominantMood.replace('_',' ')}
-              </p>
-            </div>
-          </motion.div>
-        )}
-
-        {/* Affirmation */}
-        <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.2 }}
-          style={{
-            marginBottom:16, padding:'20px 22px', borderRadius:16,
-            background:'linear-gradient(135deg, rgba(155,143,240,0.10) 0%, rgba(98,200,185,0.07) 100%)',
-            border:'1px solid var(--border)',
-            display:'flex', alignItems:'flex-start', gap:12,
-          }}
+        {/* ── Soul Garden Progress Card ── */}
+        <section 
+          onClick={() => navigate('/garden')}
+          className="bg-gradient-to-br from-[var(--color-sage-soft)] to-white rounded-3xl p-6 shadow-sm border border-[var(--color-primary)]/10 relative overflow-hidden group cursor-pointer transition-all hover:shadow-md"
         >
-          <Sparkles size={18} style={{ color:'var(--primary)', flexShrink:0, marginTop:2 }} />
-          <div>
-            <p style={{ fontSize:11, color:'var(--text-3)', marginBottom:7, fontWeight:600, letterSpacing:'0.07em', textTransform:'uppercase' }}>Today's reminder</p>
-            <p style={{ fontSize:15, fontWeight:500, lineHeight:1.65, color:'var(--text)' }}>"{todayAff}"</p>
+          <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-transform duration-500 text-[120px] text-[var(--color-primary)]">
+            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
           </div>
-        </motion.div>
-
-        {/* Exam countdown */}
-        <ExamCountdown />
-
-        {/* Daily wins */}
-        <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.25 }} className="glass-card">
-          <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:16 }}>
-            <Trophy size={16} style={{ color:'var(--warning)' }} />
-            <p style={{ fontFamily:'var(--font-display)', fontSize:15, fontWeight:700 }}>{t('dashboard.daily_wins')}</p>
-          </div>
-
-          <div style={{ display:'flex', gap:8, marginBottom:16 }}>
-            <input value={winText} onChange={e => setWinText(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && addWinHandler()}
-              placeholder={t('dashboard.win_placeholder')} className="input" style={{ flex:1 }}
-            />
-            <button onClick={addWinHandler} disabled={!winText.trim()}
-              style={{
-                width:44, height:44, borderRadius:12, flexShrink:0, border:'none',
-                cursor: winText.trim() ? 'pointer' : 'not-allowed',
-                background: winText.trim() ? 'var(--primary)' : 'rgba(255,255,255,0.05)',
-                color:'white', display:'flex', alignItems:'center', justifyContent:'center', transition:'all 0.15s',
-              }}
-            ><Plus size={18} /></button>
-          </div>
-
-          {dailyWins.length === 0 ? (
-            <div style={{ textAlign:'center', padding:'24px 0' }}>
-              <div style={{ width:52, height:52, borderRadius:14, background:'var(--primary-soft)', border:'1px solid var(--border)', display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 10px' }}>
-                <Trophy size={24} style={{ color:'var(--primary)' }} />
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-[var(--color-primary)]/10 rounded-2xl flex items-center justify-center text-[var(--color-primary)]">
+                <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>psychiatry</span>
               </div>
-              <p style={{ fontSize:14, color:'var(--text-2)' }}>Log your first win today — even small ones count.</p>
+              <div>
+                <h2 className="text-xl text-[var(--color-on-surface)] font-semibold" style={{ fontFamily: 'var(--font-display)' }}>Soul Garden</h2>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-sm text-[var(--color-primary)] font-semibold">Current Growth: {gardenStage.labelEn}</span>
+                  <span className="material-symbols-outlined text-base text-[var(--color-primary)]">potted_plant</span>
+                </div>
+              </div>
             </div>
-          ) : (
-            <div style={{ display:'flex', flexDirection:'column', gap:8, maxHeight:220, overflowY:'auto' }}>
-              {dailyWins.slice(0,10).map((w, i) => (
-                <motion.div key={w.id} initial={{ opacity:0, x:-8 }} animate={{ opacity:1, x:0 }} transition={{ delay:i*0.04 }}
-                  style={{ display:'flex', alignItems:'center', gap:10, padding:'10px 14px', borderRadius:10, background:'rgba(93,214,160,0.06)', border:'1px solid rgba(93,214,160,0.14)' }}
+            {nextStage && (
+              <div className="flex-1 max-w-md space-y-2">
+                <div className="flex justify-between text-xs text-[var(--color-outline)] font-medium">
+                  <span>Progress to {nextStage.labelEn}</span>
+                  <span className="font-bold text-[var(--color-primary)]">{gardenProgress}%</span>
+                </div>
+                <div className="w-full h-3 bg-white rounded-full overflow-hidden border border-[var(--color-primary)]/5">
+                  <div className="h-full bg-[var(--color-primary-container)] rounded-full transition-all duration-1000" style={{ width: `${gardenProgress}%` }}></div>
+                </div>
+                <p className="text-xs text-[var(--color-on-surface-variant)] italic">Keep checking in and chatting to nourish your garden.</p>
+              </div>
+            )}
+            <div className="flex items-center gap-2 text-[var(--color-primary)] text-sm font-semibold mt-4 md:mt-0">
+              <span>Visit Garden</span>
+              <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Bento Grid Main Dashboard ── */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          
+          {/* Daily Mood Check-in */}
+          <div className="md:col-span-8 glass-card rounded-3xl p-8 space-y-8 relative overflow-hidden bg-white/70 border border-[var(--color-primary-container)]/20 shadow-sm">
+            <div className="relative z-10">
+              <h2 className="text-2xl font-semibold text-[var(--color-on-surface)] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Daily Check-in</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
+                <button onClick={() => handleMoodClick('very_happy', 'Happy')} className="mood-bubble flex flex-col items-center gap-3 p-4 rounded-2xl bg-white/50 border border-teal-100/50 hover:bg-white hover:border-[var(--color-primary)]/30 transition-all cursor-pointer">
+                  <span className="text-4xl">😊</span>
+                  <span className="text-sm font-medium text-[var(--color-outline)]">Happy</span>
+                </button>
+                <button onClick={() => handleMoodClick('content', 'Calm')} className="mood-bubble flex flex-col items-center gap-3 p-4 rounded-2xl bg-white/50 border border-teal-100/50 hover:bg-white hover:border-[var(--color-primary)]/30 transition-all cursor-pointer">
+                  <span className="text-4xl">😌</span>
+                  <span className="text-sm font-medium text-[var(--color-outline)]">Calm</span>
+                </button>
+                <button onClick={() => handleMoodClick('sad', 'Sad')} className="mood-bubble flex flex-col items-center gap-3 p-4 rounded-2xl bg-white/50 border border-teal-100/50 hover:bg-white hover:border-[var(--color-primary)]/30 transition-all cursor-pointer">
+                  <span className="text-4xl">😔</span>
+                  <span className="text-sm font-medium text-[var(--color-outline)]">Sad</span>
+                </button>
+                <button onClick={() => handleMoodClick('anxious', 'Stressed')} className="mood-bubble flex flex-col items-center gap-3 p-4 rounded-2xl bg-white/50 border border-teal-100/50 hover:bg-white hover:border-[var(--color-primary)]/30 transition-all cursor-pointer">
+                  <span className="text-4xl">😫</span>
+                  <span className="text-sm font-medium text-[var(--color-outline)]">Stressed</span>
+                </button>
+                <button onClick={() => handleMoodClick('exhausted', 'Tired')} className="mood-bubble flex flex-col items-center gap-3 p-4 rounded-2xl bg-white/50 border border-teal-100/50 hover:bg-white hover:border-[var(--color-primary)]/30 transition-all cursor-pointer">
+                  <span className="text-4xl">😴</span>
+                  <span className="text-sm font-medium text-[var(--color-outline)]">Tired</span>
+                </button>
+              </div>
+              <AnimatePresence>
+                {feedbackMood && (
+                  <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0 }} className="mt-6 p-4 rounded-xl bg-[var(--color-sage-soft)] text-[var(--color-primary)] font-medium text-center">
+                    It's okay to feel {feedbackMood.toLowerCase()}. Mitra is here for you.
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            <div className="relative z-10 pt-4 border-t border-[var(--color-outline-variant)]/20">
+              <p className="text-base text-[var(--color-outline)] italic">"Mana Ka Mitra" — A friend for your mind, always here to listen without judgment.</p>
+            </div>
+          </div>
+
+          {/* Quick Action: Chat Now */}
+          <div 
+            onClick={() => navigate('/chat')}
+            className="md:col-span-4 bg-[var(--color-primary)] rounded-3xl p-8 flex flex-col justify-between text-white shadow-xl shadow-[var(--color-primary)]/20 group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
+          >
+            <div className="space-y-4">
+              <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
+                <span className="material-symbols-outlined text-3xl text-white" style={{ fontVariationSettings: "'FILL' 1" }}>chat_bubble</span>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)' }}>Chat Now</h3>
+                <p className="text-sm text-white/80 font-medium">Speak your heart out in your native language. 100% private.</p>
+              </div>
+            </div>
+            <div className="flex items-center justify-between mt-8">
+              <span className="text-sm font-semibold">Start conversation</span>
+              <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+            </div>
+          </div>
+
+          {/* Daily Quote Card */}
+          <div className="md:col-span-5 bg-[var(--color-tertiary-fixed)] rounded-3xl p-8 flex flex-col justify-center space-y-6 shadow-sm border border-[var(--color-tertiary-container)]/30">
+            <span className="material-symbols-outlined text-[var(--color-tertiary)] text-4xl opacity-50">format_quote</span>
+            <p className="text-2xl text-[var(--color-on-tertiary-fixed)] italic leading-snug font-semibold" style={{ fontFamily: 'var(--font-display)' }}>
+              "{todayAff}"
+            </p>
+            <p className="text-sm text-[var(--color-on-tertiary-fixed-variant)] font-bold uppercase tracking-widest">— Daily Affirmation</p>
+          </div>
+
+          {/* Privacy Promise Card */}
+          <div className="md:col-span-7 glass-card bg-white/70 border border-[var(--color-outline-variant)]/30 shadow-sm rounded-3xl p-8 grid md:grid-cols-2 gap-8 items-center overflow-hidden">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-[var(--color-active-teal)]">
+                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>shield_lock</span>
+                <span className="text-sm font-bold uppercase tracking-wider">Privacy First</span>
+              </div>
+              <h3 className="text-2xl font-semibold text-[var(--color-on-surface)]" style={{ fontFamily: 'var(--font-display)' }}>Your sanctuary is secure.</h3>
+              <p className="text-base text-[var(--color-on-surface-variant)] leading-relaxed">No personal data, chat history, or journals are ever stored on our servers. You remain anonymous.</p>
+            </div>
+            <div className="h-40 bg-[var(--color-warm-mist)] rounded-2xl relative overflow-hidden flex items-center justify-center border border-[var(--color-outline-variant)]/20">
+              <span className="material-symbols-outlined text-6xl text-[var(--color-outline-variant)]/40">lock</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Retained Original Features (Chart, Wins, Countdown) ── */}
+        <section className="pt-4 border-t border-[var(--color-outline-variant)]/20">
+          <div className="flex justify-between items-end mb-6">
+            <div className="space-y-1">
+              <h2 className="text-2xl font-semibold text-[var(--color-on-background)]" style={{ fontFamily: 'var(--font-display)' }}>Progress Overview</h2>
+              <p className="text-base text-[var(--color-outline)]">Your mental wellness journey.</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* 7-Day Trend Chart */}
+            <div className="glass-card bg-white/80 p-6 rounded-3xl shadow-sm border border-[var(--color-outline-variant)]/30">
+              <div className="flex items-center gap-2 mb-6">
+                <TrendingUp size={20} className="text-[var(--color-primary)]" />
+                <h3 className="text-lg font-semibold text-[var(--color-on-surface)]" style={{ fontFamily: 'var(--font-display)' }}>7-Day Mood Trend</h3>
+              </div>
+              {chartData.length > 0 ? (
+                <ResponsiveContainer width="100%" height={160}>
+                  <AreaChart data={chartData} margin={{ top:5, right:5, bottom:0, left:-20 }}>
+                    <defs>
+                      <linearGradient id="mg" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%"  stopColor="var(--color-primary)" stopOpacity={0.28} />
+                        <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="day" tick={{ fontSize:11, fill:'var(--color-outline)' }} axisLine={false} tickLine={false} />
+                    <YAxis domain={[1,7]} hide />
+                    <Tooltip content={<Tip />} cursor={{ stroke: 'var(--color-outline-variant)', strokeWidth: 1, strokeDasharray: '4 4' }} />
+                    <Area type="monotone" dataKey="value" stroke="var(--color-primary)" strokeWidth={2.5} fill="url(#mg)"
+                      dot={{ fill:'var(--color-primary)', r:5, strokeWidth:2, stroke:'var(--color-background)' }}
+                      activeDot={{ r:7, fill:'var(--color-primary)' }}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-[160px] flex flex-col items-center justify-center text-center">
+                  <div className="w-12 h-12 rounded-xl bg-[var(--color-primary-container)]/10 flex items-center justify-center mb-3">
+                    <BarChart2 size={24} className="text-[var(--color-primary)]" />
+                  </div>
+                  <p className="text-sm text-[var(--color-outline)]">Log your mood above to see your trend</p>
+                </div>
+              )}
+            </div>
+
+            {/* Daily Wins */}
+            <div className="glass-card bg-white/80 p-6 rounded-3xl shadow-sm border border-[var(--color-outline-variant)]/30">
+              <div className="flex items-center gap-2 mb-6">
+                <Trophy size={20} className="text-[var(--color-warning)] text-yellow-500" />
+                <h3 className="text-lg font-semibold text-[var(--color-on-surface)]" style={{ fontFamily: 'var(--font-display)' }}>Daily Wins</h3>
+              </div>
+              <div className="flex gap-2 mb-4">
+                <input 
+                  value={winText} onChange={e => setWinText(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && addWinHandler()}
+                  placeholder={t('dashboard.win_placeholder')} 
+                  className="flex-1 bg-[var(--color-surface)] border border-[var(--color-outline-variant)]/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all"
+                />
+                <button 
+                  onClick={addWinHandler} disabled={!winText.trim()}
+                  className="w-12 h-12 flex-shrink-0 rounded-xl flex items-center justify-center transition-colors cursor-pointer disabled:cursor-not-allowed bg-[var(--color-primary)] text-white disabled:bg-[var(--color-outline-variant)]/30 disabled:text-[var(--color-outline)]"
                 >
-                  <span style={{ color:'var(--success)', fontSize:16 }}>✓</span>
-                  <span style={{ flex:1, fontSize:14, color:'var(--text)' }}>{w.text}</span>
-                  <button onClick={() => removeWin(w.id)}
-                    style={{ background:'none', border:'none', cursor:'pointer', color:'var(--text-3)', padding:4, borderRadius:6, transition:'color 0.15s' }}
-                    onMouseEnter={e => e.currentTarget.style.color = 'var(--danger)'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
-                  ><Trash2 size={13} /></button>
-                </motion.div>
-              ))}
+                  <Plus size={20} />
+                </button>
+              </div>
+              <div className="flex flex-col gap-2 max-h-[120px] overflow-y-auto pr-1">
+                {dailyWins.length === 0 ? (
+                  <p className="text-sm text-[var(--color-outline)] text-center mt-2">Log your first win today — even small ones count.</p>
+                ) : (
+                  dailyWins.slice(0,5).map((w, i) => (
+                    <motion.div key={w.id} initial={{ opacity:0, x:-8 }} animate={{ opacity:1, x:0 }} transition={{ delay:i*0.04 }}
+                      className="flex items-center gap-3 p-3 rounded-xl bg-green-50 border border-green-100"
+                    >
+                      <span className="text-green-500 font-bold">✓</span>
+                      <span className="flex-1 text-sm text-[var(--color-on-surface)]">{w.text}</span>
+                      <button onClick={() => removeWin(w.id)} className="text-[var(--color-outline-variant)] hover:text-red-500 transition-colors bg-transparent border-none p-1 cursor-pointer">
+                        <Trash2 size={14} />
+                      </button>
+                    </motion.div>
+                  ))
+                )}
+              </div>
             </div>
-          )}
-        </motion.div>
-      </div>
+          </div>
+          
+          <div className="mt-6">
+            <ExamCountdown />
+          </div>
+        </section>
+
+        {/* ── Secondary Tools Section ── */}
+        <section className="space-y-6 pt-8 border-t border-[var(--color-outline-variant)]/20">
+          <div className="flex justify-between items-end">
+            <div className="space-y-1">
+              <h2 className="text-2xl font-semibold text-[var(--color-on-background)]" style={{ fontFamily: 'var(--font-display)' }}>Explore Tools</h2>
+              <p className="text-base text-[var(--color-outline)]">Small steps to a calmer mind.</p>
+            </div>
+            <button onClick={() => navigate('/games')} className="text-[var(--color-primary)] font-semibold text-sm flex items-center gap-1 hover:underline cursor-pointer bg-transparent border-none">
+              View All <span className="material-symbols-outlined text-sm">open_in_new</span>
+            </button>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div onClick={() => navigate('/games/breathing')} className="glass-card bg-white/70 p-6 rounded-3xl space-y-4 hover:shadow-lg transition-shadow cursor-pointer border border-[var(--color-outline-variant)]/30">
+              <div className="w-12 h-12 bg-[var(--color-sage-soft)] rounded-xl flex items-center justify-center">
+                <span className="material-symbols-outlined text-[var(--color-primary)]">air</span>
+              </div>
+              <h4 className="text-lg font-semibold text-[var(--color-on-surface)]" style={{ fontFamily: 'var(--font-display)' }}>Breathing Bubble</h4>
+              <p className="text-sm text-[var(--color-outline-variant)]">A guided breathing tool to anchor yourself in the present.</p>
+            </div>
+            <div onClick={() => navigate('/journal')} className="glass-card bg-white/70 p-6 rounded-3xl space-y-4 hover:shadow-lg transition-shadow cursor-pointer border border-[var(--color-outline-variant)]/30">
+              <div className="w-12 h-12 bg-[var(--color-secondary-fixed)] rounded-xl flex items-center justify-center">
+                <span className="material-symbols-outlined text-[var(--color-secondary)]">edit_note</span>
+              </div>
+              <h4 className="text-lg font-semibold text-[var(--color-on-surface)]" style={{ fontFamily: 'var(--font-display)' }}>Private Journal</h4>
+              <p className="text-sm text-[var(--color-outline-variant)]">Express your thoughts. They stay on your device, always.</p>
+            </div>
+            <div onClick={() => navigate('/games')} className="glass-card bg-white/70 p-6 rounded-3xl space-y-4 hover:shadow-lg transition-shadow cursor-pointer border border-[var(--color-outline-variant)]/30">
+              <div className="w-12 h-12 bg-[var(--color-tertiary-fixed)] rounded-xl flex items-center justify-center">
+                <span className="material-symbols-outlined text-[var(--color-tertiary)]">sports_esports</span>
+              </div>
+              <h4 className="text-lg font-semibold text-[var(--color-on-surface)]" style={{ fontFamily: 'var(--font-display)' }}>Calming Games</h4>
+              <p className="text-sm text-[var(--color-outline-variant)]">Gentle focus puzzles designed to lower academic anxiety.</p>
+            </div>
+            <div className="glass-card bg-white/70 p-6 rounded-3xl space-y-4 hover:shadow-lg transition-shadow border border-[var(--color-outline-variant)]/30">
+              <div className="w-12 h-12 bg-[var(--color-primary-fixed)] rounded-xl flex items-center justify-center">
+                <span className="material-symbols-outlined text-[var(--color-on-primary-fixed-variant)]">translate</span>
+              </div>
+              <h4 className="text-lg font-semibold text-[var(--color-on-surface)]" style={{ fontFamily: 'var(--font-display)' }}>10+ Languages</h4>
+              <p className="text-sm text-[var(--color-outline-variant)]">Chat comfortably in Hindi, Marathi, Tamil, and more.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Team Quote / Impact ── */}
+        <section className="py-12 border-t border-[var(--color-outline-variant)]/20 flex flex-col items-center text-center max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--color-on-surface)] italic mb-6 leading-relaxed">
+            "I built Mansitra because I realized that sometimes, the hardest thing to do is simply talk to someone. I wanted to create a silent, supportive friend that genuinely cares."
+          </p>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
+              <img alt="Yash Patadiya" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ19f_0hHIsce7NpGqU4Ru1hFI0T3-qVsQfCShptxMSEZHQy9HsPEiCp2cvfoepHyIa3SmYGIW9WdvJhoSUlHVv8DY8qTshEbV71MuX2Qnghp6lYDpA25qj8Xbqn4hBYKEB07r8C0fmUAzVgLAEsv0kD8HHuXhf1XxBr3C004XaHW4_LIUrS_lDl9c8PvUAtYCIDBmr5rdievFlv-m1mRU1I-QuiX9BsChs5BrfemMIaRCdPWL7nT46e8gE5RTLNmHv0n32US1Utfe" />
+            </div>
+            <div className="text-left">
+              <p className="text-sm font-bold text-[var(--color-on-surface)]">Yash Patadiya</p>
+              <p className="text-xs font-medium text-[var(--color-outline)]">Founder, Mansitra</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      {/* ── Footer ── */}
+      <footer className="bg-[var(--color-surface-dim)]/20 py-12 px-5 md:px-10 mt-12 mb-24 md:mb-0 border-t border-[var(--color-outline-variant)]/20">
+        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between gap-12">
+          <div className="space-y-4 max-w-sm">
+            <div className="flex items-center gap-2">
+              <img alt="Mansitra Logo" className="w-8 h-8 rounded-md" src="https://lh3.googleusercontent.com/aida/AP1WRLsNVMgnnPlJ0696Nr7yH94E0umOgcB_yePrfwQF296Hd2MEli-2SgFPbasuWrB5Sd_dLxdnxQ1pHRlnlf0m8ImtE3fAA8SzfZWl-Py0-6boaKAPcEt2thgD4zFzBM9xNX_8QnTZGRXYj6_E5EjVYMI8-uPfwdJ9uni6pIW4CkhX7Me3BXL4ozXYfn5gDOJgp--Xr0esk2dG-pxJ_u9Xvbo5MQlSZKJQkpXTFJuJryjIKTUsNDUFUyrjVHb7" />
+              <span className="text-2xl font-bold text-[var(--color-primary)] tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>Mansitra</span>
+            </div>
+            <p className="text-base text-[var(--color-on-surface-variant)] leading-relaxed">Your anonymous, judgment-free AI companion. Designed to support emotional resilience and student well-being.</p>
+            <p className="text-xs text-[var(--color-outline)] leading-tight">⚠️ Medical Disclaimer: Mansitra is a supportive AI companion, not a replacement for professional medical services.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-8 md:gap-16">
+            <div className="space-y-4">
+              <h5 className="text-sm font-bold uppercase tracking-widest text-[var(--color-on-surface)]">Helplines</h5>
+              <ul className="text-sm space-y-3 text-[var(--color-outline)] list-none p-0 m-0 font-medium">
+                <li>iCall: 9152987821</li>
+                <li>Vandrevala: 1860-2662-345</li>
+                <li>AASRA: 9820466627</li>
+              </ul>
+            </div>
+            <div className="space-y-4">
+              <h5 className="text-sm font-bold uppercase tracking-widest text-[var(--color-on-surface)]">Social</h5>
+              <ul className="text-sm space-y-3 text-[var(--color-outline)] list-none p-0 m-0 font-medium">
+                <li><a href="#" className="hover:text-[var(--color-primary)] text-inherit no-underline transition-colors">LinkedIn</a></li>
+                <li><a href="#" className="hover:text-[var(--color-primary)] text-inherit no-underline transition-colors">Instagram</a></li>
+                <li><a href="https://github.com/Mansitra" target="_blank" rel="noreferrer" className="hover:text-[var(--color-primary)] text-inherit no-underline transition-colors">GitHub</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-[var(--color-outline-variant)]/30 flex flex-col md:flex-row justify-between items-center gap-4 text-[var(--color-outline)] text-xs font-medium">
+          <p>© {new Date().getFullYear()} Mansitra (Mann Ka Mitra). All rights reserved.</p>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-[var(--color-primary)] text-inherit no-underline">Privacy Policy</a>
+            <a href="#" className="hover:text-[var(--color-primary)] text-inherit no-underline">Terms of Use</a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

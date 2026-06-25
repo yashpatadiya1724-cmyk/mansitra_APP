@@ -10,23 +10,21 @@ import { DailyCheckInPrompt } from './components/daily-checkin-prompt'
 import { ContextModeBar } from './components/context-mode-bar'
 import { BreathingNudge } from './components/breathing-nudge'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Shield, ChevronDown, Gamepad2, BarChart2 } from 'lucide-react'
+import { Shield, ChevronDown, Gamepad2, BarChart2, Menu, Lock } from 'lucide-react'
 import { useMoodStore } from '@store/mood-store'
 import { useProgressStore } from '@store/progress-store'
 import quotes from '@data/quotes/quotes.json'
-import { MansitraLogo } from '@components/logo'
 import { PermissionDialog, shouldShowPermissionDialog } from '@components/permission-dialog/permission-dialog'
-import { useSpeaker } from '@hooks/use-speaker'
 
 const WELCOME_MESSAGES = {
   en: [
-    "Hey, I'm Mansitra — your private companion. Whatever's on your mind, I'm here to listen. What's going on today?",
-    "Hi! I'm Mansitra. I was just waiting for you. How are you feeling right now?",
+    "Hey, I'm Mitra — your private companion. Whatever's on your mind, I'm here to listen. What's going on today?",
+    "Hi! I'm Mitra. I was just waiting for you. How are you feeling right now?",
     "Hey friend, it's good to see you. I'm here if you want to talk or just vent about something."
   ],
   hi: [
-    "नमस्ते, मैं मन्सित्रा हूँ — तुम्हारा निजी साथी। जो भी मन में है, मैं सुनने के लिए यहाँ हूँ। आज क्या चल रहा है?",
-    "नमस्ते! मैं तुम्हारा दोस्त मन्सित्रा। मैं तुम्हारा ही इंतज़ार कर रहा था। अभी कैसा महसूस कर रहे हो?",
+    "नमस्ते, मैं मित्रा हूँ — तुम्हारा निजी साथी। जो भी मन में है, मैं सुनने के लिए यहाँ हूँ। आज क्या चल रहा है?",
+    "नमस्ते! मैं तुम्हारा दोस्त मित्रा। मैं तुम्हारा ही इंतज़ार कर रहा था। अभी कैसा महसूस कर रहे हो?",
     "हेलो दोस्त, तुम्हें देख कर अच्छा लगा। अगर कुछ बात करनी हो या बस मन हल्का करना हो, तो मैं यहीं हूँ।"
   ],
 }
@@ -38,10 +36,8 @@ const CHIP_POOL = {
 
 export const ChatPage = () => {
   const { t, i18n } = useTranslation()
-  const { messages, isTyping, nickname } = useSessionStore()
-  const { addMoodEntry } = useMoodStore()
-  const { recordCheckIn } = useProgressStore()
-  const { sendMessage, backendError } = useChat()
+  const { messages, isTyping } = useSessionStore()
+  const { sendMessage } = useChat()
   const lang = i18n.language
 
   const [showPermDialog, setShowPermDialog] = useState(shouldShowPermissionDialog())
@@ -81,7 +77,7 @@ export const ChatPage = () => {
   const todayQuote = langQuotes[dayOfYear % langQuotes.length]
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', maxHeight: '100vh', position: 'relative' }}>
+    <div className="bg-[var(--color-background)] text-[var(--color-on-surface)] h-screen flex flex-col relative overflow-hidden" style={{ fontFamily: 'var(--font-body)' }}>
 
       {/* ── Permission Dialog (first launch) ── */}
       {showPermDialog && (
@@ -89,116 +85,91 @@ export const ChatPage = () => {
       )}
 
       {/* ── Header ── */}
-      <div style={{
-        flexShrink: 0,
-        background: 'var(--surface)',
-        paddingTop: 'env(safe-area-inset-top, 0px)',
-        position: 'relative', zIndex: 2,
-        boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-      }}>
-        <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '1px solid var(--border)' }}>
-              <img src="/robot.png" alt="Bobo" style={{ width: '80%', height: '80%', objectFit: 'contain' }} />
-            </div>
-            <div>
-              <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: 'var(--text)', lineHeight: 1.2 }}>Mansitra</h1>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success)', animation: 'pulse-ring 2s infinite' }} />
-                <p style={{ fontSize: 12, color: 'var(--text-2)', fontWeight: 500 }}>Online</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick access buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Link to="/games" title="Games" style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', color: 'var(--text-2)', border: '1px solid var(--border)', transition: 'all 0.2s' }}>
-              <Gamepad2 size={16} />
-            </Link>
-            <Link to="/dashboard" title="Dashboard" style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', color: 'var(--text-2)', border: '1px solid var(--border)', transition: 'all 0.2s' }}>
-              <BarChart2 size={16} />
-            </Link>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '6px 10px', borderRadius: 999, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }}>
-              <Shield size={12} style={{ color: 'var(--success)' }} />
-              <span style={{ fontSize: 11, color: 'var(--success)', fontWeight: 700 }}>Private</span>
-            </div>
+      <header className="fixed top-0 left-0 w-full z-50 glass-effect bg-[var(--color-surface)]/80 dark:bg-[var(--color-surface-container-high)]/80 h-16 flex items-center px-5 justify-between">
+        <div className="flex items-center gap-3">
+          <Link to="/" className="p-2 rounded-full hover:bg-[var(--color-primary-container)]/20 transition-colors">
+            <Menu className="text-[var(--color-primary)]" size={24} />
+          </Link>
+          <div className="flex items-center gap-2">
+            <img alt="Mitra Lotus Icon" className="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLsNVMgnnPlJ0696Nr7yH94E0umOgcB_yePrfwQF296Hd2MEli-2SgFPbasuWrB5Sd_dLxdnxQ1pHRlnlf0m8ImtE3fAA8SzfZWl-Py0-6boaKAPcEt2thgD4zFzBM9xNX_8QnTZGRXYj6_E5EjVYMI8-uPfwdJ9uni6pIW4CkhX7Me3BXL4ozXYfn5gDOJgp--Xr0esk2dG-pxJ_u9Xvbo5MQlSZKJQkpXTFJuJryjIKTUsNDUFUyrjVHb7" />
+            <span className="text-2xl font-semibold tracking-tight text-[var(--color-primary)]" style={{ fontFamily: 'var(--font-display)' }}>Mitra</span>
           </div>
         </div>
-      </div>
+        <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-2 text-[var(--color-primary)] font-bold">
+            <Lock size={14} />
+            <span className="text-sm font-medium">Private & Encrypted</span>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-[var(--color-primary-container)]/20 flex items-center justify-center overflow-hidden border border-[var(--color-primary)]/10">
+            <img className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDypZbKIhdTtU0feRWkv9rJX0R-3GTx_DyeiapRPlU2jNiBQ6BsigBw-X16kxNtcgyr_v4qkJNpOWwvO-Liw0aZzjM0jWyLQLcRfxRmHGNR9d79pWOU1D3feJpXgBweNKmO18i0SYR3_pDt86WHWw7BlhJcu7pvU0QyCwx4lb922hZ9uENfQ70zHfsXy7ksB42q6BVYxF0HbjnIj4XW_ugbjSWpuJxIBk-xl93-ad1bcyrWwLEfCDXGS7ob31a6Y91bx6FM0K1QG78Q" alt="User Avatar" />
+          </div>
+        </div>
+      </header>
 
       {/* ── Context mode bar ── */}
-      <ContextModeBar />
+      <div className="mt-16 z-40 relative">
+        <ContextModeBar />
+      </div>
 
-      {/* ── Messages ── */}
-      <div
-        ref={scrollRef}
-        onScroll={handleScroll}
-        style={{ flex: 1, overflowY: 'auto', padding: '24px', position: 'relative', zIndex: 1 }}
-        role="log" aria-label={t('a11y.chat_region')} aria-live="polite"
-      >
-        {/* Backend error banner removed — app now calls Groq directly */}
-
-        {/* Welcome state */}
-        {messages.length === 0 && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', paddingTop: '4vh' }}
+      {/* ── Main Content Area: Chat Canvas ── */}
+      <main className="flex-1 pb-24 overflow-hidden relative" style={{ marginTop: messages.length === 0 ? '0' : '10px' }}>
+        {/* Atmospheric Background Pattern */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#00bfa5 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }}></div>
+        
+        <div className="max-w-[1200px] mx-auto h-full px-5 flex flex-col pt-4">
+          <div
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="chat-container-scroll flex-1 overflow-y-auto space-y-8 pr-2 relative z-10"
+            role="log" aria-label={t('a11y.chat_region')} aria-live="polite"
           >
-            <motion.div 
-              animate={{ y: [0, -10, 0] }} 
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              style={{ position: 'relative', marginBottom: 24 }}
-            >
-              <img src="/robot.png" alt="Robot Mascot" style={{ width: 120, height: 120, objectFit: 'contain' }} />
-              {/* Fake bubbles */}
-              <div style={{ position: 'absolute', top: -10, right: -10, width: 12, height: 12, borderRadius: '50%', background: 'var(--primary)' }} />
-              <div style={{ position: 'absolute', bottom: 20, left: -20, width: 18, height: 18, borderRadius: '50%', background: 'var(--primary)', opacity: 0.5 }} />
-              <div style={{ position: 'absolute', top: 40, right: -30, width: 8, height: 8, borderRadius: '50%', background: 'var(--primary)' }} />
-            </motion.div>
-
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text)', marginBottom: 8 }}>Welcome to Manasitra</h2>
-            <p style={{ fontSize: 15, color: 'var(--text-2)', maxWidth: 280, lineHeight: 1.5, marginBottom: 32 }}>
-              {welcome}
-            </p>
-
-            <div style={{ width: '100%', marginBottom: 28 }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {chips.map((c, i) => (
-                  <motion.button key={i}
-                    initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + i * 0.06 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => sendMessage(c)}
-                    style={{ width: '100%', padding: '16px', borderRadius: 'var(--r-pill)', cursor: 'pointer', border: '1px solid var(--border)', background: 'var(--surface-2)', color: 'var(--text)', fontSize: 15, fontWeight: 600, transition: 'all 0.15s' }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.color = 'var(--primary)'; e.currentTarget.style.background = 'var(--primary-soft)' }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text)'; e.currentTarget.style.background = 'var(--surface-2)' }}
-                  >{c}</motion.button>
-                ))}
-              </div>
+            {/* Initial Welcome Date */}
+            <div className="flex justify-center mt-4">
+              <span className="text-sm bg-[var(--color-surface-container)]/50 px-4 py-1 rounded-full text-[var(--color-on-surface-variant)] font-medium">Today, your space</span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', borderRadius: 10, background: 'rgba(91,168,138,0.07)', border: '1px solid rgba(91,168,138,0.18)', marginBottom: 8 }}>
-              <Shield size={13} style={{ color: 'var(--success)', flexShrink: 0 }} />
-              <p style={{ fontSize: 12, color: 'var(--text-3)' }}>This conversation is private. Nothing is stored after you leave.</p>
-            </div>
-
-            {/* Daily quote */}
-            {todayQuote && (
-              <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-                style={{ padding: '12px 16px', borderRadius: 12, background: 'linear-gradient(135deg, rgba(126,186,168,0.10) 0%, rgba(74,124,111,0.06) 100%)', border: '1px solid var(--border)', marginBottom: 8 }}
+            {/* Welcome state */}
+            {messages.length === 0 && (
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+                className="flex flex-col items-start max-w-[85%] md:max-w-[65%] gap-2 mt-6 animate-in fade-in slide-in-from-bottom-4 duration-700"
               >
-                <p style={{ fontSize: 13, color: 'var(--text-2)', lineHeight: 1.65, fontStyle: 'italic' }}>
-                  "{todayQuote.text}"
-                </p>
-                <p style={{ fontSize: 11, color: 'var(--text-3)', marginTop: 5 }}>— {todayQuote.author}</p>
+                <div className="chat-bubble-ai bg-[var(--color-sage-soft)] p-5 rounded-2xl shadow-sm border border-[var(--color-primary)]/5 text-[var(--color-on-surface)] leading-relaxed">
+                  <p className="mb-2">Namaste, dost. I'm Mitra, your calm space in the middle of all the noise. <span className="text-[var(--color-primary)] font-semibold">"Yaar, tension mat lo"</span>—I'm here to listen, whether you're stressed about exams, feeling burnt out, or just need to vent.</p>
+                  <p>{welcome}</p>
+                </div>
+                <span className="text-[10px] uppercase tracking-widest text-[var(--color-on-surface-variant)] font-bold ml-2">Mitra • Just now</span>
+
+                <div className="flex flex-wrap gap-2 py-4">
+                  {chips.map((c, i) => (
+                    <motion.button key={i}
+                      initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + i * 0.06 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => sendMessage(c)}
+                      className="bg-[var(--color-surface)] border border-[var(--color-outline-variant)]/30 px-4 py-2 rounded-full text-sm font-medium hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all duration-300"
+                    >"{c}"</motion.button>
+                  ))}
+                </div>
+
+                {/* Daily quote */}
+                {todayQuote && (
+                  <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
+                    className="mt-4 p-4 rounded-xl bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-primary-container)]/5 border border-[var(--color-border)]"
+                  >
+                    <p className="text-sm text-[var(--color-text-2)] leading-relaxed italic">
+                      "{todayQuote.text}"
+                    </p>
+                    <p className="text-xs text-[var(--color-text-3)] mt-2">— {todayQuote.author}</p>
+                  </motion.div>
+                )}
               </motion.div>
             )}
-          </motion.div>
-        )}
 
-        {messages.map(msg => <MessageBubble key={msg.id} message={msg} />)}
-        {isTyping && <TypingIndicator />}
-        <div ref={bottomRef} />
-      </div>
+            {messages.map(msg => <MessageBubble key={msg.id} message={msg} />)}
+            {isTyping && <TypingIndicator />}
+            <div ref={bottomRef} />
+          </div>
+        </div>
+      </main>
 
       {/* Scroll to bottom button */}
       <AnimatePresence>
@@ -208,13 +179,7 @@ export const ChatPage = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 8 }}
             onClick={() => scrollToBottom()}
-            style={{
-              position: 'absolute', bottom: 90, right: 24, zIndex: 10,
-              width: 40, height: 40, borderRadius: '50%',
-              background: 'var(--primary)', border: 'none', cursor: 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'white', boxShadow: '0 4px 16px var(--primary-glow)',
-            }}
+            className="absolute bottom-28 right-6 z-40 w-10 h-10 rounded-full bg-[var(--color-primary)] flex items-center justify-center text-white shadow-lg border-none cursor-pointer"
             aria-label="Scroll to latest message"
           >
             <ChevronDown size={18} />
@@ -224,8 +189,6 @@ export const ChatPage = () => {
 
       {/* ── Input ── */}
       <InputBar onSend={sendMessage} disabled={isTyping} />
-
-      {/* ── Daily check-in prompt removed as requested ── */}
 
       {/* ── Breathing nudge after extended chat ── */}
       <BreathingNudge />
