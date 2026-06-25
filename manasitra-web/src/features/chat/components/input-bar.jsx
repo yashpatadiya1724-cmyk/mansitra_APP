@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Send, Mic, MicOff, X } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { useNetworkStatus } from '@hooks/use-network-status'
 import { useSafetyStore } from '@store/safety-store'
 import { useSpeech } from '@hooks/use-speech'
@@ -9,6 +10,7 @@ import { useGardenStore, XP_REWARDS } from '@store/garden-store'
 
 export const InputBar = ({ onSend, disabled }) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [text, setText] = useState('')
   const [interimText, setInterimText] = useState('')
   const isOnline = useNetworkStatus()
@@ -246,7 +248,24 @@ export const InputBar = ({ onSend, disabled }) => {
         </motion.button>
       </div>
 
-      <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-3)', marginTop: 7 }}>
+      {/* Voice Mode Button Link */}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 12 }}>
+        <motion.button 
+          whileTap={{ scale: 0.96 }}
+          onClick={() => navigate('/voice')}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            padding: '8px 20px', borderRadius: 20,
+            background: 'var(--primary-soft)', border: '1.5px solid var(--primary)',
+            color: 'var(--primary)', fontWeight: 600, fontSize: 13,
+            cursor: 'pointer', transition: 'all 0.2s',
+          }}
+        >
+          <Mic size={14} /> Start Voice Mode (Talk to Mansitra)
+        </motion.button>
+      </div>
+
+      <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-3)', marginTop: 8 }}>
         Enter to send · Shift+Enter for new line
         {isSupported && ' · tap mic to speak'}
         {' · SOS for immediate help'}

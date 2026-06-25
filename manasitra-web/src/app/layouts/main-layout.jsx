@@ -8,13 +8,9 @@ import { motion } from 'framer-motion'
 import { useSessionStore } from '@store/session-store'
 import { MansitraLogo } from '@components/logo'
 
-// 4 tabs on sides + 1 center Voice FAB
-const LEFT_NAV  = [
+const MOBILE_NAV = [
   { to: '/chat',      icon: MessageCircle, key: 'chat' },
   { to: '/mood',      icon: Smile,         key: 'mood' },
-]
-
-const RIGHT_NAV = [
   { to: '/garden',    icon: Leaf,          key: 'garden' },
   { to: '/settings',  icon: Settings,      key: 'settings' },
 ]
@@ -100,63 +96,26 @@ export const MainLayout = () => {
         </main>
 
         {/* ── Mobile Bottom Nav ── */}
-        <nav className="mobile-nav nav-bar" role="navigation" aria-label={t('a11y.menu')}>
-          <div style={{
-            display: 'flex', alignItems: 'center',
-            maxWidth: 600, margin: '0 auto',
-            padding: '4px 8px',
-            position: 'relative',
-          }}>
-
-            {/* Left 2 tabs */}
-            {LEFT_NAV.map(({ to, icon: Icon, key }) => (
-              <NavLink key={to} to={to}
-                className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-                style={{ flex: 1 }}
-              >
-                <Icon size={18} strokeWidth={1.8} />
-                <span>{t(`nav.${key}`)}</span>
-              </NavLink>
-            ))}
-
-            {/* Center Voice FAB */}
-            <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => navigate('/voice')}
-                style={{
-                  width: 56, height: 56,
-                  borderRadius: '50%',
-                  border: 'none',
-                  cursor: 'pointer',
-                  background: isVoiceRoute
-                    ? '#7C3AED'
-                    : 'var(--primary)',
-                  color: 'white',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: 'none',
-                  marginTop: -16, // lift above nav bar
-                  position: 'relative', zIndex: 2,
-                  transition: 'all 0.2s',
-                }}
-                aria-label="Voice Assistant"
-              >
-                <Mic size={22} strokeWidth={2} />
-              </motion.button>
+        {!hideBottomNav && (
+          <nav className="mobile-nav nav-bar" role="navigation" aria-label={t('a11y.menu')}>
+            <div style={{
+              display: 'flex', alignItems: 'center',
+              maxWidth: 600, margin: '0 auto',
+              padding: '4px 8px',
+              position: 'relative',
+            }}>
+              {MOBILE_NAV.map(({ to, icon: Icon, key }) => (
+                <NavLink key={to} to={to}
+                  className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+                  style={{ flex: 1 }}
+                >
+                  <Icon size={18} strokeWidth={1.8} />
+                  <span>{t(`nav.${key}`)}</span>
+                </NavLink>
+              ))}
             </div>
-
-            {/* Right 2 tabs */}
-            {RIGHT_NAV.map(({ to, icon: Icon, key }) => (
-              <NavLink key={to} to={to}
-                className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-                style={{ flex: 1 }}
-              >
-                <Icon size={18} strokeWidth={1.8} />
-                <span>{t(`nav.${key}`)}</span>
-              </NavLink>
-            ))}
-          </div>
-        </nav>
+          </nav>
+        )}
       </div>
     </div>
   )
