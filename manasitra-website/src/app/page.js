@@ -12,7 +12,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-[14px] bg-transparent flex items-center justify-center overflow-hidden">
-              <img src="/icon-192.png" alt="Mansitra Logo" className="w-full h-full object-cover" />
+              <img src="/logo.svg" alt="Mansitra Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1 className="font-bold text-xl leading-none">Mansitra</h1>
@@ -437,7 +437,7 @@ export default function Home() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-[10px] overflow-hidden bg-transparent">
-                <img src="/icon-192.png" alt="Mansitra Logo" className="w-full h-full object-cover" />
+                <img src="/logo.svg" alt="Mansitra Logo" className="w-full h-full object-cover" />
               </div>
               <span className="font-bold text-lg text-white">Mansitra</span>
             </div>
