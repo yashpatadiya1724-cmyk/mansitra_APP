@@ -1,4 +1,5 @@
 import { Quicksand } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const quicksand = Quicksand({
@@ -91,6 +92,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${quicksand.className} antialiased`}>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-BHJWHETVNT"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BHJWHETVNT');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
