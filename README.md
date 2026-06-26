@@ -29,7 +29,7 @@ Manasitra is a **privacy-first, culturally-aware** mental wellness platform buil
 | 🤖 **Empathetic AI Chat** | Real-time emotional support with risk-aware responses. | LLama-3.3-70B via Groq |
 | 🌱 **Soul Garden** | A gamified resilience tracker where your virtual tree grows as you heal. | Framer Motion & SVG |
 | 😊 **Deep Mood Tracking** | 7-state emotional check-ins with trends and daily win logs. | Recharts & IndexedDB |
-| 📊 **Progress Dashboard** | Visualise your mental wellness journey with streak tracking. | Zustand & localforage |
+| 📊 **Progress Dashboard** | Bento Grid UI to visualize your mental wellness journey and track streaks. | Zustand & localforage |
 | 🧘 **10 Calming Tools** | Fully offline tools: Breathing, Grounding, Focus Puzzles, and more. | Canvas API |
 | 🆘 **Safety First** | Multi-layer crisis detection with instant helpline foregrounding. | Regex + AI Logic |
 | 🌐 **10 Languages** | Seamless UI & AI transitions across major Indian scripts. | i18next |
@@ -62,7 +62,7 @@ Manasitra is built for high performance across Web, Mobile, and Desktop.
 
 ### **Frontend Architecture**
 - **Core:** React 19 + Vite 8
-- **Styling:** Tailwind CSS 4 (Custom Variable System)
+- **Styling:** Tailwind CSS 4 (Custom Variable System & Bento Grid UI)
 - **Animation:** Framer Motion (Optimized for low-end hardware)
 - **State:** Zustand (Atomic state management)
 - **Charts:** Recharts (High-precision data visualization)
@@ -80,7 +80,7 @@ Manasitra is built for high performance across Web, Mobile, and Desktop.
 
 ### 1️⃣ Clone and Install
 ```bash
-git clone https://github.com/yash17242826/veeza.git
+git clone https://github.com/yashpatadiya1724-cmyk/mansitra_APP.git
 cd Manasitra
 npm install
 ```
