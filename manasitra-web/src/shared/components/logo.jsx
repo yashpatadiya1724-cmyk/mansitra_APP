@@ -62,3 +62,5 @@ export const MansitraLogo = ({ size = 44, className = '' }) => (
     </g>
   </svg>
 )
+
+export default MansitraLogo;

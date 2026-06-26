@@ -25,41 +25,41 @@
 
 /* ── Tokens ─────────────────────────────────────────────────── */
 :root {
-  /* Backgrounds - Soft pastel */
+  /* Backgrounds - Soft pastel for light mode */
   --bg:           #FFFFFF;
-  --bg-2:         #F8FAFC;
-  --bg-3:         #F1F5F9;
+  --bg-2:         #FAFAFA;
+  --bg-3:         #F5F5F5;
 
   /* Surfaces */
   --surface:      #FFFFFF;
-  --surface-2:    #F8FAFC;
-  --surface-hover:#F1F5F9;
+  --surface-2:    #FAFAFA;
+  --surface-hover:#F5F5F5;
 
   /* Text */
-  --text:         #111827;
-  --text-2:       #4B5563;
-  --text-3:       #9CA3AF;
+  --text:         #212121;
+  --text-2:       #616161;
+  --text-3:       #9E9E9E;
 
-  /* Brand - Cyan */
-  --primary:      #00D0A5;
-  --primary-2:    #00B58E;
-  --primary-glow: rgba(0, 208, 165, 0.25);
-  --primary-soft: rgba(0, 208, 165, 0.12);
+  /* Brand - Vibrant Teal (Bobo style) */
+  --primary:      #12D18E;
+  --primary-2:    #0EAC75;
+  --primary-glow: rgba(18, 209, 142, 0.25);
+  --primary-soft: rgba(18, 209, 142, 0.12);
 
   --secondary:    #0091FF;
   --secondary-glow: transparent;
   --secondary-soft: rgba(0, 145, 255, 0.12);
 
   /* Semantic */
-  --success:      #10B981;
-  --warning:      #F59E0B;
-  --danger:       #EF4444;
+  --success:      #12D18E;
+  --warning:      #FACC15;
+  --danger:       #F75555;
   --info:         #3B82F6;
 
   /* Borders */
-  --border:       #E5E7EB;
-  --border-2:     #D1D5DB;
-  --border-3:     #9CA3AF;
+  --border:       #EEEEEE;
+  --border-2:     #E0E0E0;
+  --border-3:     #BDBDBD;
 
   /* Fonts */
   --font-display: 'Nunito', sans-serif;
@@ -81,27 +81,27 @@
   --shadow-glow:none;
 }
 
-/* ── Dark Mode (optional) ───────────────────────────────────── */
+/* ── Dark Mode (Bobo Deep Dark) ─────────────────────────────── */
 .dark {
-  --bg:           #0B1120;
-  --bg-2:         #0F172A;
-  --bg-3:         #1E293B;
-  --surface:      #0F172A;
-  --surface-2:    #1E293B;
-  --surface-hover:#334155;
-  --text:         #F8FAFC;
-  --text-2:       #94A3B8;
-  --text-3:       #64748B;
-  --primary:      #00E6B8;
-  --primary-2:    #00C9A0;
-  --primary-glow: rgba(0, 230, 184, 0.25);
-  --primary-soft: rgba(0, 230, 184, 0.15);
+  --bg:           #181A20;
+  --bg-2:         #1F222A;
+  --bg-3:         #262A34;
+  --surface:      #1F222A;
+  --surface-2:    #262A34;
+  --surface-hover:#35383F;
+  --text:         #FFFFFF;
+  --text-2:       #E0E0E0;
+  --text-3:       #9E9E9E;
+  --primary:      #12D18E;
+  --primary-2:    #0EAC75;
+  --primary-glow: rgba(18, 209, 142, 0.25);
+  --primary-soft: rgba(18, 209, 142, 0.15);
   --secondary:    #38BDF8;
   --secondary-glow: rgba(56, 189, 248, 0.22);
   --secondary-soft: rgba(56, 189, 248, 0.15);
-  --border:       #1E293B;
-  --border-2:     #334155;
-  --border-3:     #475569;
+  --border:       #35383F;
+  --border-2:     #424242;
+  --border-3:     #616161;
 }
 
 /* ── Reset ──────────────────────────────────────────────────── */
