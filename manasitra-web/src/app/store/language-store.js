@@ -5,7 +5,7 @@ import { STORAGE_KEYS } from '../config/constants'
 export const useLanguageStore = create(
   persist(
     (set) => ({
-      selectedLanguage: 'en',
+      selectedLanguage: 'hg',
       isLanguageLocked: false,
       setLanguage: (lang) => set({ selectedLanguage: lang, isLanguageLocked: true }),
       unlockLanguage: () => set({ isLanguageLocked: false }),

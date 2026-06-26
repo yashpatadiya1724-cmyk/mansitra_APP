@@ -14,6 +14,7 @@ import hg from '@data/i18n/hg.json'
 
 i18n.use(initReactI18next).init({
   resources: {
+    hg: { translation: hg },
     en: { translation: en },
     hi: { translation: hi },
     gu: { translation: gu },
@@ -24,7 +25,7 @@ i18n.use(initReactI18next).init({
     kn: { translation: kn },
     ml: { translation: ml },
     pa: { translation: pa },
-    hg: { translation: hg },
+
   },
   lng: 'en',
   fallbackLng: 'en',
