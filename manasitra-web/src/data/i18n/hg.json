@@ -1,0 +1,126 @@
+{
+  "app": { "name": "Manasitra", "tagline": "Mann Ka Mitra — Dimag ka Sathi" },
+  "onboarding": {
+    "welcome_title": "Tum akele nahi ho.",
+    "welcome_subtitle": "Manasitra tumhara private, anonymous dost hai. Koi login nahi. Koi judgment nahi. Sirf support.",
+    "language_prompt": "Apni language chuno",
+    "privacy_summary": "Humein tumhara naam nahi pata. Hum tumhari chats save nahi karte. Sab kuch tumhare phone mein hi rehta hai.",
+    "get_started": "Shuru Karein",
+    "set_nickname": "Apna nickname set karo (optional)",
+    "nickname_placeholder": "e.g. Arjun, Priya...",
+    "disclaimer": "Manasitra ek AI companion hai, koi mental health professional nahi. Agar aap crisis mein hain, toh kripya qualified counselor ya helpline se contact karein."
+  },
+  "chat": {
+    "placeholder": "Batao, kya chal raha hai dimag mein...",
+    "typing_indicator": "Manasitra type kar raha hai...",
+    "error_offline": "Tum offline ho. Reconnecting...",
+    "error_ai": "Connect karne mein problem aa rahi hai, par main yahan hu tumhare liye.",
+    "quick_exit_label": "Jaldi bahar niklo — session clear karo",
+    "send": "Bhejo",
+    "flag_helpful": "Helpful tha",
+    "flag_not_helpful": "Helpful nahi tha",
+    "need_help": "Mujhe abhi help chahiye"
+  },
+  "mood": {
+    "title": "Kaisa feel kar rahe ho?",
+    "note_placeholder": "Koi note add karo (optional, 100 chars max)",
+    "save": "Mood save karo",
+    "history": "Mood history",
+    "states": {
+      "very_happy": "Bahut Khush",
+      "content": "Santusht",
+      "neutral": "Thik Thak",
+      "anxious": "Ghabrahat",
+      "sad": "Udaas",
+      "overwhelmed": "Bahut Stress Hai",
+      "exhausted": "Thaka Hua"
+    }
+  },
+  "dashboard": {
+    "title": "Tumhari Progress",
+    "resilience_score": "Consistency Score",
+    "daily_wins": "Aaj ki Jeet",
+    "streak": "Check-in Streak",
+    "weekly_summary": "Weekly Summary",
+    "add_win": "Win add karo",
+    "win_placeholder": "e.g. Ek chapter khatam kiya",
+    "days": "din",
+    "back_again": "Welcome back! Har din mayne rakhta hai."
+  },
+  "games": {
+    "title": "Relaxing Tools",
+    "subtitle": "Apne liye thoda time nikalo",
+    "breathing": "Breathing Bubble",
+    "tap": "Tap to Calm",
+    "puzzle": "Focus Puzzle",
+    "grounding": "Grounding Guide",
+    "canvas": "Mood Canvas",
+    "affirmations": "Affirmation Shuffle",
+    "breathing_desc": "Dimag shant karne ke liye guided breathing",
+    "tap_desc": "Tension release karne ke liye halke taps",
+    "puzzle_desc": "Focus wapas laane ke liye simple puzzle",
+    "grounding_desc": "5-4-3-2-1 sensory grounding",
+    "canvas_desc": "Colors ke zariye khud ko express karo",
+    "affirmations_desc": "Tumhare liye kuch positive words",
+    "word_reset": "Word Reset",
+    "word_reset_desc": "Positive words se dimag clear karo",
+    "gratitude": "Gratitude Jar",
+    "gratitude_desc": "Un cheezon ko yaad karo jinke liye tum thankful ho",
+    "body_scan": "Body Scan",
+    "body_scan_desc": "Relax karne ke liye guided meditation",
+    "worry_box": "Worry Box",
+    "worry_box_desc": "Apni tensions ko box mein lock kar do"
+  },
+  "crisis": {
+    "headline": "Tumhe akele sehne ki zaroorat nahi hai",
+    "subtext": "Trained counselors abhi available hain. Help maangna himmat ki baat hoti hai.",
+    "i_am_safe": "Main safe hu, mujhe aage baat karni hai",
+    "talk_to_someone": "Kya kisi trained insaan se baat karna theek rahega?"
+  },
+  "privacy": {
+    "title": "Tumhari Privacy",
+    "stored_label": "Jo data phone mein save hota hai",
+    "not_stored_label": "Jo data KABHI save nahi hota",
+    "delete_button": "Mera saara data delete kar do",
+    "delete_confirm": "Kya tum sure ho? Ye data wapas nahi milega.",
+    "last_updated": "Last updated",
+    "promise": "Manasitra tumhara naam nahi janta. Tumhare jaane ke baad chats delete ho jati hain. Tumhare mood logs sirf tumhare phone mein rehte hain. Tum ek click mein sab kuch delete kar sakte ho. Ye tumhari private space hai."
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "theme_dark": "Dark",
+    "theme_light": "Light",
+    "theme_auto": "Auto",
+    "notifications": "Notifications",
+    "accessibility": "Accessibility",
+    "data_management": "Data Management",
+    "report_response": "Report a Response",
+    "version": "Version",
+    "feedback": "Feedback Bhejo",
+    "about": "Manasitra ke baare mein"
+  },
+  "nav": {
+    "chat": "Chat",
+    "mood": "Mood",
+    "voice": "Voice",
+    "garden": "Garden",
+    "dashboard": "Progress",
+    "games": "Games",
+    "settings": "Settings"
+  },
+  "errors": {
+    "network": "Internet connection nahi hai. Kuch features nahi chalenge.",
+    "ai_unavailable": "Abhi connect karne mein problem ho rahi hai. Ye kuch cheezein help kar sakti hain...",
+    "storage_full": "Tumhara session is device pe save nahi ho payega."
+  },
+  "a11y": {
+    "quick_exit": "Jaldi bahar niklo — session clear karo aur home par jao",
+    "mood_selector": "Apna current mood select karo",
+    "chat_region": "Chat messages",
+    "typing_indicator": "Manasitra type kar raha hai",
+    "close_modal": "Band karo",
+    "menu": "Navigation menu"
+  }
+}
