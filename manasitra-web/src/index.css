@@ -1,23 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Gujarati:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
-@theme {
-  --color-primary-container: #00bfa5;
-  --color-on-primary-container: #00473c;
-  --color-secondary-container: #64a8fe;
-  --color-on-secondary-container: #003c70;
-  --color-tertiary-container: #fe896a;
-  --color-on-tertiary-container: #74220b;
-  --color-surface-container: #eaedff;
-  --color-surface-container-high: #e2e7ff;
-  --color-surface-variant: #dae2fd;
-  --color-on-surface-variant: #3c4a46;
-  --color-active-teal: #14B8A6;
-  --color-warm-mist: #F1F5F9;
-  --color-sage-soft: #E0F2F1;
-  --color-outline-variant: #bbcac4;
-}
-
 /* ═══════════════════════════════════════════════════════════════
    MANASITRA — DESIGN SYSTEM
    Premium Glassmorphism · Emotional UI · Privacy-First
@@ -25,41 +8,41 @@
 
 /* ── Tokens ─────────────────────────────────────────────────── */
 :root {
-  /* Backgrounds - Soft pastel for light mode */
+  /* Backgrounds - Soft pastel */
   --bg:           #FFFFFF;
-  --bg-2:         #FAFAFA;
-  --bg-3:         #F5F5F5;
+  --bg-2:         #F8FAFC;
+  --bg-3:         #F1F5F9;
 
   /* Surfaces */
   --surface:      #FFFFFF;
-  --surface-2:    #FAFAFA;
-  --surface-hover:#F5F5F5;
+  --surface-2:    #F8FAFC;
+  --surface-hover:#F1F5F9;
 
   /* Text */
-  --text:         #212121;
-  --text-2:       #616161;
-  --text-3:       #9E9E9E;
+  --text:         #111827;
+  --text-2:       #4B5563;
+  --text-3:       #9CA3AF;
 
-  /* Brand - Vibrant Teal (Bobo style) */
-  --primary:      #12D18E;
-  --primary-2:    #0EAC75;
-  --primary-glow: rgba(18, 209, 142, 0.25);
-  --primary-soft: rgba(18, 209, 142, 0.12);
+  /* Brand - Cyan */
+  --primary:      #00D0A5;
+  --primary-2:    #00B58E;
+  --primary-glow: rgba(0, 208, 165, 0.25);
+  --primary-soft: rgba(0, 208, 165, 0.12);
 
   --secondary:    #0091FF;
   --secondary-glow: transparent;
   --secondary-soft: rgba(0, 145, 255, 0.12);
 
   /* Semantic */
-  --success:      #12D18E;
-  --warning:      #FACC15;
-  --danger:       #F75555;
+  --success:      #10B981;
+  --warning:      #F59E0B;
+  --danger:       #EF4444;
   --info:         #3B82F6;
 
   /* Borders */
-  --border:       #EEEEEE;
-  --border-2:     #E0E0E0;
-  --border-3:     #BDBDBD;
+  --border:       #E5E7EB;
+  --border-2:     #D1D5DB;
+  --border-3:     #9CA3AF;
 
   /* Fonts */
   --font-display: 'Nunito', sans-serif;
@@ -81,27 +64,27 @@
   --shadow-glow:none;
 }
 
-/* ── Dark Mode (Bobo Deep Dark) ─────────────────────────────── */
+/* ── Dark Mode (optional) ───────────────────────────────────── */
 .dark {
-  --bg:           #181A20;
-  --bg-2:         #1F222A;
-  --bg-3:         #262A34;
-  --surface:      #1F222A;
-  --surface-2:    #262A34;
-  --surface-hover:#35383F;
-  --text:         #FFFFFF;
-  --text-2:       #E0E0E0;
-  --text-3:       #9E9E9E;
-  --primary:      #12D18E;
-  --primary-2:    #0EAC75;
-  --primary-glow: rgba(18, 209, 142, 0.25);
-  --primary-soft: rgba(18, 209, 142, 0.15);
+  --bg:           #0B1120;
+  --bg-2:         #0F172A;
+  --bg-3:         #1E293B;
+  --surface:      #0F172A;
+  --surface-2:    #1E293B;
+  --surface-hover:#334155;
+  --text:         #F8FAFC;
+  --text-2:       #94A3B8;
+  --text-3:       #64748B;
+  --primary:      #00E6B8;
+  --primary-2:    #00C9A0;
+  --primary-glow: rgba(0, 230, 184, 0.25);
+  --primary-soft: rgba(0, 230, 184, 0.15);
   --secondary:    #38BDF8;
   --secondary-glow: rgba(56, 189, 248, 0.22);
   --secondary-soft: rgba(56, 189, 248, 0.15);
-  --border:       #35383F;
-  --border-2:     #424242;
-  --border-3:     #616161;
+  --border:       #1E293B;
+  --border-2:     #334155;
+  --border-3:     #475569;
 }
 
 /* ── Reset ──────────────────────────────────────────────────── */
@@ -667,65 +650,3 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 /* ── Scrollbar for sidebar ── */
 .desktop-sidebar::-webkit-scrollbar { width: 3px; }
 .desktop-sidebar::-webkit-scrollbar-thumb { background: var(--border); }
-
-/* ═══════════════════════════════════════════════════════════════
-   BENTO GRID UI
-═══════════════════════════════════════════════════════════════ */
-
-.bento-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
-}
-@media (min-width: 1024px) {
-    .bento-grid {
-        grid-template-columns: repeat(6, 1fr);
-        grid-auto-rows: minmax(180px, auto);
-    }
-    .bento-item-large { grid-column: span 3; grid-row: span 2; }
-    .bento-item-wide { grid-column: span 3; grid-row: span 1; }
-    .bento-item-tall { grid-column: span 2; grid-row: span 2; }
-    .bento-item-standard { grid-column: span 2; grid-row: span 1; }
-}
-
-.floating-orb {
-    position: absolute;
-    filter: blur(60px);
-    z-index: 0;
-    opacity: 0.4;
-    animation: float-orb 10s infinite alternate ease-in-out;
-}
-
-@keyframes float-orb {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(30px, 40px) scale(1.1); }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   CHAT UI
-═══════════════════════════════════════════════════════════════ */
-
-.glass-effect {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-.chat-container-scroll::-webkit-scrollbar {
-    width: 4px;
-}
-.chat-container-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-.chat-container-scroll::-webkit-scrollbar-thumb {
-    background: #E2E8F0;
-    border-radius: 10px;
-}
-.chat-bubble-ai {
-    border-bottom-left-radius: 4px;
-}
-.chat-bubble-user {
-    border-bottom-right-radius: 4px;
-}
-.mood-bubble:hover {
-    transform: translateY(-4px);
-    transition: all 0.3s ease;
-}

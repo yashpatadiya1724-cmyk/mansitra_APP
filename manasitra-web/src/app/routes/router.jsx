@@ -9,15 +9,9 @@ const isHashRouterNeeded = typeof window !== 'undefined' && (
 const createRouter = isHashRouterNeeded ? createHashRouter : createBrowserRouter
 import { lazy, Suspense } from 'react'
 import { MainLayout } from '../layouts/main-layout'
-const Splash            = lazy(() => import('@features/onboarding/components/Splash').then(m => ({ default: m.default })))
-const Welcome           = lazy(() => import('@features/onboarding/components/Welcome').then(m => ({ default: m.default })))
-const LetsYouIn         = lazy(() => import('@features/auth/components/LetsYouIn').then(m => ({ default: m.default })))
-const Login             = lazy(() => import('@features/auth/components/Login').then(m => ({ default: m.default })))
-const Signup            = lazy(() => import('@features/auth/components/Signup').then(m => ({ default: m.default })))
-const ForgotPassword    = lazy(() => import('@features/auth/components/ForgotPassword').then(m => ({ default: m.default })))
-const FillProfile       = lazy(() => import('@features/setup/components/FillProfile').then(m => ({ default: m.default })))
-const CreatePin         = lazy(() => import('@features/setup/components/CreatePin').then(m => ({ default: m.default })))
-const Fingerprint       = lazy(() => import('@features/setup/components/Fingerprint').then(m => ({ default: m.default })))
+import { OnboardingPage } from '@features/onboarding/onboarding-page'
+import { NotFound } from '@components/not-found/not-found'
+const LoginPage         = lazy(() => import('@features/auth/login-page').then(m => ({ default: m.LoginPage })))
 
 // Lazy-load heavy pages for faster initial load
 const ChatPage          = lazy(() => import('@features/chat/chat-page').then(m => ({ default: m.ChatPage })))
@@ -62,43 +56,15 @@ const hasOnboarded = () => localStorage.getItem('manasitra_onboarded') === 'true
 export const router = createRouter([
   {
     path: '/',
-    element: <Lazy><Splash /></Lazy>,
+    element: <Navigate to={hasOnboarded() ? '/login' : '/onboarding'} replace />,
   },
   {
-    path: '/welcome',
-    element: <Lazy><Welcome /></Lazy>,
-  },
-  {
-    path: '/lets-you-in',
-    element: <Lazy><LetsYouIn /></Lazy>,
+    path: '/onboarding',
+    element: <OnboardingPage />,
   },
   {
     path: '/login',
-    element: <Lazy><Login /></Lazy>,
-  },
-  {
-    path: '/signup',
-    element: <Lazy><Signup /></Lazy>,
-  },
-  {
-    path: '/forgot-password',
-    element: <Lazy><ForgotPassword /></Lazy>,
-  },
-  {
-    path: '/fill-profile',
-    element: <Lazy><FillProfile /></Lazy>,
-  },
-  {
-    path: '/create-pin',
-    element: <Lazy><CreatePin /></Lazy>,
-  },
-  {
-    path: '/fingerprint',
-    element: <Lazy><Fingerprint /></Lazy>,
-  },
-  {
-    path: '/home',
-    element: <Navigate to="/dashboard" replace />,
+    element: <Lazy><LoginPage /></Lazy>,
   },
   {
     element: <MainLayout />,
