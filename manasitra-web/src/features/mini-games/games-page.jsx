@@ -81,7 +81,7 @@ export const GamesPage = () => {
         {recommended.length > 0 && (
           <div style={{ marginBottom: 20 }}>
             <p className="section-label">Recommended for you</p>
-            <div className="games-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 16 }}>
+            <div className="games-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 12 }}>
               {GAMES.filter(g => recommended.includes(g.key)).map(({ key, route, icon: Icon, color, duration, tag }, i) => (
                 <motion.div key={`rec-${key}`}
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
@@ -89,8 +89,8 @@ export const GamesPage = () => {
                   onClick={() => handleGameClick(route, key)}
                   style={{
                     background: `linear-gradient(135deg, ${color}12 0%, var(--surface) 100%)`,
-                    borderRadius: 28,
-                    padding: 24,
+                    borderRadius: 24,
+                    padding: 16,
                     boxShadow: '0 8px 30px rgba(0,0,0,0.03)',
                     border: 'none',
                     display: 'flex', flexDirection: 'column'
@@ -113,7 +113,7 @@ export const GamesPage = () => {
 
         <p className="section-label">{recommended.length > 0 ? 'All tools' : 'Choose a tool'}</p>
 
-        <div className="games-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 16 }}>
+        <div className="games-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 12 }}>
           {GAMES.map(({ key, route, icon: Icon, color, duration, tag }, i) => (
             <motion.div key={key}
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
@@ -121,8 +121,8 @@ export const GamesPage = () => {
               onClick={() => handleGameClick(route, key)}
               style={{
                 background: 'var(--surface)',
-                borderRadius: 28,
-                padding: 24,
+                borderRadius: 24,
+                padding: 16,
                 boxShadow: '0 8px 30px rgba(0,0,0,0.03)',
                 border: 'none',
                 display: 'flex', flexDirection: 'column'
