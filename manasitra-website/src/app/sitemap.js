@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://mansitra-app.vercel.app";
+  const baseUrl = "https://mansitra.in";
 
   return [
     {

@@ -48,7 +48,7 @@ export const metadata = {
   openGraph: {
     title: "Mansitra — Your Private AI Emotional Companion",
     description: "An anonymous, judgment-free, and multilingual AI companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
-    url: "https://mansitra-app.vercel.app",
+    url: "https://mansitra.in",
     siteName: "Mansitra",
     locale: "en_IN",
     type: "website",
@@ -77,7 +77,7 @@ export default function RootLayout({ children }) {
       "name": "Mansitra",
       "operatingSystem": "Android",
       "applicationCategory": "HealthApplication",
-      "downloadUrl": "https://mansitra-app.vercel.app/mansitra.apk",
+      "downloadUrl": "https://mansitra.in/mansitra.apk",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -99,7 +99,7 @@ export default function RootLayout({ children }) {
         "@type": "Organization",
         "name": "ManSitra"
       },
-      "url": "https://mansitra-app.vercel.app/about",
+      "url": "https://mansitra.in/about",
       "sameAs": [
         "https://linkedin.com/",
         "https://github.com/yashpatadiya1724-cmyk",
@@ -110,8 +110,8 @@ export default function RootLayout({ children }) {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "ManSitra",
-      "url": "https://mansitra-app.vercel.app",
-      "logo": "https://mansitra-app.vercel.app/logo.svg",
+      "url": "https://mansitra.in",
+      "logo": "https://mansitra.in/logo.svg",
       "founder": {
         "@type": "Person",
         "name": "Yash Patadiya"
