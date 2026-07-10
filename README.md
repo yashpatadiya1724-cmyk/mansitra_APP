@@ -15,6 +15,7 @@
 Manasitra is a **privacy-first, culturally-aware** mental wellness platform built for the unique challenges faced by students in India. From exam stress and hostel life to family expectations, Manasitra provides empathetic AI support in **10 Indian languages**, coupled with a suite of **offline calming tools** and a gamified growth system called the **Soul Garden**.
 
 ### 🚀 Why Manasitra?
+
 - **Zero Privacy Compromise:** All your data (mood logs, streaks, personal notes) stays locally on your device. Nothing is stored on our servers.
 - **Cultural Resonance:** AI responses are tuned to understand Indian student life, using familiar terms like *"Dost"* and *"Yaar"*.
 - **Multilingual Support:** Communicate fluently in English, Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, Hinglish, or Gujalish.
@@ -26,14 +27,16 @@ Manasitra is a **privacy-first, culturally-aware** mental wellness platform buil
 
 | Feature | Description | Tech Highlight |
 |:---|:---|:---|
-| 🤖 **Empathetic AI Chat** | Real-time emotional support with risk-aware responses. | LLama-3.3-70B via Groq |
+| 🤖 **Empathetic AI Chat** | Real-time emotional support with risk-aware responses. | LLama-3.3-70B via Groq & Custom PyTorch Engine |
+| 🧠 **Memory Engine** | Context-aware local memory system for continuous conversations. | FAISS / Local Vector DB |
+| 🎭 **Emotion & Voice Engine** | Real-time sentiment analysis and voice interactions. | PyTorch & Audio processing |
 | 🌱 **Soul Garden** | A gamified resilience tracker where your virtual tree grows as you heal. | Framer Motion & SVG |
 | 😊 **Deep Mood Tracking** | 7-state emotional check-ins with trends and daily win logs. | Recharts & IndexedDB |
 | 📊 **Progress Dashboard** | Bento Grid UI to visualize your mental wellness journey and track streaks. | Zustand & localforage |
 | 🧘 **10 Calming Tools** | Fully offline tools: Breathing, Grounding, Focus Puzzles, and more. | Canvas API |
 | 🆘 **Safety First** | Multi-layer crisis detection with instant helpline foregrounding. | Regex + AI Logic |
 | 🌐 **10 Languages** | Seamless UI & AI transitions across major Indian scripts. | i18next |
-| 🔒 **Privacy Audit** | Transparency view of every single byte stored on your device. | Audit Engine |
+| 🔒 **Privacy Engine** | Strict local data processing, zero-server retention policies. | Python / Audit Engine |
 
 ---
 
@@ -68,11 +71,16 @@ Manasitra is built for high performance across Web, Mobile, and Desktop.
 - **Charts:** Recharts (High-precision data visualization)
 - **Runtime:** Capacitor (Native Android) / Electron (Desktop App)
 
-### **Backend & AI Logic**
+### **Backend & Core API**
 - **Server:** Node.js + Express 5 (Stateless Architecture)
-- **Model:** llama-3.3-70b-versatile (via Groq Cloud)
-- **Safety:** Custom Regex + Structured JSON schema enforcement
 - **API:** RESTful endpoints with strictly enforced rate limits
+
+### **Local AI Engine (Python)**
+- **Framework:** PyTorch (Custom Models & Emotion Engine)
+- **Primary Model:** llama-3.3-70b-versatile (via Groq Cloud) + Local Fallback capabilities
+- **Memory & Context:** Dedicated Memory Engine for local context retention
+- **Voice Capabilities:** Integrated Voice Engine for spoken interactions
+- **Safety & Privacy:** Privacy Engine ensuring local execution with Custom Regex + Structured JSON schema enforcement
 
 ---
 

@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
   <defs>
     <linearGradient id="lg-new-bubble" x1="100%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stopColor="#85C1AA" />
-      <stop offset="100%" stopColor="#1C6C63" />
+      <stop offset="0%" stopColor="#333333" />
+      <stop offset="100%" stopColor="#000000" />
     </linearGradient>
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="8" result="blur" />

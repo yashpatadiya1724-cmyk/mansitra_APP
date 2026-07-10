@@ -9,11 +9,25 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@capacitor-community/speech-recognition": "^7.0.1",
+    "@capacitor-community/text-to-speech": "^8.0.2",
+    "@capacitor/core": "^8.4.1",
+    "@supabase/supabase-js": "^2.110.2",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
     "framer-motion": "^12.40.0",
+    "gsap": "^3.15.0",
+    "i18next": "^26.3.6",
+    "localforage": "^1.10.0",
     "lucide-react": "^1.18.0",
     "next": "16.2.9",
+    "ogl": "^1.0.11",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-i18next": "^17.0.9",
+    "recharts": "^3.9.2",
+    "three": "^0.185.1",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

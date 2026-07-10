@@ -1,6 +1,7 @@
 import { Quicksand } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { I18nProvider } from "./providers/i18n-provider";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -69,25 +70,59 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Mansitra",
-    "operatingSystem": "Android",
-    "applicationCategory": "HealthApplication",
-    "downloadUrl": "https://mansitra-app.vercel.app/mansitra.apk",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "INR"
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Mansitra",
+      "operatingSystem": "Android",
+      "applicationCategory": "HealthApplication",
+      "downloadUrl": "https://mansitra-app.vercel.app/mansitra.apk",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "description": "An anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
+      "author": {
+        "@type": "Person",
+        "name": "Yash Patadiya",
+        "url": "https://github.com/yashpatadiya1724-cmyk"
+      }
     },
-    "description": "An anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
-    "author": {
+    {
+      "@context": "https://schema.org",
       "@type": "Person",
       "name": "Yash Patadiya",
-      "url": "https://github.com/yashpatadiya1724-cmyk"
+      "jobTitle": "Founder & CEO",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "ManSitra"
+      },
+      "url": "https://mansitra-app.vercel.app/about",
+      "sameAs": [
+        "https://linkedin.com/",
+        "https://github.com/yashpatadiya1724-cmyk",
+        "https://instagram.com/"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ManSitra",
+      "url": "https://mansitra-app.vercel.app",
+      "logo": "https://mansitra-app.vercel.app/logo.svg",
+      "founder": {
+        "@type": "Person",
+        "name": "Yash Patadiya"
+      },
+      "sameAs": [
+        "https://linkedin.com/",
+        "https://github.com/yashpatadiya1724-cmyk",
+        "https://instagram.com/"
+      ]
     }
-  };
+  ];
 
   return (
     <html lang="en">
@@ -109,7 +144,9 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <I18nProvider>
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );
