@@ -1,6 +1,12 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Navbar from "@/shared/components/navbar";
+import GlassCard from "@/components/ui/GlassCard";
+import BorderBeam from "@/components/ui/BorderBeam";
+import MultiLayerBackground from "@/components/landing/MultiLayerBackground";
+import HeartbeatWave from "@/components/landing/HeartbeatWave";
+import { Film, Sparkles } from "lucide-react";
 
 const GithubIcon = ({ size = 24, className = "", ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
@@ -50,75 +56,107 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#faf9f8] text-[#333333] font-sans selection:bg-teal-100 selection:text-teal-900 pt-24 pb-16">
+    <div className="min-h-screen bg-[#faf9f8] text-[#333333] font-sans selection:bg-teal-100 selection:text-teal-900 pt-24 pb-16 relative">
+      <MultiLayerBackground />
       <Navbar />
 
-      <main className="max-w-5xl mx-auto px-6">
+      <main className="max-w-5xl mx-auto px-6 relative z-10">
         
-        {/* Yash Hero Card (Horizontal Layout) */}
-        <section className="mb-24 mt-8 flex flex-col md:flex-row bg-white rounded-[2rem] border border-black/5 shadow-sm overflow-hidden">
-          {/* Left: Image */}
-          <div className="md:w-[40%] bg-neutral-100 relative min-h-[350px] md:min-h-full">
-            <img 
-              src="/creator.jpg" 
-              alt="Yash Patadiya" 
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </div>
-          
-          {/* Right: Content */}
-          <div className="md:w-[60%] p-10 md:p-14 flex flex-col justify-center">
-            <p className="text-teal-700 font-bold text-[11px] uppercase tracking-[0.15em] mb-4">
-              Founder & CEO
+        {/* Yash Hero Card (Horizontal Layout with 3D Glass & Beam) */}
+        <section className="mb-24 mt-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col md:flex-row bg-white/80 backdrop-blur-2xl rounded-[2rem] border border-black/5 shadow-xl overflow-hidden relative"
+          >
+            <BorderBeam duration={8} size={250} />
+            {/* Left: Image */}
+            <div className="md:w-[40%] bg-neutral-100 relative min-h-[350px] md:min-h-full overflow-hidden group">
+              <motion.img 
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.6 }}
+                src="/creator.jpg" 
+                alt="Yash Patadiya" 
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+            
+            {/* Right: Content */}
+            <div className="md:w-[60%] p-10 md:p-14 flex flex-col justify-center">
+              <div className="inline-flex items-center gap-2 bg-teal-50 border border-teal-200/50 px-3 py-1 rounded-full w-max mb-4">
+                <Sparkles size={12} className="text-teal-700 animate-spin" />
+                <span className="text-teal-700 font-bold text-[11px] uppercase tracking-[0.15em]">
+                  Founder & CEO
+                </span>
+              </div>
+
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-black mb-6">
+                Yash Patadiya
+              </h1>
+              
+              <div className="space-y-4 text-neutral-600 leading-relaxed font-serif text-lg mb-10">
+                <p className="font-semibold text-black">
+                  Founder & CEO @ ManSitra | AI Developer | BCA Student | Building AI for Mental Wellness
+                </p>
+                <p>
+                  "I built Mansitra because I realized that sometimes, the hardest thing to do is simply talk to someone. We worry about being judged, being a burden, or just not being understood."
+                </p>
+                <p>
+                  "I wanted to create a tool that is always there—a silent, supportive friend that genuinely cares about your mental well-being while fiercely protecting your privacy."
+                </p>
+              </div>
+              
+              <div className="flex items-center gap-3 flex-wrap">
+                <a 
+                  href="https://www.linkedin.com/in/yash-patadiya-973161272/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-2 bg-black hover:bg-teal-800 text-white px-5 py-3 rounded-full font-medium transition-all w-max text-sm shadow-md hover:scale-105"
+                >
+                  <LinkedinIcon size={16} />
+                  Connect on LinkedIn
+                </a>
+                <a 
+                  href="https://github.com/yashpatadiya1724-cmyk" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-full border border-black/10 hover:border-black hover:bg-black hover:text-white text-neutral-600 flex items-center justify-center transition-all shrink-0 hover:scale-105"
+                >
+                  <GithubIcon size={18} />
+                </a>
+                <a 
+                  href="https://www.instagram.com/yash_patadiya_1724?igsh=bjJzZTVrZzBxcTh5" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-full border border-black/10 hover:border-black hover:bg-black hover:text-white text-neutral-600 flex items-center justify-center transition-all shrink-0 hover:scale-105"
+                >
+                  <InstagramIcon size={18} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Documentary Style Section */}
+        <section className="my-24 bg-[#0d131f] text-white p-10 md:p-16 rounded-[2.5rem] relative overflow-hidden shadow-2xl border border-white/10">
+          <div 
+            className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none"
+            style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')" }}
+          />
+          <div className="relative z-10 max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full mb-6">
+              <Film size={14} className="text-amber-400" />
+              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Documentary Narrative</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">Built Under Pressure</h2>
+            <p className="text-neutral-300 font-serif text-lg leading-relaxed italic mb-8">
+              "During Ideathon Viksit Bharat 2047, we asked ourselves one simple question: How can technology listen when no one else is around? That single question shaped every line of code in Mansitra."
             </p>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-black mb-6">
-              Yash Patadiya
-            </h1>
-            
-            <div className="space-y-4 text-neutral-600 leading-relaxed font-serif text-lg mb-10">
-              <p className="font-semibold text-black">
-                Founder & CEO @ ManSitra | AI Developer | BCA Student | Building AI for Mental Wellness
-              </p>
-              <p>
-                "I built Mansitra because I realized that sometimes, the hardest thing to do is simply talk to someone. We worry about being judged, being a burden, or just not being understood."
-              </p>
-              <p>
-                "I wanted to create a tool that is always there—a silent, supportive friend that genuinely cares about your mental well-being while fiercely protecting your privacy."
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-3">
-              <a 
-                href="https://www.linkedin.com/in/yash-patadiya-973161272/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-flex items-center gap-2 border border-black/10 hover:border-black hover:bg-black hover:text-white px-5 py-3 rounded-full font-medium transition-all w-max text-sm"
-              >
-                <LinkedinIcon size={16} />
-                Connect on LinkedIn
-              </a>
-              <a 
-                href="https://github.com/yashpatadiya1724-cmyk" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full border border-black/10 hover:border-black hover:bg-black hover:text-white text-neutral-600 flex items-center justify-center transition-all shrink-0"
-              >
-                <GithubIcon size={18} />
-              </a>
-              <a 
-                href="https://www.instagram.com/yash_patadiya_1724?igsh=bjJzZTVrZzBxcTh5" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full border border-black/10 hover:border-black hover:bg-black hover:text-white text-neutral-600 flex items-center justify-center transition-all shrink-0"
-              >
-                <InstagramIcon size={18} />
-              </a>
-            </div>
           </div>
         </section>
 
-
-        {/* Team Grid (Vertical Cards) */}
+        {/* Team Grid (Vertical Cards with 3D Glass) */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-black">Our Core Team</h2>
           <p className="text-neutral-500 text-lg font-serif">
@@ -128,63 +166,76 @@ export default function AboutPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {team.map((member, i) => (
-            <div key={i} className="bg-white rounded-[2rem] border border-black/5 p-4 flex flex-col shadow-sm hover:shadow-md transition-shadow group">
-              {/* Image Section */}
-              <div className="w-full aspect-[4/5] bg-neutral-100 rounded-3xl overflow-hidden mb-6 relative shrink-0">
-                <img 
-                  src={member.img} 
-                  alt={member.name} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                />
-              </div>
-              
-              {/* Content Section */}
-              <div className="px-2 pb-2 flex flex-col flex-1">
-                <h3 className="text-xl font-bold text-black mb-1 tracking-tight">{member.name}</h3>
-                <p className="text-teal-700 text-[10px] font-bold uppercase tracking-widest mb-4">{member.role}</p>
-                
-                <p className="text-neutral-600 text-sm font-serif italic leading-relaxed mb-6 flex-1">
-                  "{member.quote}"
-                </p>
-
-                <div className="flex items-center gap-3 pt-4 border-t border-black/5 mt-auto">
-                  {member.github && (
-                    <a 
-                      href={member.github} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-teal-700 hover:text-white text-neutral-500 flex items-center justify-center transition-colors"
-                    >
-                      <GithubIcon size={16} />
-                    </a>
-                  )}
-                  {member.linkedin && (
-                    <a 
-                      href={member.linkedin} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-teal-700 hover:text-white text-neutral-500 flex items-center justify-center transition-colors"
-                    >
-                      <LinkedinIcon size={16} />
-                    </a>
-                  )}
-                  {member.instagram && (
-                    <a 
-                      href={member.instagram} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-teal-700 hover:text-white text-neutral-500 flex items-center justify-center transition-colors"
-                    >
-                      <InstagramIcon size={16} />
-                    </a>
-                  )}
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15, duration: 0.6 }}
+            >
+              <GlassCard className="h-full p-4 flex flex-col group relative overflow-hidden">
+                <BorderBeam duration={10 + i * 2} />
+                {/* Image Section */}
+                <div className="w-full aspect-[4/5] bg-neutral-100 rounded-3xl overflow-hidden mb-6 relative shrink-0">
+                  <motion.img 
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ duration: 0.6 }}
+                    src={member.img} 
+                    alt={member.name} 
+                    className="w-full h-full object-cover" 
+                  />
                 </div>
-              </div>
-            </div>
+                
+                {/* Content Section */}
+                <div className="px-2 pb-2 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold text-black mb-1 tracking-tight">{member.name}</h3>
+                  <p className="text-teal-700 text-[10px] font-bold uppercase tracking-widest mb-4">{member.role}</p>
+                  
+                  <p className="text-neutral-600 text-sm font-serif italic leading-relaxed mb-6 flex-1">
+                    "{member.quote}"
+                  </p>
+
+                  <div className="flex items-center gap-3 pt-4 border-t border-black/5 mt-auto">
+                    {member.github && (
+                      <a 
+                        href={member.github} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-teal-700 hover:text-white text-neutral-500 flex items-center justify-center transition-colors"
+                      >
+                        <GithubIcon size={16} />
+                      </a>
+                    )}
+                    {member.linkedin && (
+                      <a 
+                        href={member.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-teal-700 hover:text-white text-neutral-500 flex items-center justify-center transition-colors"
+                      >
+                        <LinkedinIcon size={16} />
+                      </a>
+                    )}
+                    {member.instagram && (
+                      <a 
+                        href={member.instagram} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-teal-700 hover:text-white text-neutral-500 flex items-center justify-center transition-colors"
+                      >
+                        <InstagramIcon size={16} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
           ))}
         </div>
 
       </main>
+
+      <HeartbeatWave />
     </div>
   );
 }
