@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 
 export default function CustomCursor() {
+  const [isTouch, setIsTouch] = useState(false);
   const [isHoveringButton, setIsHoveringButton] = useState(false);
   const [isHoveringCard, setIsHoveringCard] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
@@ -17,6 +18,12 @@ export default function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    // Detect mobile touch pointer
+    if (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window) {
+      setIsTouch(true);
+      return;
+    }
+
     const moveCursor = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -24,7 +31,6 @@ export default function CustomCursor() {
 
     const handleMouseDown = () => {
       setIsClicking(true);
-      // Add ripple
       const newRipple = { id: Date.now(), x: cursorX.get(), y: cursorY.get() };
       setRipples((prev) => [...prev, newRipple]);
       setTimeout(() => {
@@ -38,7 +44,6 @@ export default function CustomCursor() {
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
 
-    // Add global styles to hide default cursor
     document.body.style.cursor = 'none';
     const interactables = document.querySelectorAll('a, button, input, textarea, select, .magnetic-card');
     
@@ -62,7 +67,8 @@ export default function CustomCursor() {
     };
   }, []);
 
-  // Determine size based on hover state
+  if (isTouch) return null;
+
   let size = 20;
   if (isHoveringButton) size = 50;
   if (isHoveringCard) size = 80;
@@ -71,7 +77,7 @@ export default function CustomCursor() {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] mix-blend-difference bg-white/90 backdrop-blur-sm"
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] mix-blend-difference bg-white/90 backdrop-blur-sm hidden sm:block"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
@@ -98,7 +104,7 @@ export default function CustomCursor() {
             animate={{ width: 100, height: 100, opacity: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="fixed top-0 left-0 rounded-full border border-teal-400 pointer-events-none z-[9998]"
+            className="fixed top-0 left-0 rounded-full border border-teal-400 pointer-events-none z-[9998] hidden sm:block"
             style={{
               x: ripple.x,
               y: ripple.y,

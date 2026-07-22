@@ -4,7 +4,24 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Download, Shield, Gamepad2, Lock, Globe, Volume2, Sparkles, Film } from "lucide-react";
+import { 
+  Download, 
+  Shield, 
+  Gamepad2, 
+  Lock, 
+  Globe, 
+  Volume2, 
+  Sparkles, 
+  Film,
+  Brain,
+  Coins,
+  Building2,
+  Languages,
+  UserCheck,
+  Smartphone,
+  BarChart3,
+  AlertCircle
+} from "lucide-react";
 
 import Navbar from "@/shared/components/navbar";
 import PageLoadSequence from "../components/animations/PageLoadSequence";
@@ -296,9 +313,9 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { emoji: "🧠", title: "Stigma & Silence", desc: "Over 80% of students facing mental distress never speak about it due to fear of judgment from family, peers, and society." },
-              { emoji: "🔒", title: "Privacy Fears", desc: "Students distrust digital platforms with sensitive emotional data, fearing data tracking, logs, or social exposure." },
-              { emoji: "💸", title: "Inaccessibility", desc: "Professional therapy is unaffordable or unavailable to the majority of Indian students, especially in Tier 2 and Tier 3 cities." }
+              { icon: Brain, color: "text-rose-600 bg-rose-50", title: "Stigma & Silence", desc: "Over 80% of students facing mental distress never speak about it due to fear of judgment from family, peers, and society." },
+              { icon: Lock, color: "text-indigo-600 bg-indigo-50", title: "Privacy Fears", desc: "Students distrust digital platforms with sensitive emotional data, fearing data tracking, logs, or social exposure." },
+              { icon: Coins, color: "text-amber-600 bg-amber-50", title: "Inaccessibility", desc: "Professional therapy is unaffordable or unavailable to the majority of Indian students, especially in Tier 2 and Tier 3 cities." }
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -308,7 +325,9 @@ export default function Home() {
                 transition={{ type: "spring", stiffness: 100, damping: 20, delay: i * 0.15 }}
                 className="bg-white/90 backdrop-blur-xl border border-black/5 p-8 rounded-3xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500"
               >
-                <span className="text-3xl mb-6 block drop-shadow-md">{item.emoji}</span>
+                <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center mb-6 shadow-sm`}>
+                  <item.icon size={22} />
+                </div>
                 <h4 className="text-base font-semibold text-black mb-3">{item.title}</h4>
                 <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
               </motion.div>
@@ -395,11 +414,11 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "🏫 Campus Pilot Program", desc: "Partner with 5–10 colleges for a structured pilot, gathering feedback and refining the AI model on genuine student use cases." },
-              { title: "🗣️ Multilingual Support", desc: "Scale local voice engines in Hindi, Tamil, Telugu, and other regional languages to speak in students' comforting native tongues." },
-              { title: "👨‍⚕️ Therapist Handoff", desc: "Build a secure bridge between the AI companion and college counseling departments for seamless clinical escalation." },
-              { title: "📱 Native Mobile App", desc: "Deliver a full-featured iOS and Android application with offline journaling and push-based daily resilience streaks." },
-              { title: "📈 Institutional Dashboard", desc: "Anonymized aggregate insights for college counseling units to identify campus-wide stress trends without compromising student privacy." }
+              { icon: Building2, title: "Campus Pilot Program", desc: "Partner with 5–10 colleges for a structured pilot, gathering feedback and refining the AI model on genuine student use cases." },
+              { icon: Languages, title: "Multilingual Support", desc: "Scale local voice engines in Hindi, Tamil, Telugu, and other regional languages to speak in students' comforting native tongues." },
+              { icon: UserCheck, title: "Therapist Handoff", desc: "Build a secure bridge between the AI companion and college counseling departments for seamless clinical escalation." },
+              { icon: Smartphone, title: "Native Mobile App", desc: "Deliver a full-featured iOS and Android application with offline journaling and push-based daily resilience streaks." },
+              { icon: BarChart3, title: "Institutional Dashboard", desc: "Anonymized aggregate insights for college counseling units to identify campus-wide stress trends without compromising student privacy." }
             ].map((item, idx) => (
               <motion.div 
                 key={idx}
@@ -409,7 +428,10 @@ export default function Home() {
                 transition={{ delay: idx * 0.1, type: "spring", stiffness: 100 }}
                 className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl hover:bg-white/10 hover:border-white/20 transition-all duration-300 group"
               >
-                <h4 className="text-base font-semibold text-white mb-4 group-hover:text-teal-300 transition-colors">{item.title}</h4>
+                <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-300 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-teal-500/20 transition-all">
+                  <item.icon size={20} />
+                </div>
+                <h4 className="text-base font-semibold text-white mb-3 group-hover:text-teal-300 transition-colors">{item.title}</h4>
                 <p className="text-neutral-400 text-sm leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
@@ -419,7 +441,6 @@ export default function Home() {
 
       {/* Documentary Style Hackathon Section */}
       <section className="py-32 bg-[#0d131f] text-white relative z-10 border-b border-white/10 overflow-hidden">
-        {/* Subtle Grain Texture */}
         <div 
           className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
           style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')" }}
@@ -442,7 +463,6 @@ export default function Home() {
               Developed during the <strong>Ideathon Viksit Bharat 2047</strong> at Silver Oak University. Designing stress-management tech under a high-pressure timeline gave us deep empathy for the students we seek to help.
             </p>
             <div className="relative p-12 bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
-              {/* Light Sweep Effect */}
               <motion.div
                 animate={{ x: ["-100%", "200%"] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "linear", delay: 1 }}
@@ -568,10 +588,13 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 mb-12">
           <motion.div 
             whileHover={{ scale: 1.01 }}
-            className="bg-amber-50/50 backdrop-blur-md border border-amber-200/50 p-6 rounded-2xl text-xs text-amber-900 leading-relaxed text-center shadow-sm"
+            className="bg-amber-50/50 backdrop-blur-md border border-amber-200/50 p-6 rounded-2xl text-xs text-amber-900 leading-relaxed text-center shadow-sm flex items-center justify-center gap-3"
           >
-            <strong className="block mb-2 font-semibold text-sm">⚠️ Medical Disclaimer</strong>
-            Manasitra is a supportive AI companion, not a replacement for professional mental health services, therapy, or medical diagnosis. If you are experiencing a crisis, please reach out to one of the helplines listed above or seek professional help immediately.
+            <AlertCircle size={16} className="shrink-0 text-amber-700" />
+            <div>
+              <strong className="block mb-0.5 font-semibold text-sm">Medical Disclaimer</strong>
+              Manasitra is a supportive AI companion, not a replacement for professional mental health services, therapy, or medical diagnosis. If you are experiencing a crisis, please reach out to one of the helplines listed above or seek professional help immediately.
+            </div>
           </motion.div>
         </div>
 

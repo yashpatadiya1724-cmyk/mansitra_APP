@@ -4,6 +4,7 @@ import "./globals.css";
 import { I18nProvider } from "./providers/i18n-provider";
 import SmoothScroll from "../components/animations/SmoothScroll";
 import CustomCursor from "../components/animations/CustomCursor";
+import MobileBottomBar from "../components/ui/MobileBottomBar";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -149,6 +150,7 @@ export default function RootLayout({ children }) {
         <I18nProvider>
           <SmoothScroll>
             <CustomCursor />
+            <MobileBottomBar />
             {children}
           </SmoothScroll>
         </I18nProvider>
