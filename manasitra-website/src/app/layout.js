@@ -5,6 +5,7 @@ import { I18nProvider } from "./providers/i18n-provider";
 import SmoothScroll from "../components/animations/SmoothScroll";
 import CustomCursor from "../components/animations/CustomCursor";
 import MobileBottomBar from "../components/ui/MobileBottomBar";
+import { ThemeProvider } from "../context/ThemeContext";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -148,11 +149,13 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <I18nProvider>
-          <SmoothScroll>
-            <CustomCursor />
-            <MobileBottomBar />
-            {children}
-          </SmoothScroll>
+          <ThemeProvider>
+            <SmoothScroll>
+              <CustomCursor />
+              <MobileBottomBar />
+              {children}
+            </SmoothScroll>
+          </ThemeProvider>
         </I18nProvider>
       </body>
     </html>
