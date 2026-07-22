@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Download, Shield, Gamepad2, Lock, Globe, Volume2, Sparkles } from "lucide-react";
+import { Download, Shield, Gamepad2, Lock, Globe, Volume2, Sparkles, Film } from "lucide-react";
 
 import Navbar from "@/shared/components/navbar";
 import PageLoadSequence from "../components/animations/PageLoadSequence";
@@ -20,6 +20,9 @@ import BorderBeam from "../components/ui/BorderBeam";
 import TracingBeam from "../components/ui/TracingBeam";
 import InteractiveChatDemo from "../components/landing/InteractiveChatDemo";
 import HeartbeatWave from "../components/landing/HeartbeatWave";
+import PrivacyFlowAnimation from "../components/landing/PrivacyFlowAnimation";
+import LanguageSpheres from "../components/landing/LanguageSpheres";
+import VoiceCompanionVisualizer from "../components/landing/VoiceCompanionVisualizer";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -77,7 +80,6 @@ export default function Home() {
     if (showSplash || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Wave path animation
       gsap.to(".wave-path", {
         x: -100,
         duration: 3,
@@ -85,7 +87,6 @@ export default function Home() {
         ease: "linear",
       });
 
-      // Stats count up
       const stats = document.querySelectorAll(".stat-number");
       stats.forEach((stat) => {
         ScrollTrigger.create({
@@ -235,6 +236,17 @@ export default function Home() {
           {/* Interactive Chat Demo Component */}
           <div className="mb-20">
             <InteractiveChatDemo />
+          </div>
+
+          {/* Interactive Language Spheres Component */}
+          <LanguageSpheres />
+
+          {/* Hands-Free Voice Visualizer Component */}
+          <VoiceCompanionVisualizer />
+
+          {/* Privacy Flow Animation */}
+          <div className="my-16">
+            <PrivacyFlowAnimation />
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -405,23 +417,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Hackathon Quote / Experience Section */}
-      <section className="py-32 relative z-10 border-b border-black/5">
-        <div className="max-w-4xl mx-auto px-6 text-center">
+      {/* Documentary Style Hackathon Section */}
+      <section className="py-32 bg-[#0d131f] text-white relative z-10 border-b border-white/10 overflow-hidden">
+        {/* Subtle Grain Texture */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
+          style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')" }}
+        />
+
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-[10px] font-semibold text-amber-600 uppercase tracking-widest block mb-6">06 — Hackathon Experience</span>
-            <h2 className="text-4xl font-medium tracking-tight mb-8 text-black">Built Under Pressure</h2>
-            <p className="text-neutral-600 text-xl leading-relaxed mb-16 font-serif">
+            <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full mb-6">
+              <Film size={14} className="text-amber-400" />
+              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">06 — Hackathon Experience</span>
+            </div>
+
+            <h2 className="text-4xl md:text-5xl font-medium tracking-tight mb-8 text-white">Built Under Pressure</h2>
+            <p className="text-neutral-300 text-xl leading-relaxed mb-16 font-serif max-w-2xl mx-auto">
               Developed during the <strong>Ideathon Viksit Bharat 2047</strong> at Silver Oak University. Designing stress-management tech under a high-pressure timeline gave us deep empathy for the students we seek to help.
             </p>
-            <div className="relative p-12 bg-white/50 backdrop-blur-2xl rounded-3xl border border-black/5 shadow-xl">
-              <span className="absolute -top-6 -left-2 text-8xl text-teal-100 font-serif leading-none">"</span>
-              <p className="text-2xl italic text-neutral-600 font-serif leading-relaxed relative z-10">
+            <div className="relative p-12 bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+              {/* Light Sweep Effect */}
+              <motion.div
+                animate={{ x: ["-100%", "200%"] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "linear", delay: 1 }}
+                className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+                style={{ background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%)" }}
+              />
+
+              <span className="absolute -top-6 -left-2 text-8xl text-teal-400/20 font-serif leading-none">"</span>
+              <p className="text-2xl italic text-neutral-200 font-serif leading-relaxed relative z-10">
                 The hardest part wasn't the code — it was deciding what the AI should say when a student tells it they can't take the pressure anymore. That question, and the weight behind it, shaped every design decision we made.
               </p>
             </div>
