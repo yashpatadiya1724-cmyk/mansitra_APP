@@ -4,16 +4,22 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Download, Shield, Gamepad2, Lock, Globe, Volume2 } from "lucide-react";
-import Link from "next/link";
+import { Download, Shield, Gamepad2, Lock, Globe, Volume2, Sparkles } from "lucide-react";
 
 import Navbar from "@/shared/components/navbar";
 import PageLoadSequence from "../components/animations/PageLoadSequence";
 import MultiLayerBackground from "../components/landing/MultiLayerBackground";
 import Hero3D from "../components/landing/Hero3D";
+import HeroSpotlight from "../components/landing/HeroSpotlight";
 import MagneticButton from "../components/ui/MagneticButton";
 import GlassCard from "../components/ui/GlassCard";
 import PhoneMockup from "../components/landing/PhoneMockup";
+import SplitText from "../components/ui/SplitText";
+import ShinyText from "../components/ui/ShinyText";
+import BorderBeam from "../components/ui/BorderBeam";
+import TracingBeam from "../components/ui/TracingBeam";
+import InteractiveChatDemo from "../components/landing/InteractiveChatDemo";
+import HeartbeatWave from "../components/landing/HeartbeatWave";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -40,7 +46,6 @@ const InstagramIcon = ({ size = 24, className = "", ...props }) => (
   </svg>
 );
 
-// Framer Motion variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
   visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
@@ -68,12 +73,11 @@ export default function Home() {
     };
   }, [showSplash]);
 
-  // GSAP Animations
   useEffect(() => {
     if (showSplash || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Divider wave animation
+      // Wave path animation
       gsap.to(".wave-path", {
         x: -100,
         duration: 3,
@@ -81,12 +85,12 @@ export default function Home() {
         ease: "linear",
       });
 
-      // Stats counter animation
+      // Stats count up
       const stats = document.querySelectorAll(".stat-number");
       stats.forEach((stat) => {
         ScrollTrigger.create({
           trigger: stat,
-          start: "top 80%",
+          start: "top 85%",
           onEnter: () => {
             gsap.fromTo(stat, { innerHTML: 0, filter: "blur(10px)" }, { 
               innerHTML: stat.dataset.val, 
@@ -112,9 +116,9 @@ export default function Home() {
       
       {showSplash && <PageLoadSequence onFinish={() => setShowSplash(false)} />}
       
-      {/* Scroll Progress Bar */}
+      {/* Top Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-teal-400 to-teal-700 z-[9000] origin-left"
+        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-teal-400 via-emerald-500 to-teal-700 z-[9000] origin-left shadow-[0_0_10px_#5eead4]"
         style={{ width: progressBarWidth }}
       />
 
@@ -125,6 +129,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 min-h-[90vh] flex items-center justify-center border-b border-black/5 overflow-hidden">
+        <HeroSpotlight />
         <Hero3D />
         
         <div className="max-w-3xl mx-auto px-6 relative z-10 text-center">
@@ -134,18 +139,16 @@ export default function Home() {
             variants={staggerContainer}
             className="flex flex-col items-center gap-6"
           >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(45,212,191,0.15)] transition-shadow">
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 bg-white/70 backdrop-blur-md border border-teal-200/50 px-4 py-1.5 rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(45,212,191,0.2)] transition-all">
               <Shield size={14} className="text-teal-700" />
-              <span className="text-[11px] font-semibold text-teal-700 uppercase tracking-widest">100% Private & Anonymous</span>
+              <span className="text-[11px] font-semibold tracking-widest uppercase">
+                <ShinyText>100% Private & Anonymous</ShinyText>
+              </span>
             </motion.div>
             
-            <motion.h1 className="text-4xl sm:text-5xl md:text-7xl font-medium tracking-tight text-black text-balance leading-[1.1]">
-              {["Your", "Private"].map((word, i) => (
-                <motion.span key={i} className="inline-block mr-3" variants={fadeInUp}>{word}</motion.span>
-              ))}
-              <br />
-              <motion.span className="text-teal-700 font-serif italic inline-block" variants={fadeInUp}>AI Companion</motion.span>
-            </motion.h1>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-medium tracking-tight text-black text-balance leading-[1.1]">
+              <SplitText text="Your Private AI Companion" className="justify-center" />
+            </h1>
             
             <motion.p variants={fadeInUp} className="text-lg text-neutral-600 leading-relaxed max-w-lg mx-auto font-serif">
               Mansitra is a judgment-free space designed to help you navigate life's challenges. Track your mood, express your feelings, and play calming mini-games.
@@ -170,7 +173,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Animated SVG Wave Divider */}
+      {/* Wave Divider */}
       <div className="w-full h-12 overflow-hidden bg-white/50 backdrop-blur-sm relative z-10 border-b border-black/5">
         <svg viewBox="0 0 1000 50" className="absolute w-[200%] h-full opacity-30">
           <path className="wave-path" d="M0,25 Q125,50 250,25 T500,25 T750,25 T1000,25" fill="none" stroke="url(#wave-gradient)" strokeWidth="2" />
@@ -224,10 +227,15 @@ export default function Home() {
             <motion.p variants={fadeInUp} className="text-neutral-600 text-xl leading-relaxed mb-6 font-serif">
               Mansitra (मनसित्र) combines the Sanskrit words <strong>Mana</strong> (mind) and <strong>Mitra</strong> (friend). It is a trustworthy, non-judgmental friend for every student navigating the pressures of academic life in India.
             </motion.p>
-            <motion.p variants={fadeInUp} className="text-neutral-500 text-base leading-relaxed">
+            <motion.p variants={fadeInUp} className="text-neutral-500 text-base leading-relaxed mb-12">
               Built at the intersection of AI engineering, psychology, and human-centered design, Mansitra is a secure, privacy-first emotional wellness platform that uses real-time AI conversation and culturally-aware support to help students manage stress and anxiety.
             </motion.p>
           </motion.div>
+
+          {/* Interactive Chat Demo Component */}
+          <div className="mb-20">
+            <InteractiveChatDemo />
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
@@ -243,7 +251,8 @@ export default function Home() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
               >
-                <GlassCard className="h-full p-8 group">
+                <GlassCard className="h-full p-8 group relative overflow-hidden">
+                  <BorderBeam duration={8 + i * 2} />
                   <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-teal-100 transition-all duration-300">
                     <feature.icon size={22} />
                   </div>
@@ -307,43 +316,36 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="relative">
-            {/* Connecting line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-teal-200 to-transparent transform md:-translate-x-1/2" />
-
-            {[
-              { num: "01", title: "User Research & Personas", desc: "Studied the emotional journeys of Indian students — IIT/NIT aspirants, college-goers, and placement-year stress. Identified trust barriers and privacy expectations." },
-              { num: "02", title: "Tone & Visual Palette", desc: "Selected calm sage greens, soft warm gradients, and clean typography. The interface minimizes cognitive load for emotionally exhausted users." },
-              { num: "03", title: "Core AI Conversation", desc: "Engineered strict system prompts incorporating Cognitive Behavioral Therapy (CBT) principles, active listening, and deep sensitivity to Indian academic pressures." },
-              { num: "04", title: "Privacy Architecture", desc: "Implemented zero-knowledge encrypted database triggers, session-only volatile memory, and a layout that allows completely anonymous, login-free usage." }
-            ].map((step, idx) => (
-              <motion.div 
-                key={idx} 
-                initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                className={`relative flex items-center mb-16 md:mb-24 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-              >
-                {/* Node */}
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-teal-500 rounded-full transform -translate-x-1/2 shadow-[0_0_15px_3px_rgba(20,184,166,0.5)] z-10 ring-4 ring-white" />
-                
-                <div className={`ml-20 md:ml-0 md:w-1/2 ${idx % 2 === 0 ? 'md:pl-16' : 'md:pr-16 text-left md:text-right'}`}>
+          {/* Aceternity Tracing Beam Wrapper */}
+          <TracingBeam>
+            <div className="space-y-16 pl-6 md:pl-10">
+              {[
+                { num: "01", title: "User Research & Personas", desc: "Studied the emotional journeys of Indian students — IIT/NIT aspirants, college-goers, and placement-year stress. Identified trust barriers and privacy expectations." },
+                { num: "02", title: "Tone & Visual Palette", desc: "Selected calm sage greens, soft warm gradients, and clean typography. The interface minimizes cognitive load for emotionally exhausted users." },
+                { num: "03", title: "Core AI Conversation", desc: "Engineered strict system prompts incorporating Cognitive Behavioral Therapy (CBT) principles, active listening, and deep sensitivity to Indian academic pressures." },
+                { num: "04", title: "Privacy Architecture", desc: "Implemented zero-knowledge encrypted database triggers, session-only volatile memory, and a layout that allows completely anonymous, login-free usage." }
+              ].map((step, idx) => (
+                <motion.div 
+                  key={idx} 
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                >
                   <GlassCard className="p-8 group hover:scale-[1.02] transition-transform">
-                    <span className="font-serif text-4xl text-teal-100 group-hover:text-teal-200 transition-colors italic block mb-4">{step.num}</span>
+                    <span className="font-serif text-4xl text-teal-200 group-hover:text-teal-400 transition-colors italic block mb-4">{step.num}</span>
                     <h4 className="text-lg font-semibold text-black mb-3">{step.title}</h4>
                     <p className="text-neutral-500 text-sm leading-relaxed">{step.desc}</p>
                   </GlassCard>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          </TracingBeam>
         </div>
       </section>
 
       {/* Impact & Future Vision */}
       <section className="py-32 bg-[#0B0F19] text-white relative overflow-hidden z-10 rounded-[40px] mx-4 md:mx-10 my-10 shadow-2xl">
-        {/* Simple Stars Background (Replacing heavy Galaxy to balance performance) */}
         <div className="absolute inset-0 opacity-50" style={{ background: "radial-gradient(circle at center, #1e293b 0%, #0B0F19 70%)" }}>
           {[...Array(50)].map((_, i) => {
             const r1 = Math.sin((i + 1) * 12.9898) * 43758.5453;
@@ -468,6 +470,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ECG AI Heartbeat Wave */}
+      <HeartbeatWave />
 
       {/* Footer */}
       <footer className="bg-white text-neutral-500 pt-24 pb-8 border-t border-black/5 text-sm relative z-10">
