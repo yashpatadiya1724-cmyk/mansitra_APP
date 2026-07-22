@@ -42,6 +42,8 @@ import PrivacyFlowAnimation from "../components/landing/PrivacyFlowAnimation";
 import LanguageSpheres from "../components/landing/LanguageSpheres";
 import VoiceCompanionVisualizer from "../components/landing/VoiceCompanionVisualizer";
 import HopeGarden from "../components/landing/HopeGarden";
+import MoodTrackerPreview from "../components/landing/MoodTrackerPreview";
+import MiniGamesPreview from "../components/landing/MiniGamesPreview";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -256,6 +258,12 @@ export default function Home() {
             {/* Interactive Chat Demo Component */}
             <div className="mb-20">
               <InteractiveChatDemo />
+            </div>
+
+            {/* Interactive Mood Tracker & Mini Games Previews */}
+            <div className="grid md:grid-cols-2 gap-6 my-12">
+              <MoodTrackerPreview />
+              <MiniGamesPreview />
             </div>
 
             {/* Signature Animation 4: Hope Garden */}
