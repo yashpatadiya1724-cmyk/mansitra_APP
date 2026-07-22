@@ -2,103 +2,99 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useEmotionTheme } from "@/context/ThemeContext";
 
 export default function MultiLayerBackground() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  const { theme } = useEmotionTheme() || { theme: "light" };
+  const isDark = theme === "dark";
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden bg-[#faf9f8] pointer-events-none">
-      {/* Layer 1: Very slow radial gradient */}
-      <motion.div
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-        }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 opacity-40"
-        style={{
-          background: "radial-gradient(circle at center, #ccfbf1 0%, transparent 60%)",
-          backgroundSize: "200% 200%",
-        }}
-      />
+    <div className={`absolute inset-0 z-0 overflow-hidden pointer-events-none transition-colors duration-700 ${
+      isDark ? "bg-[#0d131f]" : "bg-[#faf9f8]"
+    }`}>
+      {/* Light Mode: Warm Morning Sunlight & Soft Cream Aura */}
+      {!isDark && (
+        <>
+          <motion.div
+            animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 opacity-40"
+            style={{
+              background: "radial-gradient(circle at center, #ccfbf1 0%, transparent 60%)",
+              backgroundSize: "200% 200%",
+            }}
+          />
+          {/* Floating warm dust particles */}
+          <div className="absolute inset-0">
+            {[...Array(20)].map((_, i) => {
+              const r1 = Math.sin((i + 1) * 12.9898) * 43758.5453;
+              const left = ((r1 - Math.floor(r1)) * 100).toFixed(2);
+              const top = ((r1 * 2 - Math.floor(r1 * 2)) * 100).toFixed(2);
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute w-1.5 h-1.5 bg-amber-400/40 rounded-full"
+                  style={{ left: `${left}%`, top: `${top}%` }}
+                  animate={{ y: [0, -25, 0], opacity: [0.1, 0.6, 0.1] }}
+                  transition={{ duration: 6 + (i % 4), repeat: Infinity, delay: i * 0.2 }}
+                />
+              );
+            })}
+          </div>
+        </>
+      )}
 
-      {/* Layer 2: Floating blurred blobs */}
-      <motion.div
-        animate={{
-          x: [0, 50, -50, 0],
-          y: [0, -50, 50, 0],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/4 w-[40vw] h-[40vw] bg-teal-200 rounded-full mix-blend-multiply filter blur-[100px] opacity-[0.04]"
-      />
-      <motion.div
-        animate={{
-          x: [0, -60, 60, 0],
-          y: [0, 60, -60, 0],
-        }}
-        transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-1/4 right-1/4 w-[50vw] h-[50vw] bg-rose-200 rounded-full mix-blend-multiply filter blur-[120px] opacity-[0.03]"
-      />
+      {/* Dark Mode: Deep Space Aurora & Glowing Star Constellations */}
+      {isDark && (
+        <>
+          {/* Aurora Light Waves */}
+          <motion.div
+            animate={{
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-0"
+            style={{
+              background: "radial-gradient(ellipse at top, #0f766e 0%, #030712 70%)",
+              backgroundSize: "200% 200%",
+            }}
+          />
 
-      {/* Layer 3: Tiny glowing particles */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => {
-          const r1 = Math.sin((i + 1) * 12.9898) * 43758.5453;
-          const r2 = Math.sin((i + 20) * 78.233) * 43758.5453;
-          const r3 = Math.sin((i + 40) * 45.164) * 43758.5453;
-          const left = ((r1 - Math.floor(r1)) * 100).toFixed(2);
-          const top = ((r2 - Math.floor(r2)) * 100).toFixed(2);
-          const duration = 5 + (r3 - Math.floor(r3)) * 5;
-          const delay = (r1 - Math.floor(r1)) * 3;
+          {/* Star Constellation Grid */}
+          <div className="absolute inset-0">
+            {[...Array(40)].map((_, i) => {
+              const r1 = Math.sin((i + 1) * 12.9898) * 43758.5453;
+              const r2 = Math.sin((i + 40) * 78.233) * 43758.5453;
+              const left = ((r1 - Math.floor(r1)) * 100).toFixed(2);
+              const top = ((r2 - Math.floor(r2)) * 100).toFixed(2);
 
-          return (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-teal-400 rounded-full"
-              style={{
-                left: `${left}%`,
-                top: `${top}%`,
-                boxShadow: "0 0 10px 2px rgba(45, 212, 191, 0.4)",
-              }}
-              animate={{
-                y: [0, -30, 0],
-                opacity: [0, 0.5, 0],
-                scale: [0.5, 1.5, 0.5],
-              }}
-              transition={{
-                duration: duration,
-                repeat: Infinity,
-                delay: delay,
-                ease: "easeInOut",
-              }}
-            />
-          );
-        })}
-      </div>
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-teal-300 rounded-full shadow-[0_0_8px_#5eead4]"
+                  style={{ left: `${left}%`, top: `${top}%` }}
+                  animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.4, 0.8] }}
+                  transition={{ duration: 3 + (i % 4), repeat: Infinity, delay: i * 0.1 }}
+                />
+              );
+            })}
+          </div>
 
-      {/* Layer 4: Animated light rays */}
-      <motion.div
-        className="absolute inset-0 mix-blend-overlay opacity-30"
-        style={{
-          background: "conic-gradient(from 0deg at 50% -20%, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%)",
-        }}
-        animate={{ rotate: [-2, 2, -2] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
+          {/* Futuristic Grid Overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.05]"
+            style={{
+              backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)",
+              backgroundSize: "60px 60px",
+            }}
+          />
+        </>
+      )}
 
-      {/* Layer 5: Noise texture */}
+      {/* Shared Noise Layer */}
       <div 
-        className="absolute inset-0 opacity-[0.02] mix-blend-multiply"
+        className="absolute inset-0 opacity-[0.02] mix-blend-overlay"
         style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }}
       />
     </div>
