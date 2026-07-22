@@ -29,9 +29,9 @@ export default function AboutPage() {
     {
       name: "Utkarsh Barad", role: "Project Mentor & Main Advisor", img: "/utkarsh.jpg",
       quote: "Guiding Mansitra has been an inspiring journey. Mental health resources need to be accessible, completely private, and culturally relevant.",
-      linkedin: "https://linkedin.com/",
+      linkedin: "https://www.linkedin.com/in/utkarsh-barad/",
       github: "https://github.com/utkarshbhai007",
-      instagram: "https://instagram.com/"
+      instagram: "https://www.instagram.com/utkarsh_955?igsh=ajVja2ZqbnlraTVj"
     },
     {
       name: "Harshil Vaghela", role: "Social Media Executive", img: "/harshil.jpg",
@@ -43,9 +43,9 @@ export default function AboutPage() {
     {
       name: "Abhishek Sisodiya", role: "Psychology & Research Lead", img: "/abhishek.jpg",
       quote: "Understanding the human mind is the first step towards healing it. We strive to make Mansitra a true companion that empathizes and supports students.",
-      linkedin: "https://linkedin.com/",
-      github: "https://github.com/",
-      instagram: "https://instagram.com/"
+      linkedin: "https://www.linkedin.com/in/abhishek-sisodiya-405911371/",
+      github: "https://github.com/Abhishek-Sisodiya-Dop",
+      instagram: "https://www.instagram.com/abhishek.core.404?utm_source=qr&igsh=ZnJ0cDV1NG5tNjIx"
     }
   ];
 
@@ -89,7 +89,7 @@ export default function AboutPage() {
             
             <div className="flex items-center gap-3">
               <a 
-                href="https://linkedin.com/" 
+                href="https://www.linkedin.com/in/yash-patadiya-973161272/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="inline-flex items-center gap-2 border border-black/10 hover:border-black hover:bg-black hover:text-white px-5 py-3 rounded-full font-medium transition-all w-max text-sm"
@@ -106,7 +106,7 @@ export default function AboutPage() {
                 <GithubIcon size={18} />
               </a>
               <a 
-                href="https://instagram.com/" 
+                href="https://www.instagram.com/yash_patadiya_1724?igsh=bjJzZTVrZzBxcTh5" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-11 h-11 rounded-full border border-black/10 hover:border-black hover:bg-black hover:text-white text-neutral-600 flex items-center justify-center transition-all shrink-0"

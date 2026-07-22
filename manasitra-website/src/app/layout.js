@@ -2,6 +2,8 @@ import { Quicksand } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { I18nProvider } from "./providers/i18n-provider";
+import SmoothScroll from "../components/animations/SmoothScroll";
+import CustomCursor from "../components/animations/CustomCursor";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -145,7 +147,10 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <I18nProvider>
-          {children}
+          <SmoothScroll>
+            <CustomCursor />
+            {children}
+          </SmoothScroll>
         </I18nProvider>
       </body>
     </html>
