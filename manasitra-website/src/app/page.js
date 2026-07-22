@@ -27,6 +27,7 @@ import Navbar from "@/shared/components/navbar";
 import PageLoadSequence from "../components/animations/PageLoadSequence";
 import MultiLayerBackground from "../components/landing/MultiLayerBackground";
 import EmotionAura from "../components/animations/EmotionAura";
+import MemoryStream from "../components/landing/MemoryStream";
 import Hero3D from "../components/landing/Hero3D";
 import HeroSpotlight from "../components/landing/HeroSpotlight";
 import MagneticButton from "../components/ui/MagneticButton";
@@ -44,6 +45,7 @@ import VoiceCompanionVisualizer from "../components/landing/VoiceCompanionVisual
 import HopeGarden from "../components/landing/HopeGarden";
 import MoodTrackerPreview from "../components/landing/MoodTrackerPreview";
 import MiniGamesPreview from "../components/landing/MiniGamesPreview";
+import InteractiveJourney from "../components/landing/InteractiveJourney";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -145,8 +147,9 @@ export default function Home() {
           style={{ width: progressBarWidth }}
         />
 
-        {/* Global Background */}
+        {/* Global Background & Memory Stream */}
         <MultiLayerBackground />
+        <MemoryStream />
         
         <Navbar />
 
@@ -265,6 +268,9 @@ export default function Home() {
               <MoodTrackerPreview />
               <MiniGamesPreview />
             </div>
+
+            {/* Interactive Healing Pathway Journey */}
+            <InteractiveJourney />
 
             {/* Signature Animation 4: Hope Garden */}
             <HopeGarden />
