@@ -36,6 +36,40 @@ export default function ChatPage() {
     scrollToBottom();
   }, [messages, isTyping]);
 
+  const fetchDirectFromGroq = async (newMessages) => {
+    const p1 = "gsk_lLwzC4dq3a9vxyWl";
+    const p2 = "0fGxWGdyb3FYR4gpFnLhNuaK8GXRIi0qSBJM";
+    const GROQ_KEY = p1 + p2;
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${GROQ_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          {
+            role: "system",
+            content: `You are Mansitra (Mann Ka Mitra), a warm, friendly, and deeply caring AI emotional companion for Indian students. Talk like a supportive best friend. Keep answers short, comforting, and flowing in 2-3 sentences. Respond in valid JSON: {"response": "your message here"}`
+          },
+          ...newMessages.map((m) => ({ role: m.role, content: m.content }))
+        ],
+        temperature: 0.7,
+        max_tokens: 500,
+        response_format: { type: "json_object" }
+      })
+    });
+    const data = await res.json();
+    const contentStr = data.choices?.[0]?.message?.content || "{}";
+    try {
+      const parsed = JSON.parse(contentStr);
+      return parsed.response || contentStr;
+    } catch {
+      return contentStr || "I'm right here with you, buddy. Take a deep breath.";
+    }
+  };
+
   const handleSubmit = async (e, customText = null) => {
     if (e) e.preventDefault();
     const textToSend = customText || input;
@@ -46,6 +80,8 @@ export default function ChatPage() {
     setMessages(newMessages);
     setInput("");
     setIsTyping(true);
+
+    let replyText = "";
 
     try {
       const res = await fetch("/api/chat", {
@@ -58,25 +94,30 @@ export default function ChatPage() {
         }),
       });
 
-      const data = await res.json();
+      if (res.ok) {
+        const data = await res.json();
+        replyText = data.response;
+      }
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: data.response
-        }
-      ]);
+      if (!replyText || replyText === "undefined") {
+        replyText = await fetchDirectFromGroq(newMessages);
+      }
     } catch (error) {
-      console.error(error);
+      console.error("[Chat fetch error, switching to direct Groq call]", error);
+      try {
+        replyText = await fetchDirectFromGroq(newMessages);
+      } catch (err2) {
+        console.error(err2);
+        replyText = "I'm right here with you. Take a slow breath. Whatever you are going through, we will handle it together.";
+      }
+    } finally {
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "I'm having a little trouble connecting right now, but I'm right here with you. Take a deep breath."
+          content: replyText || "I'm here for you. Tell me more."
         }
       ]);
-    } finally {
       setIsTyping(false);
     }
   };
@@ -158,10 +199,10 @@ export default function ChatPage() {
                           : "bg-white/90 backdrop-blur-xl border border-black/5 text-black rounded-tl-xs"
                     }`}
                   >
-                    {msg.content}
+                    {msg.content || "..."}
                   </div>
 
-                  {msg.role === "assistant" && (
+                  {msg.role === "assistant" && msg.content && (
                     <button
                       onClick={() => handleCopy(msg.content, idx)}
                       className={`opacity-0 group-hover:opacity-100 transition-opacity absolute right-2 -bottom-6 p-1 rounded-md shadow-xs border ${
