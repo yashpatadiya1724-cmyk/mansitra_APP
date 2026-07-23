@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, Paperclip, Mic, User, Sparkles, Copy, Check, ShieldCheck } from "lucide-react";
+import { Send, User, Sparkles, Copy, Check, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { sendChatMessage } from "@/shared/utils/groq-service";
-import { useTranslation } from "react-i18next";
 import BorderBeam from "@/components/ui/BorderBeam";
+import { useEmotionTheme } from "@/context/ThemeContext";
 
 export default function ChatPage() {
-  const { i18n } = useTranslation();
+  const { theme } = useEmotionTheme() || { theme: "light" };
+  const isDark = theme === "dark";
+
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -47,17 +48,23 @@ export default function ChatPage() {
     setIsTyping(true);
 
     try {
-      const result = await sendChatMessage({
-        messages: newMessages,
-        language: i18n.language || 'en',
-        responseMode: 'general',
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: newMessages,
+          language: "en",
+          responseMode: "general",
+        }),
       });
-      
+
+      const data = await res.json();
+
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: result.response
+          content: data.response
         }
       ]);
     } catch (error) {
@@ -86,19 +93,23 @@ export default function ChatPage() {
       <div className="flex-1 overflow-y-auto pb-40 pt-6 px-4">
         <div className="max-w-3xl mx-auto flex flex-col gap-6">
 
-          {/* Welcome Card if only initial message */}
+          {/* Welcome Card */}
           {messages.length === 1 && (
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white/80 backdrop-blur-2xl border border-black/5 p-6 rounded-3xl shadow-xl text-center my-4 relative overflow-hidden"
+              className={`backdrop-blur-2xl p-6 rounded-3xl shadow-xl text-center my-4 relative overflow-hidden transition-all duration-700 ${
+                isDark
+                  ? "bg-white/[0.04] border border-white/[0.08]"
+                  : "bg-white/80 border border-black/5"
+              }`}
             >
-              <BorderBeam size={200} duration={8} />
+              <BorderBeam size={200} duration={8} colorFrom={isDark ? "#10b981" : "#5eead4"} colorTo={isDark ? "#6366f1" : "#0d9488"} />
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-teal-700 to-emerald-500 text-white flex items-center justify-center mx-auto mb-3 shadow-md">
                 <Sparkles size={22} className="animate-spin" style={{ animationDuration: "10s" }} />
               </div>
-              <h2 className="text-xl font-bold text-black mb-1">Your Safe & Anonymous Space</h2>
-              <p className="text-xs text-neutral-500 font-serif max-w-md mx-auto mb-6">
+              <h2 className={`text-xl font-bold mb-1 transition-colors duration-700 ${isDark ? "text-white" : "text-black"}`}>Your Safe & Anonymous Space</h2>
+              <p className={`text-xs font-serif max-w-md mx-auto mb-6 transition-colors duration-700 ${isDark ? "text-neutral-400" : "text-neutral-500"}`}>
                 Express yourself in Hindi, English, Gujarati, or 10+ regional Indian languages. Zero data logs or tracking.
               </p>
 
@@ -108,9 +119,13 @@ export default function ChatPage() {
                   <button
                     key={pIdx}
                     onClick={() => handleSubmit(null, prompt)}
-                    className="text-xs text-neutral-700 bg-neutral-100/80 hover:bg-teal-700 hover:text-white px-3.5 py-2 rounded-full border border-black/5 transition-all text-left"
+                    className={`text-xs px-3.5 py-2 rounded-full border transition-all text-left ${
+                      isDark
+                        ? "text-neutral-300 bg-white/[0.04] border-white/10 hover:bg-emerald-600 hover:text-white hover:border-emerald-500"
+                        : "text-neutral-700 bg-neutral-100/80 border-black/5 hover:bg-teal-700 hover:text-white"
+                    }`}
                   >
-                    "{prompt}"
+                    &quot;{prompt}&quot;
                   </button>
                 ))}
               </div>
@@ -133,13 +148,15 @@ export default function ChatPage() {
                 
                 <div className="relative group max-w-[85%] sm:max-w-[75%]">
                   <div 
-                    className={`
-                      px-4 py-3.5 text-sm leading-relaxed rounded-2xl shadow-xs
-                      ${msg.role === "user" 
-                        ? "bg-black text-white rounded-tr-xs" 
-                        : "bg-white/90 backdrop-blur-xl border border-black/5 text-black rounded-tl-xs"
-                      }
-                    `}
+                    className={`px-4 py-3.5 text-sm leading-relaxed rounded-2xl shadow-xs transition-all duration-700 ${
+                      msg.role === "user" 
+                        ? isDark
+                          ? "bg-emerald-600 text-white rounded-tr-xs"
+                          : "bg-black text-white rounded-tr-xs"
+                        : isDark
+                          ? "bg-white/[0.06] backdrop-blur-xl border border-white/10 text-neutral-200 rounded-tl-xs"
+                          : "bg-white/90 backdrop-blur-xl border border-black/5 text-black rounded-tl-xs"
+                    }`}
                   >
                     {msg.content}
                   </div>
@@ -147,7 +164,11 @@ export default function ChatPage() {
                   {msg.role === "assistant" && (
                     <button
                       onClick={() => handleCopy(msg.content, idx)}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity absolute right-2 -bottom-6 text-neutral-400 hover:text-black p-1 bg-white rounded-md shadow-xs border border-black/5"
+                      className={`opacity-0 group-hover:opacity-100 transition-opacity absolute right-2 -bottom-6 p-1 rounded-md shadow-xs border ${
+                        isDark
+                          ? "text-neutral-500 hover:text-emerald-400 bg-[#141A22] border-white/10"
+                          : "text-neutral-400 hover:text-black bg-white border-black/5"
+                      }`}
                     >
                       {copiedIdx === idx ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
                     </button>
@@ -155,7 +176,9 @@ export default function ChatPage() {
                 </div>
 
                 {msg.role === "user" && (
-                  <div className="w-8 h-8 rounded-2xl bg-neutral-200 text-neutral-600 flex items-center justify-center shrink-0 mt-1">
+                  <div className={`w-8 h-8 rounded-2xl flex items-center justify-center shrink-0 mt-1 transition-colors duration-700 ${
+                    isDark ? "bg-white/10 text-neutral-300" : "bg-neutral-200 text-neutral-600"
+                  }`}>
                     <User size={16} />
                   </div>
                 )}
@@ -172,9 +195,13 @@ export default function ChatPage() {
               <div className="w-8 h-8 rounded-2xl bg-gradient-to-tr from-teal-700 to-emerald-500 text-white flex items-center justify-center shrink-0 mt-1 shadow-md">
                 <span className="text-xs font-bold">M</span>
               </div>
-              <div className="bg-white/90 backdrop-blur-xl border border-black/5 px-4 py-3 rounded-2xl flex items-center gap-2 shadow-xs">
-                <Sparkles size={14} className="text-teal-700 animate-spin" />
-                <span className="text-xs text-neutral-500 font-serif">Mansitra is thinking...</span>
+              <div className={`backdrop-blur-xl px-4 py-3 rounded-2xl flex items-center gap-2 shadow-xs transition-all duration-700 ${
+                isDark
+                  ? "bg-white/[0.06] border border-white/10"
+                  : "bg-white/90 border border-black/5"
+              }`}>
+                <Sparkles size={14} className={`animate-spin ${isDark ? "text-emerald-400" : "text-teal-700"}`} />
+                <span className={`text-xs font-serif ${isDark ? "text-neutral-400" : "text-neutral-500"}`}>Mansitra is thinking...</span>
               </div>
             </motion.div>
           )}
@@ -183,11 +210,19 @@ export default function ChatPage() {
       </div>
 
       {/* Floating Input Area */}
-      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#faf9f8] via-[#faf9f8]/90 to-transparent pt-10 pb-6 px-4 z-10">
+      <div className={`absolute bottom-0 left-0 w-full pt-10 pb-6 px-4 z-10 transition-all duration-700 ${
+        isDark
+          ? "bg-gradient-to-t from-[#0d131f] via-[#0d131f]/90 to-transparent"
+          : "bg-gradient-to-t from-[#faf9f8] via-[#faf9f8]/90 to-transparent"
+      }`}>
         <div className="max-w-3xl mx-auto">
           <form 
             onSubmit={(e) => handleSubmit(e)}
-            className="bg-white/90 backdrop-blur-2xl border border-black/10 shadow-2xl rounded-3xl overflow-hidden focus-within:ring-2 focus-within:ring-teal-600/40 transition-all flex flex-col"
+            className={`backdrop-blur-2xl border shadow-2xl rounded-3xl overflow-hidden transition-all flex flex-col ${
+              isDark
+                ? "bg-white/[0.04] border-white/10 focus-within:ring-2 focus-within:ring-emerald-500/40"
+                : "bg-white/90 border-black/10 focus-within:ring-2 focus-within:ring-teal-600/40"
+            }`}
           >
             <textarea
               value={input}
@@ -199,20 +234,32 @@ export default function ChatPage() {
                 }
               }}
               placeholder="Talk to Mansitra freely... (Hindi, English, Gujarati, etc.)"
-              className="w-full max-h-48 min-h-[56px] resize-none bg-transparent px-5 py-4 text-sm outline-none text-black placeholder:text-neutral-400 font-sans"
+              className={`w-full max-h-48 min-h-[56px] resize-none bg-transparent px-5 py-4 text-sm outline-none font-sans transition-colors duration-700 ${
+                isDark ? "text-white placeholder:text-neutral-500" : "text-black placeholder:text-neutral-400"
+              }`}
               rows={1}
             />
-            <div className="flex items-center justify-between px-4 pb-3 pt-1 border-t border-black/5">
+            <div className={`flex items-center justify-between px-4 pb-3 pt-1 border-t transition-colors duration-700 ${
+              isDark ? "border-white/5" : "border-black/5"
+            }`}>
               <div className="flex items-center gap-1">
-                <div className="flex items-center gap-1.5 text-[11px] text-teal-800 font-semibold px-2 py-1 bg-teal-50 rounded-full border border-teal-200/50">
-                  <ShieldCheck size={12} className="text-teal-700" />
+                <div className={`flex items-center gap-1.5 text-[11px] font-semibold px-2 py-1 rounded-full border transition-all duration-700 ${
+                  isDark
+                    ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+                    : "text-teal-800 bg-teal-50 border-teal-200/50"
+                }`}>
+                  <ShieldCheck size={12} className={isDark ? "text-emerald-400" : "text-teal-700"} />
                   <span>Anonymous Session</span>
                 </div>
               </div>
               <button 
                 type="submit"
                 disabled={!input.trim() || isTyping}
-                className="p-2.5 bg-teal-800 text-white rounded-2xl hover:bg-teal-900 disabled:bg-neutral-200 disabled:text-neutral-400 transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs font-semibold px-4"
+                className={`p-2.5 rounded-2xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs font-semibold px-4 ${
+                  isDark
+                    ? "bg-emerald-600 text-white hover:bg-emerald-500 disabled:bg-white/5 disabled:text-neutral-600"
+                    : "bg-teal-800 text-white hover:bg-teal-900 disabled:bg-neutral-200 disabled:text-neutral-400"
+                }`}
               >
                 <span>Send</span>
                 <Send size={14} />
@@ -220,7 +267,7 @@ export default function ChatPage() {
             </div>
           </form>
           <div className="text-center mt-2.5">
-            <p className="text-[10px] text-neutral-400 font-medium">
+            <p className={`text-[10px] font-medium transition-colors duration-700 ${isDark ? "text-neutral-600" : "text-neutral-400"}`}>
               Mansitra AI is an empathetic emotional support companion, not a medical therapist.
             </p>
           </div>
