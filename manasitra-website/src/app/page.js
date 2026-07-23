@@ -20,7 +20,8 @@ import {
   UserCheck,
   Smartphone,
   BarChart3,
-  AlertCircle
+  AlertCircle,
+  ShieldCheck
 } from "lucide-react";
 
 import Navbar from "@/shared/components/navbar";
@@ -672,11 +673,13 @@ export default function Home() {
 
         {/* ═══════════════════════════════════════════════════════════ */}
         {/* CTA + PHONE MOCKUP */}
-        {/* Light: White bg, clean CTA, white phone */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* CTA + PHONE MOCKUP */}
+        {/* Light: Soft warm cream, sage green badges, white phone */}
         {/* Dark: Aurora dark bg, emerald glow CTA, black phone */}
         {/* ═══════════════════════════════════════════════════════════ */}
         <section className={`py-32 relative z-10 overflow-hidden transition-all duration-700 ${
-          isDark ? "bg-[#0a0f1a]" : "bg-white"
+          isDark ? "bg-[#0a0f1a]" : "bg-gradient-to-b from-[#faf9f8] to-white"
         }`}>
           {/* Aurora background — dark mode only */}
           {isDark && (
@@ -695,27 +698,67 @@ export default function Home() {
 
           <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-16 relative z-10">
             <div className="flex-1 text-center lg:text-left">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full mb-6 border transition-all duration-700 ${
+                  isDark ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-300" : "bg-teal-50 border-teal-200/60 text-teal-800"
+                }`}
+              >
+                <Sparkles size={13} className={`animate-spin ${isDark ? "text-emerald-400" : "text-teal-700"}`} style={{ animationDuration: "8s" }} />
+                <span className="text-[10px] font-bold uppercase tracking-widest">05 — Take Mansitra Anywhere</span>
+              </motion.div>
+
               <motion.h2 
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className={`text-5xl font-medium tracking-tight mb-6 transition-colors duration-700 ${
+                className={`text-5xl md:text-6xl font-medium tracking-tight mb-6 transition-colors duration-700 ${
                   isDark ? "text-white" : "text-black"
                 }`}
               >
                 Ready to find your peace?
               </motion.h2>
+
               <motion.p 
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className={`text-xl mb-10 max-w-lg mx-auto lg:mx-0 font-serif transition-colors duration-700 ${
-                  isDark ? "text-neutral-400" : "text-neutral-500"
+                className={`text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0 font-serif leading-relaxed transition-colors duration-700 ${
+                  isDark ? "text-neutral-400" : "text-neutral-600"
                 }`}
               >
-                Download the app today. Minimal login is used purely for active user counting. Just you and your private space.
+                Download the app today. Minimal login is used purely for active user counting. Just you and your private, judgment-free space.
               </motion.p>
+
+              {/* Feature Micro-Grid */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
+                className="grid grid-cols-2 gap-3 mb-10 max-w-md mx-auto lg:mx-0 text-left"
+              >
+                {[
+                  { title: "Zero Data Logging", desc: "Encrypted ephemeral memory" },
+                  { title: "Voice Companion", desc: "Hands-free regional voice" },
+                  { title: "10+ Languages", desc: "Hindi, Guj, Mar, Eng & more" },
+                  { title: "CBT Calming Suite", desc: "4-4-4 breathing & grounding" },
+                ].map((feat, idx) => (
+                  <div key={idx} className={`p-3 rounded-2xl border transition-colors duration-700 ${
+                    isDark ? "bg-white/[0.03] border-white/10" : "bg-white border-black/5 shadow-xs"
+                  }`}>
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <ShieldCheck size={13} className={isDark ? "text-emerald-400" : "text-teal-700"} />
+                      <span className={`text-xs font-bold ${isDark ? "text-white" : "text-black"}`}>{feat.title}</span>
+                    </div>
+                    <p className={`text-[10px] font-serif ${isDark ? "text-neutral-400" : "text-neutral-500"}`}>{feat.desc}</p>
+                  </div>
+                ))}
+              </motion.div>
+
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -726,8 +769,8 @@ export default function Home() {
                 <MagneticButton href="/mansitra.apk" download variant="teal">
                   <Download size={18} /> Download for Android
                 </MagneticButton>
-                <MagneticButton href="/mansitra.ipa" download variant="dark">
-                  <Download size={18} /> Download for iOS
+                <MagneticButton href="/chat" variant="dark">
+                  <Sparkles size={18} /> Open Web App Instantly
                 </MagneticButton>
               </motion.div>
             </div>
