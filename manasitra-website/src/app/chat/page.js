@@ -51,23 +51,16 @@ export default function ChatPage() {
         messages: [
           {
             role: "system",
-            content: `You are Mansitra (Mann Ka Mitra), a warm, friendly, and deeply caring AI emotional companion for Indian students. Talk like a supportive best friend. Keep answers short, comforting, and flowing in 2-3 sentences. Respond in valid JSON: {"response": "your message here"}`
+            content: `You are Mansitra (Mann Ka Mitra), a warm, friendly, and deeply caring AI emotional companion for Indian students. Talk like a supportive best friend. Keep answers short, comforting, and flowing in 2-3 sentences.`
           },
           ...newMessages.map((m) => ({ role: m.role, content: m.content }))
         ],
         temperature: 0.7,
         max_tokens: 500,
-        response_format: { type: "json_object" }
       })
     });
     const data = await res.json();
-    const contentStr = data.choices?.[0]?.message?.content || "{}";
-    try {
-      const parsed = JSON.parse(contentStr);
-      return parsed.response || contentStr;
-    } catch {
-      return contentStr || "I'm right here with you, buddy. Take a deep breath.";
-    }
+    return data.choices?.[0]?.message?.content || "I'm right here with you, buddy. Take a deep breath.";
   };
 
   const handleSubmit = async (e, customText = null) => {
