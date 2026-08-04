@@ -42,6 +42,11 @@ import MoodTrackerPreview from "../components/landing/MoodTrackerPreview";
 import MiniGamesPreview from "../components/landing/MiniGamesPreview";
 import InteractiveJourney from "../components/landing/InteractiveJourney";
 import { useEmotionTheme } from "@/context/ThemeContext";
+import TracingBeam from "../components/ui/TracingBeam";
+import GlassCard from "../components/ui/GlassCard";
+import PhoneMockup from "../components/landing/PhoneMockup";
+import HeartbeatWave from "../components/landing/HeartbeatWave";
+import Footer from "@/shared/components/footer";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
