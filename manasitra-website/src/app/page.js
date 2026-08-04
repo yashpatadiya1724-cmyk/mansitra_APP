@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -832,14 +833,20 @@ export default function Home() {
             <div>
               <h4 className={`font-semibold mb-6 text-base tracking-wide uppercase transition-colors duration-700 ${
                 isDark ? "text-white" : "text-black"
-              }`}>Features</h4>
+              }`}>Links</h4>
               <ul className="flex flex-col gap-3">
-                {["Anonymous AI Chat", "10+ Regional Languages", "Calming Mini-Games", "Self-Reflection Tools"].map((link) => (
-                  <li key={link}><a href="#" className={`transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:transition-all ${
+                {[
+                  { label: "About Us", href: "/about" },
+                  { label: "Features & Tools", href: "/services" },
+                  { label: "Contact Us", href: "/contact" },
+                  { label: "Privacy & Terms", href: "/privacy-policy" },
+                  { label: "Try Web App", href: "/chat" }
+                ].map((link) => (
+                  <li key={link.label}><Link href={link.href} className={`transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:transition-all ${
                     isDark
                       ? "hover:text-emerald-400 after:bg-emerald-400 hover:after:w-full"
                       : "hover:text-teal-700 after:bg-teal-700 hover:after:w-full"
-                  }`}>{link}</a></li>
+                  }`}>{link.label}</Link></li>
                 ))}
               </ul>
             </div>

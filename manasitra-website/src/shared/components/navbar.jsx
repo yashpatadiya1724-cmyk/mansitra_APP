@@ -60,6 +60,8 @@ export default function Navbar() {
           {[
             { href: "/", label: "Home" },
             { href: "/about", label: "About Us" },
+            { href: "/services", label: "Features & Tools" },
+            { href: "/contact", label: "Contact Us" },
             { href: "/chat", label: "Try Web App" },
           ].map((item) => {
             const active = isActive(item.href);
@@ -150,6 +152,28 @@ export default function Navbar() {
               }`}
             >
               About Us
+            </Link>
+            <Link
+              href="/services"
+              onClick={() => setIsOpen(false)}
+              className={`text-sm font-medium px-4 py-2.5 rounded-xl transition-colors ${
+                isActive("/services")
+                  ? isDark ? "text-emerald-300 bg-white/10" : "text-black bg-black/5"
+                  : isDark ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-black"
+              }`}
+            >
+              Features & Tools
+            </Link>
+            <Link
+              href="/contact"
+              onClick={() => setIsOpen(false)}
+              className={`text-sm font-medium px-4 py-2.5 rounded-xl transition-colors ${
+                isActive("/contact")
+                  ? isDark ? "text-emerald-300 bg-white/10" : "text-black bg-black/5"
+                  : isDark ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-black"
+              }`}
+            >
+              Contact Us
             </Link>
             <Link
               href="/chat"

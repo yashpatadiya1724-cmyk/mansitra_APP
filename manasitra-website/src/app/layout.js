@@ -125,6 +125,36 @@ export default function RootLayout({ children }) {
         "https://github.com/yashpatadiya1724-cmyk",
         "https://instagram.com/"
       ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "SiteNavigationElement",
+          "position": 1,
+          "name": "About Us",
+          "url": "https://mansitra.in/about"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 2,
+          "name": "Features & Tools",
+          "url": "https://mansitra.in/services"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 3,
+          "name": "Contact Us",
+          "url": "https://mansitra.in/contact"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 4,
+          "name": "Privacy Policy",
+          "url": "https://mansitra.in/privacy-policy"
+        }
+      ]
     }
   ];
 
