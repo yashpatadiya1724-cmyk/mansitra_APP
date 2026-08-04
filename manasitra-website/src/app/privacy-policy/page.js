@@ -3,6 +3,7 @@
 import Navbar from "@/shared/components/navbar";
 import MultiLayerBackground from "@/components/landing/MultiLayerBackground";
 import { useEmotionTheme } from "@/context/ThemeContext";
+import Footer from "@/shared/components/footer";
 
 export default function PrivacyPolicyPage() {
   const { theme } = useEmotionTheme() || { theme: "light" };
@@ -55,6 +56,7 @@ export default function PrivacyPolicyPage() {
           ))}
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

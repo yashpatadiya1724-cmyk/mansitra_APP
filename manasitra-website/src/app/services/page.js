@@ -16,6 +16,7 @@ import HopeGarden from "@/components/landing/HopeGarden";
 import LanguageSpheres from "@/components/landing/LanguageSpheres";
 import VoiceCompanionVisualizer from "@/components/landing/VoiceCompanionVisualizer";
 import PrivacyFlowAnimation from "@/components/landing/PrivacyFlowAnimation";
+import Footer from "@/shared/components/footer";
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -135,6 +136,7 @@ export default function ServicesPage() {
         </div>
 
       </section>
+      <Footer />
     </main>
   );
 }

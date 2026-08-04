@@ -8,6 +8,7 @@ import MultiLayerBackground from "@/components/landing/MultiLayerBackground";
 import HeartbeatWave from "@/components/landing/HeartbeatWave";
 import { Film, Sparkles } from "lucide-react";
 import { useEmotionTheme } from "@/context/ThemeContext";
+import Footer from "@/shared/components/footer";
 
 const GithubIcon = ({ size = 24, className = "", ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
@@ -284,6 +285,7 @@ export default function AboutPage() {
       </main>
 
       <HeartbeatWave />
+      <Footer />
     </div>
   );
 }
