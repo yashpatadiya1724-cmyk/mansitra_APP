@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import Navbar from "@/shared/components/navbar";
 import GlassCard from "@/components/ui/GlassCard";
-import BorderBeam from "@/components/ui/BorderBeam";
-import MultiLayerBackground from "@/components/landing/MultiLayerBackground";
+
+const MultiLayerBackground = dynamic(() => import("@/components/landing/MultiLayerBackground"), { ssr: false });
 import HeartbeatWave from "@/components/landing/HeartbeatWave";
 import { Film, Sparkles } from "lucide-react";
 import { useEmotionTheme } from "@/context/ThemeContext";
@@ -35,6 +37,7 @@ const InstagramIcon = ({ size = 24, className = "", ...props }) => (
 export default function AboutPage() {
   const { theme } = useEmotionTheme() || { theme: "light" };
   const isDark = theme === "dark";
+  const MotionImage = motion(Image);
 
   const team = [
     {
@@ -63,8 +66,8 @@ export default function AboutPage() {
   return (
     <div className={`min-h-screen font-sans pt-24 pb-16 relative transition-colors duration-700 ${
       isDark
-        ? "bg-[#0d131f] text-neutral-200 selection:bg-emerald-900 selection:text-emerald-200"
-        : "bg-[#faf9f8] text-[#333333] selection:bg-teal-100 selection:text-teal-900"
+        ? "text-neutral-200 selection:bg-emerald-900 selection:text-emerald-200"
+        : "text-[#333333] selection:bg-teal-100 selection:text-teal-900"
     }`}>
       <MultiLayerBackground />
       <Navbar />
@@ -83,17 +86,19 @@ export default function AboutPage() {
                 : "bg-white/80 border-black/5"
             }`}
           >
-            <BorderBeam duration={8} size={250} colorFrom={isDark ? "#10b981" : "#5eead4"} colorTo={isDark ? "#6366f1" : "#0d9488"} />
             {/* Left: Image */}
             <div className={`md:w-[40%] relative min-h-[350px] md:min-h-full overflow-hidden group ${
               isDark ? "bg-white/5" : "bg-neutral-100"
             }`}>
-              <motion.img 
+              <MotionImage 
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.6 }}
                 src="/creator.jpg" 
                 alt="Yash Patadiya" 
-                className="absolute inset-0 w-full h-full object-cover"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className="object-cover"
               />
             </div>
             
@@ -172,20 +177,24 @@ export default function AboutPage() {
         {/* Documentary Style Section */}
         <section className={`my-24 p-10 md:p-16 rounded-[2.5rem] relative overflow-hidden shadow-2xl border transition-all duration-700 ${
           isDark
-            ? "bg-white/[0.03] border-white/10 text-white"
-            : "bg-[#0d131f] text-white border-white/10"
+            ? "bg-[#0d131f] border-white/10 text-white"
+            : "bg-white border-black/5 text-black"
         }`}>
-          <div 
-            className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none"
-            style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')" }}
-          />
+          {isDark && (
+            <div 
+              className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none"
+              style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')" }}
+            />
+          )}
           <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full mb-6">
-              <Film size={14} className="text-amber-400" />
-              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Documentary Narrative</span>
+            <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 border ${
+              isDark ? "bg-amber-500/10 border-amber-500/30" : "bg-amber-50 border-amber-200/50"
+            }`}>
+              <Film size={14} className={isDark ? "text-amber-400" : "text-amber-600"} />
+              <span className={`text-[10px] font-bold uppercase tracking-widest ${isDark ? "text-amber-400" : "text-amber-700"}`}>Documentary Narrative</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">Built Under Pressure</h2>
-            <p className="text-neutral-300 font-serif text-lg leading-relaxed italic mb-8">
+            <h2 className={`text-3xl md:text-4xl font-bold tracking-tight mb-6 ${isDark ? "text-white" : "text-black"}`}>Built Under Pressure</h2>
+            <p className={`font-serif text-lg leading-relaxed italic mb-8 ${isDark ? "text-neutral-300" : "text-neutral-600"}`}>
               &quot;During Ideathon Viksit Bharat 2047, we asked ourselves one simple question: How can technology listen when no one else is around? That single question shaped every line of code in Mansitra.&quot;
             </p>
           </div>
@@ -209,17 +218,18 @@ export default function AboutPage() {
               transition={{ delay: i * 0.15, duration: 0.6 }}
             >
               <GlassCard className="h-full p-4 flex flex-col group relative overflow-hidden">
-                <BorderBeam duration={10 + i * 2} colorFrom={isDark ? "#10b981" : "#5eead4"} colorTo={isDark ? "#6366f1" : "#0d9488"} />
                 {/* Image Section */}
                 <div className={`w-full aspect-[4/5] rounded-3xl overflow-hidden mb-6 relative shrink-0 ${
                   isDark ? "bg-white/5" : "bg-neutral-100"
                 }`}>
-                  <motion.img 
+                  <MotionImage 
                     whileHover={{ scale: 1.08 }}
                     transition={{ duration: 0.6 }}
                     src={member.img} 
                     alt={member.name} 
-                    className="w-full h-full object-cover" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover" 
                   />
                 </div>
                 

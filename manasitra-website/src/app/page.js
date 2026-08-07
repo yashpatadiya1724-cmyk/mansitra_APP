@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -27,11 +28,12 @@ import {
 
 import Navbar from "@/shared/components/navbar";
 import PageLoadSequence from "../components/animations/PageLoadSequence";
-import MultiLayerBackground from "../components/landing/MultiLayerBackground";
 import EmotionAura from "../components/animations/EmotionAura";
-import MemoryStream from "../components/landing/MemoryStream";
-import Hero3D from "../components/landing/Hero3D";
 import HeroSpotlight from "../components/landing/HeroSpotlight";
+
+const Hero3D = dynamic(() => import("../components/landing/Hero3D"), { ssr: false });
+const MultiLayerBackground = dynamic(() => import("../components/landing/MultiLayerBackground"), { ssr: false });
+const MemoryStream = dynamic(() => import("../components/landing/MemoryStream"), { ssr: false });
 import MagneticButton from "../components/ui/MagneticButton";
 import SplitText from "../components/ui/SplitText";
 import ShinyText from "../components/ui/ShinyText";
@@ -107,6 +109,13 @@ export default function Home() {
     if (showSplash || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
+      gsap.to(".wave-path", {
+        x: -100,
+        duration: 3,
+        repeat: -1,
+        ease: "linear",
+      });
+
       gsap.to(".wave-path", {
         x: -100,
         duration: 3,

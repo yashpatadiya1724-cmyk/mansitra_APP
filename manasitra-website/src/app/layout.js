@@ -13,6 +13,7 @@ const quicksand = Quicksand({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://mansitra.in"),
   title: "Mansitra — Your Private AI Emotional Companion",
   description: "Mansitra (Mann Ka Mitra) is a 100% anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
   keywords: [
