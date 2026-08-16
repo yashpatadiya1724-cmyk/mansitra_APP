@@ -8,17 +8,12 @@ export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("light"); // 'light' (Calm) or 'dark' (Serenity)
 
   useEffect(() => {
-    // Check local storage or time of day (6 PM to 6 AM = Dark)
+    // Default theme is Calm (Light) mode unless the user previously selected another theme
     const savedTheme = localStorage.getItem("mansitra-theme");
-    if (savedTheme) {
+    if (savedTheme === "dark" || savedTheme === "light") {
       setTheme(savedTheme);
     } else {
-      const hour = new Date().getHours();
-      if (hour >= 18 || hour < 6) {
-        setTheme("dark");
-      } else {
-        setTheme("light");
-      }
+      setTheme("light");
     }
   }, []);
 
