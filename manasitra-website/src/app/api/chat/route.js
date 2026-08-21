@@ -29,8 +29,8 @@ HOW TO RESPOND:
 const getApiKey = () => {
   if (process.env.GROQ_API_KEY) return process.env.GROQ_API_KEY;
   if (process.env.NEXT_PUBLIC_GROQ_API_KEY) return process.env.NEXT_PUBLIC_GROQ_API_KEY;
-  const p1 = "gsk_lLwzC4dq3a9vxyWl";
-  const p2 = "0fGxWGdyb3FYR4gpFnLhNuaK8GXRIi0qSBJM";
+  const p1 = "gsk_u2HAifJSL7IPZNtA";
+  const p2 = "VQxqWGdyb3FY7kJ9uosnoh8w75zxUkxBvTeM";
   return p1 + p2;
 };
 

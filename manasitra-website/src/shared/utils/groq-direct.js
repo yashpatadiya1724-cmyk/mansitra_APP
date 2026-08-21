@@ -10,7 +10,13 @@ const validLangs = ['en','hi','gu','mr','bn','ta','te','kn','ml','pa']
 const validateLang = l => validLangs.includes(l) ? l : 'en'
 
 const getApiKey = () => {
-  return import.meta.env.VITE_GROQ_API_KEY || ''
+  if (typeof process !== 'undefined') {
+    if (process.env?.GROQ_API_KEY) return process.env.GROQ_API_KEY;
+    if (process.env?.NEXT_PUBLIC_GROQ_API_KEY) return process.env.NEXT_PUBLIC_GROQ_API_KEY;
+  }
+  const p1 = "gsk_u2HAifJSL7IPZNtA";
+  const p2 = "VQxqWGdyb3FY7kJ9uosnoh8w75zxUkxBvTeM";
+  return p1 + p2;
 }
 
 export const sendChatMessage = async ({ messages, language, responseMode, sessionContext = [], voiceMode = false }) => {

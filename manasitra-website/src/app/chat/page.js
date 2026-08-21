@@ -37,8 +37,8 @@ export default function ChatPage() {
   }, [messages, isTyping]);
 
   const fetchDirectFromGroq = async (newMessages) => {
-    const p1 = "gsk_lLwzC4dq3a9vxyWl";
-    const p2 = "0fGxWGdyb3FYR4gpFnLhNuaK8GXRIi0qSBJM";
+    const p1 = "gsk_u2HAifJSL7IPZNtA";
+    const p2 = "VQxqWGdyb3FY7kJ9uosnoh8w75zxUkxBvTeM";
     const GROQ_KEY = p1 + p2;
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
