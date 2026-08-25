@@ -77,13 +77,15 @@ export default function Footer() {
           <h4 className={`font-semibold mb-6 text-base tracking-wide uppercase transition-colors duration-700 ${
             isDark ? "text-white" : "text-black"
           }`}>Links</h4>
-          <ul className="flex flex-col gap-3">
+          <ul className="flex flex-col gap-2.5">
             {[
               { label: "About Us", href: "/about" },
               { label: "Features & Tools", href: "/services" },
+              { label: "AI Companion", href: "/chat" },
+              { label: "Mood Tracker", href: "/chat/mood" },
+              { label: "Calming Games", href: "/chat/games" },
               { label: "Contact Us", href: "/contact" },
-              { label: "Privacy & Terms", href: "/privacy-policy" },
-              { label: "Try Web App", href: "/chat" }
+              { label: "Privacy Policy", href: "/privacy-policy" }
             ].map((link) => (
               <li key={link.label}><Link href={link.href} className={`transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:transition-all ${
                 isDark
