@@ -1,6 +1,6 @@
 export const metadata = {
   title: "About Us | Mansitra — Founded by Yash Patadiya",
-  description: "Learn about Mansitra, our mission, and the team led by Founder Yash Patadiya building privacy-first AI emotional wellness companions for students.",
+  description: "Meet the team behind Mansitra, a private AI emotional companion founded by Yash Patadiya to support student mental wellness.",
   authors: [{ name: "Yash Patadiya", url: "https://www.linkedin.com/in/yash-patadiya-973161272/" }],
   creator: "Yash Patadiya",
   alternates: {
@@ -33,7 +33,10 @@ export default function AboutLayout({ children }) {
           "@id": "https://mansitra.in/#organization",
           "name": "Mansitra",
           "url": "https://mansitra.in",
-          "founder": { "@id": "https://mansitra.in/#yashpatadiya" }
+          "founder": {
+            "@type": "Person",
+            "@id": "https://mansitra.in/#yashpatadiya"
+          }
         },
         {
           "@type": "Person",
