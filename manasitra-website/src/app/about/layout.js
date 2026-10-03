@@ -1,6 +1,8 @@
 export const metadata = {
-  title: "About Us",
-  description: "Learn about Mansitra (Mann Ka Mitra), our mission to support Indian students with a 100% private, judgment-free AI emotional companion for academic stress and well-being.",
+  title: "About Us | Mansitra — Founded by Yash Patadiya",
+  description: "Learn about Mansitra, our mission, and the team led by Founder Yash Patadiya building privacy-first AI emotional wellness companions for students.",
+  authors: [{ name: "Yash Patadiya", url: "https://www.linkedin.com/in/yash-patadiya-973161272/" }],
+  creator: "Yash Patadiya",
   alternates: {
     canonical: "https://mansitra.in/about",
   },
@@ -23,6 +25,30 @@ export const metadata = {
 
 export default function AboutLayout({ children }) {
   const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://mansitra.in/#organization",
+          "name": "Mansitra",
+          "url": "https://mansitra.in",
+          "founder": { "@id": "https://mansitra.in/#yashpatadiya" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://mansitra.in/#yashpatadiya",
+          "name": "Yash Patadiya",
+          "jobTitle": "Founder & CEO",
+          "worksFor": { "@id": "https://mansitra.in/#organization" },
+          "url": "https://mansitra.in/about",
+          "sameAs": [
+            "https://www.linkedin.com/in/yash-patadiya-973161272/",
+            "https://github.com/yashpatadiya1724-cmyk"
+          ]
+        }
+      ]
+    },
     {
       "@context": "https://schema.org",
       "@type": "AboutPage",

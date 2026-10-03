@@ -168,7 +168,7 @@ export default function Footer() {
           <AlertCircle size={16} className={`shrink-0 ${isDark ? "text-amber-400" : "text-amber-700"}`} />
           <div>
             <strong className="block mb-0.5 font-semibold text-sm">Medical Disclaimer</strong>
-            Manasitra is a supportive AI companion, not a replacement for professional mental health services, therapy, or medical diagnosis. If you are experiencing a crisis, please reach out to one of the helplines listed above or seek professional help immediately.
+            Mansitra is a supportive AI companion, not a replacement for professional mental health services, therapy, or medical diagnosis. If you are experiencing a crisis, please reach out to one of the helplines listed above or seek professional help immediately.
           </div>
         </motion.div>
       </div>
@@ -177,7 +177,10 @@ export default function Footer() {
       <div className={`max-w-6xl mx-auto px-6 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium relative z-10 ${
         isDark ? "border-t border-white/5" : "border-t border-black/5"
       }`}>
-        <p>© {new Date().getFullYear()} Mansitra (Mann Ka Mitra). All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Mansitra (Mann Ka Mitra). All rights reserved.</p>
+            <a href="/about" className={`text-xs font-semibold transition-colors ${
+              isDark ? "text-emerald-400 hover:text-emerald-300" : "text-teal-700 hover:text-teal-900"
+            }`}>Founder at Mansitra</a>
         <p>
           Founded by <a href="https://github.com/yashpatadiya1724-cmyk" target="_blank" rel="noopener noreferrer" className={`relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:transition-all ${
             isDark ? "text-white hover:text-emerald-400 after:bg-emerald-400 hover:after:w-full" : "text-black hover:text-teal-700 after:bg-teal-700 hover:after:w-full"

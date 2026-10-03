@@ -21,7 +21,7 @@ export const metadata = {
   description: "Mansitra (Mann Ka Mitra) is a 100% anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
   keywords: [
     "Mansitra",
-    "Manasitra",
+    "Mansitra",
     "Mann Ka Mitra",
     "AI Emotional Companion",
     "Student Mental Health India",
@@ -90,7 +90,7 @@ export default function RootLayout({ children }) {
       "@id": "https://mansitra.in/#website",
       "url": "https://mansitra.in",
       "name": "Mansitra",
-      "alternateName": ["Manasitra", "Mann Ka Mitra", "Mansitra AI"],
+      "alternateName": ["Mansitra", "Mann Ka Mitra", "Mansitra AI"],
       "description": "100% anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
       "inLanguage": ["en", "hi", "gu", "mr", "bn", "ta", "te", "kn", "pa"],
       "publisher": {
@@ -107,7 +107,7 @@ export default function RootLayout({ children }) {
       "@type": "Organization",
       "@id": "https://mansitra.in/#organization",
       "name": "Mansitra",
-      "alternateName": ["Manasitra", "Mann Ka Mitra"],
+      "alternateName": ["Mansitra", "Mann Ka Mitra"],
       "url": "https://mansitra.in",
       "logo": "https://mansitra.in/logo.svg",
       "description": "Empathetic AI companion platform fostering mental well-being, emotional resilience, and student mental health support in India.",

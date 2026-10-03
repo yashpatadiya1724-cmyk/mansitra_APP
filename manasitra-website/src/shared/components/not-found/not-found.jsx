@@ -12,7 +12,7 @@ export const NotFound = () => {
           Page not found
         </h1>
         <p style={{ fontSize: 14, color: 'var(--text-2)', lineHeight: 1.7, marginBottom: 28 }}>
-          This page doesn't exist. But Manasitra does — and it's ready to listen whenever you are.
+          This page doesn't exist. But Mansitra does — and it's ready to listen whenever you are.
         </p>
         <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
           <button onClick={() => navigate('/chat')}

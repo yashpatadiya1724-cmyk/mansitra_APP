@@ -1,18 +1,18 @@
 {
-  "app": { "name": "Manasitra", "tagline": "Mann Ka Mitra — Companion of the Mind" },
+  "app": { "name": "Mansitra", "tagline": "Mann Ka Mitra — Companion of the Mind" },
   "onboarding": {
     "welcome_title": "You are not alone.",
-    "welcome_subtitle": "Manasitra is your private, anonymous companion. No login. No judgment. Just support.",
+    "welcome_subtitle": "Mansitra is your private, anonymous companion. No login. No judgment. Just support.",
     "language_prompt": "Choose your language",
     "privacy_summary": "We don't know your name. We don't store your chats. Everything stays on your device.",
     "get_started": "Get Started",
     "set_nickname": "Set a nickname (optional)",
     "nickname_placeholder": "e.g. Arjun, Priya...",
-    "disclaimer": "Manasitra is an AI companion, not a mental health professional. If you are in crisis, please contact a qualified counselor or helpline."
+    "disclaimer": "Mansitra is an AI companion, not a mental health professional. If you are in crisis, please contact a qualified counselor or helpline."
   },
   "chat": {
     "placeholder": "Tell me what's on your mind...",
-    "typing_indicator": "Manasitra is typing...",
+    "typing_indicator": "Mansitra is typing...",
     "error_offline": "You're offline. Reconnecting...",
     "error_ai": "I'm having trouble connecting, but I'm here for you.",
     "quick_exit_label": "Quick exit — clear session",
@@ -84,7 +84,7 @@
     "delete_button": "Delete all my data",
     "delete_confirm": "Are you sure? This cannot be undone.",
     "last_updated": "Last updated",
-    "promise": "Manasitra does not know your name. It does not remember your conversations after you leave. Your mood logs stay on your device only. You can delete everything with one tap. This is your space."
+    "promise": "Mansitra does not know your name. It does not remember your conversations after you leave. Your mood logs stay on your device only. You can delete everything with one tap. This is your space."
   },
   "settings": {
     "title": "Settings",
@@ -99,7 +99,7 @@
     "report_response": "Report a Response",
     "version": "Version",
     "feedback": "Send Feedback",
-    "about": "About Manasitra"
+    "about": "About Mansitra"
   },
   "nav": {
     "chat": "Chat",
@@ -119,7 +119,7 @@
     "quick_exit": "Quick exit — clear session and return to home",
     "mood_selector": "Select your current mood",
     "chat_region": "Chat messages",
-    "typing_indicator": "Manasitra is typing",
+    "typing_indicator": "Mansitra is typing",
     "close_modal": "Close",
     "menu": "Navigation menu"
   }
