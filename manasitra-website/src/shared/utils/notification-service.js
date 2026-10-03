@@ -1,4 +1,4 @@
-// ── Manasitra Notification Service ───────────────────────────
+// ── Mansitra Notification Service ───────────────────────────
 // Uses @capacitor/local-notifications for Android native notifications
 // Falls back to Web Notification API for browser
 
@@ -22,7 +22,7 @@ const MOTIVATIONAL = {
     "Small progress is still progress. Be proud of yourself.",
     "Your hard work will pay off. Stay consistent!",
     "Remember to drink water and take a short break.",
-    "You are not alone. Manasitra is here for you.",
+    "You are not alone. Mansitra is here for you.",
     "One topic at a time. You can do this!",
   ],
   hi: [
@@ -34,7 +34,7 @@ const MOTIVATIONAL = {
     "छोटी progress भी progress है। खुद पर गर्व करो।",
     "तुम्हारी मेहनत रंग लाएगी। Consistent रहो!",
     "पानी पियो और थोड़ा break लो।",
-    "तुम अकेले नहीं हो। Manasitra तुम्हारे साथ है।",
+    "तुम अकेले नहीं हो। Mansitra तुम्हारे साथ है।",
     "एक topic एक बार में। तुम यह कर सकते हो!",
   ],
 }
@@ -86,7 +86,7 @@ const getNotifContent = () => {
     if (days <= 7) return { title: `${next.name} — ${days} days to go`, body: getMotivational() }
   }
 
-  return { title: 'Manasitra 🌸', body: getMotivational() }
+  return { title: 'Mansitra 🌸', body: getMotivational() }
 }
 
 // ── Send notification (native or web) ────────────────────────

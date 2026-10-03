@@ -74,7 +74,7 @@ export const PermissionDialog = ({ onDone }) => {
                   2 permissions chahiye
                 </h2>
                 <p style={{ fontSize: 14, color: 'var(--text-2)', lineHeight: 1.6 }}>
-                  Manasitra ko better experience dene ke liye
+                  Mansitra ko better experience dene ke liye
                 </p>
               </div>
 

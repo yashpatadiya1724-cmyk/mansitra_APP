@@ -121,7 +121,7 @@ export default function AboutPage() {
               
               <div className={`space-y-4 leading-relaxed font-serif text-lg mb-10 ${isDark ? "text-neutral-300" : "text-neutral-600"}`}>
                 <p className={`font-semibold ${isDark ? "text-white" : "text-black"}`}>
-                  Founder & CEO @ ManSitra | AI Developer | BCA Student | Building AI for Mental Wellness
+                  Founder & CEO @ Mansitra | AI Developer | BCA Student | Building AI for Mental Wellness
                 </p>
                 <p>
                   &quot;I built Mansitra because I realized that sometimes, the hardest thing to do is simply talk to someone. We worry about being judged, being a burden, or just not being understood.&quot;

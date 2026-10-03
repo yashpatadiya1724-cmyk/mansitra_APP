@@ -1,18 +1,18 @@
 {
-  "app": { "name": "Manasitra", "tagline": "Mann Ka Mitra — Dimag ka Sathi" },
+  "app": { "name": "Mansitra", "tagline": "Mann Ka Mitra — Dimag ka Sathi" },
   "onboarding": {
     "welcome_title": "Tum akele nahi ho.",
-    "welcome_subtitle": "Manasitra tumhara private, anonymous dost hai. Koi login nahi. Koi judgment nahi. Sirf support.",
+    "welcome_subtitle": "Mansitra tumhara private, anonymous dost hai. Koi login nahi. Koi judgment nahi. Sirf support.",
     "language_prompt": "Apni language chuno",
     "privacy_summary": "Humein tumhara naam nahi pata. Hum tumhari chats save nahi karte. Sab kuch tumhare phone mein hi rehta hai.",
     "get_started": "Shuru Karein",
     "set_nickname": "Apna nickname set karo (optional)",
     "nickname_placeholder": "e.g. Arjun, Priya...",
-    "disclaimer": "Manasitra ek AI companion hai, koi mental health professional nahi. Agar aap crisis mein hain, toh kripya qualified counselor ya helpline se contact karein."
+    "disclaimer": "Mansitra ek AI companion hai, koi mental health professional nahi. Agar aap crisis mein hain, toh kripya qualified counselor ya helpline se contact karein."
   },
   "chat": {
     "placeholder": "Batao, kya chal raha hai dimag mein...",
-    "typing_indicator": "Manasitra type kar raha hai...",
+    "typing_indicator": "Mansitra type kar raha hai...",
     "error_offline": "Tum offline ho. Reconnecting...",
     "error_ai": "Connect karne mein problem aa rahi hai, par main yahan hu tumhare liye.",
     "quick_exit_label": "Jaldi bahar niklo — session clear karo",
@@ -84,7 +84,7 @@
     "delete_button": "Mera saara data delete kar do",
     "delete_confirm": "Kya tum sure ho? Ye data wapas nahi milega.",
     "last_updated": "Last updated",
-    "promise": "Manasitra tumhara naam nahi janta. Tumhare jaane ke baad chats delete ho jati hain. Tumhare mood logs sirf tumhare phone mein rehte hain. Tum ek click mein sab kuch delete kar sakte ho. Ye tumhari private space hai."
+    "promise": "Mansitra tumhara naam nahi janta. Tumhare jaane ke baad chats delete ho jati hain. Tumhare mood logs sirf tumhare phone mein rehte hain. Tum ek click mein sab kuch delete kar sakte ho. Ye tumhari private space hai."
   },
   "settings": {
     "title": "Settings",
@@ -99,7 +99,7 @@
     "report_response": "Report a Response",
     "version": "Version",
     "feedback": "Feedback Bhejo",
-    "about": "Manasitra ke baare mein"
+    "about": "Mansitra ke baare mein"
   },
   "nav": {
     "chat": "Chat",
@@ -119,7 +119,7 @@
     "quick_exit": "Jaldi bahar niklo — session clear karo aur home par jao",
     "mood_selector": "Apna current mood select karo",
     "chat_region": "Chat messages",
-    "typing_indicator": "Manasitra type kar raha hai",
+    "typing_indicator": "Mansitra type kar raha hai",
     "close_modal": "Band karo",
     "menu": "Navigation menu"
   }

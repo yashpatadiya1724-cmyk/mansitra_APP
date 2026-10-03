@@ -13,7 +13,7 @@ export class ErrorBoundary extends Component {
 
   componentDidCatch(error, info) {
     // Log error without PII — just the message and component stack
-    console.error('[Manasitra] Component error:', error.message)
+    console.error('[Mansitra] Component error:', error.message)
   }
 
   render() {
