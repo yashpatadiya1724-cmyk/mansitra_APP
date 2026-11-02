@@ -42,6 +42,7 @@ app.use(generalLimiter)
 app.use('/api/chat', require('./routes/chat'))
 app.use('/api/safety', require('./routes/safety'))
 app.use('/api/report', require('./routes/report'))
+app.use('/api/memory', require('./routes/memory'))
 
 // Health check
 app.get('/health', (_, res) => res.json({ status: 'ok', version: '1.0.0' }))
