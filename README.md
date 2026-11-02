@@ -1,165 +1,119 @@
-# 🌸 Manasitra — Mann Ka Mitra
+# Manasitra (Friend of the Mind)
 
-> **"Friend of the Mind"** — A premium, multilingual AI emotional companion designed specifically for Indian students.
+Empathetic, multilingual AI emotional companion and mental wellness platform built for Indian students.
 
-[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Capacitor](https://img.shields.io/badge/Capacitor-119EFF?style=for-the-badge&logo=capacitor&logoColor=white)](https://capacitorjs.com/)
-[![Electron](https://img.shields.io/badge/Electron-272C35?style=for-the-badge&logo=electron&logoColor=47D2EB)](https://www.electronjs.org/)
-
----
-
-## 🌟 Overview
-
-Manasitra is a **privacy-first, culturally-aware** mental wellness platform built for the unique challenges faced by students in India. From exam stress and hostel life to family expectations, Manasitra provides empathetic AI support in **10 Indian languages**, coupled with a suite of **offline calming tools** and a gamified growth system called the **Soul Garden**.
-
-### 🚀 Why Manasitra?
-
-- **Zero Privacy Compromise:** All your data (mood logs, streaks, personal notes) stays locally on your device. Nothing is stored on our servers.
-- **Cultural Resonance:** AI responses are tuned to understand Indian student life, using familiar terms like *"Dost"* and *"Yaar"*.
-- **Multilingual Support:** Communicate fluently in English, Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, Hinglish, or Gujalish.
-- **Resilience Focused:** We don't just track moods; we help you grow a literal garden of resilience through positive actions.
-
----
-
-## ✨ Primary Features
-
-| Feature | Description | Tech Highlight |
-|:---|:---|:---|
-| 🤖 **Empathetic AI Chat** | Real-time emotional support with risk-aware responses. | LLama-3.3-70B via Groq & Custom PyTorch Engine |
-| 🧠 **Memory Engine** | Context-aware local memory system for continuous conversations. | FAISS / Local Vector DB |
-| 🎭 **Emotion & Voice Engine** | Real-time sentiment analysis and voice interactions. | PyTorch & Audio processing |
-| 🌱 **Soul Garden** | A gamified resilience tracker where your virtual tree grows as you heal. | Framer Motion & SVG |
-| 😊 **Deep Mood Tracking** | 7-state emotional check-ins with trends and daily win logs. | Recharts & IndexedDB |
-| 📊 **Progress Dashboard** | Bento Grid UI to visualize your mental wellness journey and track streaks. | Zustand & localforage |
-| 🧘 **10 Calming Tools** | Fully offline tools: Breathing, Grounding, Focus Puzzles, and more. | Canvas API |
-| 🆘 **Safety First** | Multi-layer crisis detection with instant helpline foregrounding. | Regex + AI Logic |
-| 🌐 **10 Languages** | Seamless UI & AI transitions across major Indian scripts. | i18next |
-| 🔒 **Privacy Engine** | Strict local data processing, zero-server retention policies. | Python / Audit Engine |
-
----
-
-## 🌱 Soul Garden: The Resilience Engine
-
-The Soul Garden represents your mental strength. Unlike traditional charts, your progress is visualized as a growing **Banyan Tree**.
-
-### 📈 Growth Evolution
-1.  🌰 **Seed (Beej):** The beginning of your mindfulness journey. (0 XP)
-2.  🌿 **Sprout (Ankur):** Your first steps towards healing. (20 XP)
-3.  🪴 **Sapling (Paudha):** Forming strong roots and healthy habits. (60 XP)
-4.  🌳 **Tree (Ped):** Standing tall against academic and life stress. (130 XP)
-5.  🌲 **Banyan Tree (Bargad):** The ultimate symbol of Indian resilience. (250 XP)
-
-### ⚡ How to Level Up
-- **Chat with AI:** +2 XP
-- **Daily Mood Check-in:** +5 XP
-- **Use a Calming Tool:** +8 XP
-- **Log a Daily Win:** +6 XP
-
----
-
-## 🛠️ Hybrid Tech Stack
-
-Manasitra is built for high performance across Web, Mobile, and Desktop.
-
-### **Frontend Architecture**
-- **Core:** React 19 + Vite 8
-- **Styling:** Tailwind CSS 4 (Custom Variable System & Bento Grid UI)
-- **Animation:** Framer Motion (Optimized for low-end hardware)
-- **State:** Zustand (Atomic state management)
-- **Charts:** Recharts (High-precision data visualization)
-- **Runtime:** Capacitor (Native Android) / Electron (Desktop App)
-
-### **Backend & Core API**
-- **Server:** Node.js + Express 5 (Stateless Architecture)
-- **API:** RESTful endpoints with strictly enforced rate limits
-
-### **Local AI Engine (Python)**
-- **Framework:** PyTorch (Custom Models & Emotion Engine)
-- **Primary Model:** llama-3.3-70b-versatile (via Groq Cloud) + Local Fallback capabilities
-- **Memory & Context:** Dedicated Memory Engine for local context retention
-- **Voice Capabilities:** Integrated Voice Engine for spoken interactions
-- **Safety & Privacy:** Privacy Engine ensuring local execution with Custom Regex + Structured JSON schema enforcement
-
----
-
-## 🚀 Quick Start Guide
-
-### 1️⃣ Clone and Install
-```bash
-git clone https://github.com/yashpatadiya1724-cmyk/mansitra_APP.git
-cd Manasitra
-npm install
-```
-
-### 2️⃣ Environment Configuration
-Create a `.env` file in the `backend` folder:
-```env
-GROQ_API_KEY=your_groq_key_here
-PORT=3001
-```
-
-### 3️⃣ Running the Application
-
-| Environment | Command | Location |
-|:---|:---|:---|
-| **Backend** | `npm run dev` | `backend/` |
-| **Web App** | `npm run dev` | `manasitra-web/` |
-| **Desktop** | `npm run dev` | root folder |
-| **Android** | `npx cap run android` | `manasitra-web/` |
-
----
-
-## 🔐 Safety & Privacy Matrix
-
-We believe your mental health data is sacred.
-
-| Data Type | Storage Implementation | Retention Policy |
-|:---|:---|:---|
-| **Chat History** | `sessionStorage` (Memory only) | Deleted on Tab Close |
-| **Mood Logs** | `IndexedDB` (Encrypted hint) | Device Only (Persistent) |
-| **XP & Growth** | `localStorage` | Device Only (Persistent) |
-| **AI Context** | Statless API Request | Never Logged Server-side |
+[Live demo](https://www.mansitra.in) | [Docs](docs/DESIGN.md) | [License](LICENSE)
 
 > [!IMPORTANT]
-> **Crisis Detection:** If a "High" or "Critical" risk is detected in AI conversation, the app automatically triggers a safety overlay and presents verified Indian helplines (iCall, Vandrevala, AASRA).
+> **Safety & Medical Disclaimer:** Manasitra is an AI peer companion designed for emotional support, academic stress navigation, and daily reflection. **It is not a doctor, licensed therapist, or clinical psychiatric service.** For emergencies, please call **112** or the 24/7 National Mental Health Helpline (Tele-MANAS) at **14416**.
 
 ---
 
-## 🛡️ Safety Architecture: The 5-Layer Shield
+## Features
+- **10+ Indian Languages & Dialects:** True cultural emotional empathy in Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, and Hinglish.
+- **RAG Long-Term Vector Memory:** 64-dimensional semantic embedding engine that recalls ongoing student challenges (exam pressure, sleep debt, hostel loneliness) across sessions.
+- **Automated Crisis Escalation:** Deterministic keyword intercept that instantly surfaces 24/7 national helplines (Tele-MANAS `14416`, KIRAN `1800-599-0019`) whenever severe distress or self-harm intent is detected.
+- **Privacy-First Ephemeral Design:** Zero personal identifiable information (PII) is stored in server logs; conversations remain private.
+- **Low-Latency Inference:** Powered by Groq LLaMA 3.3 70B for near-instant conversational responses.
 
-Manasitra uses a multi-layered approach to ensure user safety during emotional distress.
+## Tech Stack
+- **Frontend:** React, Vite, Tailwind CSS, Electron (Desktop), Capacitor (Android / iOS)
+- **Backend:** Node.js, Express, Helmet, Morgan, Express Rate Limit
+- **AI & Memory:** Groq Cloud SDK (LLaMA 3.3 70B), Custom In-Memory Vector Store / Cosine Similarity Engine
+- **Deploy:** Vercel (Web Frontend), Railway / Docker (Backend API)
+
+## Architecture
 
 ```mermaid
-graph TD
-    A[User Input] --> B{Layer 1: Frontend Sanitization}
-    B --> C{Layer 2: Backend Injection Filter}
-    C --> D[Layer 3: System Prompt Constraints]
-    D --> E[Groq Llama-3.3-70B]
-    E --> F{Layer 4: AI Risk Classification}
-    F -->|Risk >= High| G[Layer 5: Crisis Overlay & Helplines]
-    F -->|Normal| H[Empathetic Chat Response]
+flowchart TD
+    Client["Student Client (Web / Mobile / Desktop)"]
+    Sanitizer["Input Sanitizer & Prompt Injection Guard"]
+    CrisisGate{"Distress / Crisis Check"}
+    Helpline["National Helplines (Tele-MANAS 14416 / KIRAN)"]
+    VectorMem["Vector Memory Engine (64-dim Embeddings)"]
+    GroqLLM["Groq LLaMA 3.3 70B (Empathetic Dost Persona)"]
+
+    Client --> Sanitizer
+    Sanitizer --> CrisisGate
+    CrisisGate -- Critical Risk --> Helpline
+    CrisisGate -- Safe Flow --> VectorMem
+    VectorMem --> GroqLLM
+    GroqLLM --> Client
 ```
 
+## Getting Started
 
----
+### Prerequisites
+- Node.js 18+ (tested on Node 20 and 24)
+- A Groq API key from [groq.com](https://console.groq.com)
 
-## 🕊️ Calming Tools Suite
-Accessible via the `/games` route, these tools are designed for immediate relief.
-- **Breathing Bubble:** 4-7-8 rhythm guide.
-- **Tap to Calm:** High-feedback stress release.
-- **Grounding Guide:** 5-4-3-2-1 sensory walkthrough.
-- **Mood Canvas:** Freehand emotional expression.
-- **Gratitude Jar:** Daily positive affirmation log.
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yashpatadiya1724-cmyk/mansitra_APP.git
+   cd mansitra_APP
+   ```
 
----
+2. Copy environment template:
+   ```bash
+   cp .env.example .env
+   cp backend/.env.example backend/.env
+   ```
+   *Edit `backend/.env` with your `GROQ_API_KEY`.*
 
-## 🏆 Acknowledgements
-Built with profound care for **Ideathon Viksit Bharat 2047** at **Silver Oak University**.
+3. Install dependencies:
+   ```bash
+   # Root / Frontend
+   npm install
 
----
-<p align="center">
-  <i>"Hamesha yaad rakhna, aap akele nahi hain."</i><br>
-  <b>Built with ❤️ to heal one mind at a time.</b>
-</p>
+   # Backend
+   cd backend
+   npm install
+   cd ..
+   ```
+
+4. Run the application:
+   ```bash
+   # Run backend API
+   cd backend && npm start
+
+   # In a separate terminal, run web frontend
+   cd manasitra-web && npm run dev
+   ```
+
+5. Run test suite:
+   ```bash
+   cd backend && npm test
+   ```
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/chat` | Main conversational endpoint with mood analysis & crisis gates |
+| `POST` | `/api/memory/store` | Stores conversation summary embeddings in vector memory |
+| `POST` | `/api/memory/query` | Retrieves relevant past conversational context via semantic search |
+| `GET` | `/api/safety/helplines` | Fetches verified 24/7 Indian crisis helplines and medical disclaimers |
+| `POST` | `/api/safety/classify` | Evaluates message risk classification |
+| `GET` | `/health` | Service health check |
+
+## Security and Privacy
+- **No PII Logging:** Morgan HTTP logger logs only HTTP verb, status code, and latency — never user text.
+- **Input Sanitization:** Guard against prompt injection attacks (`ignore previous instructions`, jailbreak tokens).
+- **Rate Limiting:** IP-based sliding window rate limiter protects endpoints against automated scraping and abuse.
+- **Known Limitations:** AI generation may occasionally provide imperfect emotional tone in noisy contexts; crisis screening relies on both deterministic pattern matching and heuristic LLM classification.
+
+## Roadmap
+- [x] Multilingual prompt engineering across 10 Indian regional languages
+- [x] Semantic vector memory RAG engine
+- [x] National helpline crisis interception
+- [ ] On-device offline fallback model (Manasitra Local Whisper/Nano)
+- [ ] End-to-end encrypted local SQLCipher journal
+
+## What I Learned
+- Balancing conversational empathy with strict safety boundaries is the most critical engineering challenge in mental health tech.
+- Pure LLM-based crisis detection has latency; having a deterministic regex rule gate in front of the LLM guarantees zero-latency emergency hotline surfacing.
+- Sub-word tri-gram semantic shingles offer resilient similarity search without needing a heavy cloud vector database for edge use cases.
+
+## License
+MIT
