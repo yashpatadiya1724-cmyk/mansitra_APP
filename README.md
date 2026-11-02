@@ -21,6 +21,7 @@ Empathetic, multilingual AI emotional companion and mental wellness platform bui
 ## Tech Stack
 - **Frontend:** React, Vite, Tailwind CSS, Electron (Desktop), Capacitor (Android / iOS)
 - **Backend:** Node.js, Express, Helmet, Morgan, Express Rate Limit
+- **Database & Storage:** Supabase (Relational & Auth), LocalForage (IndexedDB client cache)
 - **AI & Memory:** Groq Cloud SDK (LLaMA 3.3 70B), Custom In-Memory Vector Store / Cosine Similarity Engine
 - **Deployment:** Vercel (Web Frontend), Railway / Docker (Backend API)
 
