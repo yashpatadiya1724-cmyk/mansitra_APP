@@ -1,11 +1,39 @@
+# Dependencies
 node_modules/
+.npm/
+
+# Production Builds
 dist/
+dist-electron/
+build/
+.next/
+out/
+
+# Environment Variables & Secrets
 .env
+.env.*
+!.env.example
 *.local
+
+# System & OS Files
 .DS_Store
 Thumbs.db
-.next/
+
+# Archives & Temporary Files
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+coverage/
+*.log
+
+# Mobile Builds (Android / Capacitor)
 android/app/build/
 android/.gradle/
 android/local.properties
-dist-electron/
+ios/App/build/
+ios/App/Pods/
+
+# IDE / Editor
+.vscode/
+.idea/
