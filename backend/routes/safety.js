@@ -2,13 +2,42 @@ const express = require('express')
 const router = express.Router()
 const { createChatCompletion } = require('../services/groq-client')
 const { sanitizeInput, validateLanguage } = require('../services/safety-service')
+const { NATIONAL_HELPLINES_INDIA, MEDICAL_DISCLAIMER, evaluateCrisisLevel } = require('../services/crisisEscalation')
 const { chatLimiter } = require('../middleware/rate-limiter')
 
+/**
+ * GET /api/safety/helplines
+ * Exposes national crisis resources and medical disclaimers to mobile & web clients
+ */
+router.get('/helplines', (req, res) => {
+  res.json({
+    status: 'ok',
+    disclaimer: MEDICAL_DISCLAIMER,
+    emergencyNumber: '112',
+    helplines: NATIONAL_HELPLINES_INDIA,
+  })
+})
+
+/**
+ * POST /api/safety/classify
+ * Classifies risk level of incoming user prompt with fallback rule engine
+ */
 router.post('/classify', chatLimiter, async (req, res) => {
   try {
     const { message, language } = req.body
     const lang = validateLanguage(language)
     const sanitized = sanitizeInput(message)
+
+    // Rule-based deterministic check first
+    const ruleCheck = evaluateCrisisLevel(sanitized)
+    if (ruleCheck.isCrisis) {
+      return res.json({
+        riskLevel: 'critical',
+        flags: ['IMMEDIATE_SELF_HARM_KEYWORD', ruleCheck.matchedPattern],
+        recommendedAction: 'crisis_screen',
+        helplines: NATIONAL_HELPLINES_INDIA,
+      })
+    }
 
     const completion = await createChatCompletion([
       {

@@ -6,11 +6,11 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "test": "node test/vector_memory_test.js"
+    "test": "node test/run_all_tests.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["mental-health", "ai", "student-wellness", "nlp", "groq"],
+  "author": "Yash Patadiya / Manasitra Team",
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
     "cors": "^2.8.6",
