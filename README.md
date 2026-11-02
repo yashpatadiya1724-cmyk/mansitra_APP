@@ -2,6 +2,7 @@
 
 Empathetic, multilingual AI emotional companion and mental wellness platform built for Indian students.
 
+[![CI](https://github.com/yashpatadiya1724-cmyk/mansitra_APP/actions/workflows/ci.yml/badge.svg)](https://github.com/yashpatadiya1724-cmyk/mansitra_APP/actions/workflows/ci.yml)
 [Live demo](https://www.mansitra.in) | [Docs](docs/DESIGN.md) | [License](LICENSE)
 
 ![Screenshot](docs/screenshot.png)  <!-- TODO: owner to add -->
@@ -48,7 +49,8 @@ flowchart TD
 
 ### Prerequisites
 - Node.js 18+ (tested on Node 20 and 24)
-- A Groq API key from [groq.com](https://console.groq.com)
+- Groq API Key (from [console.groq.com](https://console.groq.com))
+- Docker & Docker Compose (optional for containerized deployment)
 
 ### Setup
 1. Clone the repository:
@@ -57,56 +59,58 @@ flowchart TD
    cd mansitra_APP
    ```
 
-2. Copy environment template:
+2. Configure environment:
    ```bash
    cp .env.example .env
-   cp backend/.env.example backend/.env
+   # Add your GROQ_API_KEY in .env
    ```
-   *Edit `backend/.env` with your `GROQ_API_KEY`.*
 
 3. Install dependencies:
    ```bash
-   # Root & Frontend
-   npm install --legacy-peer-deps
-
    # Backend
-   cd backend
-   npm install
-   cd ..
+   cd backend && npm install
+
+   # Frontend
+   cd ../manasitra-web && npm install
    ```
 
-4. Start the app:
+4. Run tests:
    ```bash
-   # Terminal 1: Backend API
-   cd backend && npm start
-
-   # Terminal 2: Web frontend
-   cd manasitra-web && npm run dev
+   cd ../backend
+   npm test
    ```
 
-5. Run tests:
+5. Start the backend:
    ```bash
-   cd backend && npm test
+   npm start
    ```
+
+6. In a separate terminal, start the frontend:
+   ```bash
+   cd manasitra-web
+   npm run dev
+   ```
+
+### Docker
+```bash
+docker compose up -d
+```
 
 ## Environment Variables
 
-| Variable | Purpose |
-|---|---|
-| `GROQ_API_KEY` | Authentication key for Groq Cloud inference (LLaMA 3.3 70B) |
-| `GROQ_MODEL` | AI model name (`llama-3.3-70b-versatile`) |
-| `GROQ_MAX_TOKENS` | Max tokens per response (default: `800`) |
-| `PORT` | Backend HTTP server listening port (default: `3001`) |
-| `ALLOWED_ORIGINS` | Permitted CORS client origins (e.g. `http://localhost:5173,https://mansitra.in`) |
-| `ENABLE_ADMIN` | Toggle administrative API routes (`true`/`false`) |
-| `SAFETY_CLASSIFICATION_ENABLED` | Toggles LLM fallback evaluation in addition to regex triage (`true`/`false`) |
+| Variable | Required | Description |
+|---|---|---|
+| `PORT` | No | Server port (default: 5000) |
+| `NODE_ENV` | No | `development` or `production` |
+| `GROQ_API_KEY` | Yes | API key for Groq LLaMA 3.3 70B inference |
+| `CORS_ORIGIN` | No | Allowed frontend origin (e.g., `https://www.mansitra.in`) |
 
-## API Endpoints
+## API Reference
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/api/chat` | Main conversational endpoint with mood analysis & crisis gates |
-| `POST` | `/api/memory/store` | Stores conversation summary embeddings in vector memory |
+| `POST` | `/api/chat` | Main conversational endpoint with streaming Groq response |
+| `POST` | `/api/memory/store` | Stores emotional episodic memory vectors |
 | `POST` | `/api/memory/query` | Retrieves relevant past conversational context via semantic search |
 | `GET` | `/api/safety/helplines` | Fetches verified 24/7 Indian crisis helplines and medical disclaimers |
 | `POST` | `/api/safety/classify` | Evaluates message risk classification |
@@ -121,11 +125,13 @@ flowchart TD
 - **Known Limitations**: AI responses can occasionally have nuanced tone variations; safety screening combines deterministic regex filtering with AI classification.
 
 ## Roadmap
-- [x] Multilingual prompt engineering across 10 Indian regional languages
-- [x] Semantic vector memory RAG engine
-- [x] National helpline crisis interception
-- [ ] On-device offline fallback model (Manasitra Local Whisper/Nano)
-- [ ] End-to-end encrypted local SQLCipher journal
+- [x] **Done:** Multilingual prompt engineering across 10 Indian regional languages
+- [x] **Done:** Semantic vector memory RAG engine (tested in `backend/test/vector_memory_test.js`)
+- [x] **Done:** National helpline crisis interception (Tele-MANAS `14416` & KIRAN `1800-599-0019`, tested in `backend/test/crisis_escalation_test.js`)
+- [x] **Done:** Docker Compose multi-stage build & automated GitHub Actions CI
+- [ ] **Planned:** On-device offline fallback model (Manasitra Local Whisper/Nano)
+- [ ] **Planned:** End-to-end encrypted local SQLCipher journal
+- [ ] **Planned:** pgvector long-term persistence (gated with explicit consent & user deletion path per `docs/PRIVACY.md`)
 
 ## What I Learned
 - Balancing conversational empathy with strict safety boundaries is the most critical engineering challenge in mental health tech.
