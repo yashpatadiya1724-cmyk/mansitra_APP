@@ -4,6 +4,7 @@ import Navbar from "@/shared/components/navbar";
 import MultiLayerBackground from "@/components/landing/MultiLayerBackground";
 import { useEmotionTheme } from "@/context/ThemeContext";
 import Footer from "@/shared/components/footer";
+import { DATA_HANDLING_STATEMENT } from "@/lib/site-config";
 
 export default function PrivacyPolicyPage() {
   const { theme } = useEmotionTheme() || { theme: "light" };
@@ -23,7 +24,7 @@ export default function PrivacyPolicyPage() {
         <p className={`text-xl font-serif mb-12 transition-colors duration-700 ${
           isDark ? "text-neutral-300" : "text-neutral-600"
         }`}>
-          Your privacy is our utmost priority. Mansitra is built on the foundation of anonymity and trust.
+          {DATA_HANDLING_STATEMENT}
         </p>
 
         <div className={`space-y-8 transition-colors duration-700 ${

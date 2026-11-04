@@ -1,15 +1,5 @@
-export default function robots() {
-  const baseUrl = "https://mansitra.in";
+import { SITE_URL } from "@/lib/site-config";
 
-  return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow: ["/api/"],
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
-  };
+export default function robots() {
+  return { rules: [{ userAgent: "*", allow: "/", disallow: ["/chat", "/api"] }], sitemap: `${SITE_URL}/sitemap.xml`, host: SITE_URL };
 }

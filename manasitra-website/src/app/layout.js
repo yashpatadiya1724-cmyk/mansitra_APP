@@ -6,6 +6,7 @@ import SmoothScroll from "../components/animations/SmoothScroll";
 import CustomCursor from "../components/animations/CustomCursor";
 import MobileBottomBar from "../components/ui/MobileBottomBar";
 import { ThemeProvider } from "../context/ThemeContext";
+import { SITE_URL, SITE_NAME, DEFAULT_TITLE, DEFAULT_DESCRIPTION } from "@/lib/site-config";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -13,73 +14,15 @@ const quicksand = Quicksand({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://mansitra.in"),
-  title: {
-    default: "Mansitra — Your Private AI Emotional Companion",
-    template: "%s | Mansitra",
-  },
-  description: "Mansitra (Mann Ka Mitra) is a 100% anonymous, judgment-free, and multilingual AI emotional companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
-  keywords: [
-    "Mansitra",
-    "Mansitra",
-    "Mann Ka Mitra",
-    "AI Emotional Companion",
-    "Student Mental Health India",
-    "Anonymous AI Chatbot",
-    "Exam Stress Relief",
-    "Placement Anxiety Support",
-    "Multilingual AI Companion",
-    "Mood Tracker Online",
-    "Stress Relief Mini Games",
-    "Viksit Bharat Ideathon 2047",
-    "Mental Health Helplines India",
-    "Yash Patadiya"
-  ],
-  authors: [{ name: "Yash Patadiya", url: "https://github.com/yashpatadiya1724-cmyk" }],
+  metadataBase: new URL(SITE_URL),
+  title: { default: DEFAULT_TITLE, template: "%s | Mansitra" },
+  description: DEFAULT_DESCRIPTION,
+  authors: [{ name: "Yash Patadiya", url: "https://www.linkedin.com/in/yash-patadiya-973161272/" }],
   creator: "Yash Patadiya",
-  publisher: "Mansitra",
-  alternates: {
-    canonical: "https://mansitra.in",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  icons: {
-    icon: "/favicon.svg",
-    apple: "/logo.svg",
-  },
-  openGraph: {
-    title: "Mansitra — Your Private AI Emotional Companion",
-    description: "100% anonymous, judgment-free, and multilingual AI companion built specifically for Indian students to navigate exam pressure, placement anxiety, and mental health challenges.",
-    url: "https://mansitra.in",
-    siteName: "Mansitra",
-    locale: "en_IN",
-    type: "website",
-    images: [
-      {
-        url: "/logo.svg",
-        width: 512,
-        height: 512,
-        alt: "Mansitra Logo",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Mansitra — Your Private AI Emotional Companion",
-    description: "An anonymous, judgment-free, and multilingual AI companion built specifically for Indian students.",
-    images: ["/logo.svg"],
-  },
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
+  openGraph: { type: "website", siteName: SITE_NAME, url: SITE_URL, title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION, locale: "en_IN", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Mansitra private AI companion" }] },
+  twitter: { card: "summary_large_image", title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION, images: ["/twitter-image"] },
 };
 
 export default function RootLayout({ children }) {
@@ -219,19 +162,12 @@ export default function RootLayout({ children }) {
         <link rel="canonical" href="https://mansitra.in" />
       </head>
       <body className={`${quicksand.className} antialiased`}>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-BHJWHETVNT"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-BHJWHETVNT');
-          `}
-        </Script>
+        {process.env.NEXT_PUBLIC_GA_ID && <>
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} strategy="afterInteractive" />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');`}
+          </Script>
+        </>}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

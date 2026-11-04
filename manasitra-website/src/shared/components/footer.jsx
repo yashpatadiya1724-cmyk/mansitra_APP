@@ -84,6 +84,7 @@ export default function Footer() {
               { label: "AI Companion", href: "/chat" },
               { label: "Mood Tracker", href: "/chat/mood" },
               { label: "Calming Games", href: "/chat/games" },
+              { label: "Journal", href: "/blog" },
               { label: "Contact Us", href: "/contact" },
               { label: "Privacy Policy", href: "/privacy-policy" }
             ].map((link) => (
