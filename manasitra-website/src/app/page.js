@@ -509,7 +509,7 @@ export default function Home() {
                 { icon: Building2, title: "Campus Pilot Program", desc: "Partner with 5–10 colleges for a structured pilot, gathering feedback and refining the AI model on genuine student use cases." },
                 { icon: Languages, title: "English support today", desc: "A calm, accessible companion experience in English, with more Indian languages planned." },
                 { icon: UserCheck, title: "Therapist Handoff", desc: "Build a secure bridge between the AI companion and college counseling departments for seamless clinical escalation." },
-                { icon: Smartphone, title: "Native Mobile App", desc: "Deliver a full-featured iOS and Android application with offline journaling and push-based daily resilience streaks." },
+                { icon: Smartphone, title: "App Store and Play Store release", desc: "Publish Mansitra on the official app stores for easier installs and updates." },
                 { icon: BarChart3, title: "Institutional Dashboard", desc: "Anonymized aggregate insights for college counseling units to identify campus-wide stress trends without compromising student privacy." }
               ].map((item, idx) => (
                 <motion.div 
