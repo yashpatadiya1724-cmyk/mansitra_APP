@@ -50,6 +50,7 @@ import PhoneMockup from "../components/landing/PhoneMockup";
 import HeartbeatWave from "../components/landing/HeartbeatWave";
 import Footer from "@/shared/components/footer";
 import FaqSection from "@/components/faq-section";
+import { blogPosts } from "@/content/blog/posts";
 
 
 if (typeof window !== "undefined") {
@@ -205,7 +206,7 @@ export default function Home() {
               </motion.div>
               
               {/* Heading — different text color per theme */}
-              <h1 className={`text-4xl sm:text-5xl md:text-7xl font-medium tracking-tight text-balance leading-[1.1] transition-colors duration-700 ${
+              <h1 aria-label="Your Private AI Companion for Exam Stress and Student Wellbeing" className={`text-4xl sm:text-5xl md:text-7xl font-medium tracking-tight text-balance leading-[1.1] transition-colors duration-700 ${
                 isDark ? "text-white" : "text-black"
               }`}>
                 <SplitText text="Your Private AI Companion for Exam Stress and Student Wellbeing" className="justify-center" />
@@ -722,7 +723,27 @@ export default function Home() {
           </div>
         </section>
 
-        <FaqSection />
+          <section aria-labelledby="blog-heading" className="relative z-10 px-6 py-24">
+            <div className="mx-auto max-w-5xl">
+              <p className={`mb-4 text-xs font-semibold uppercase tracking-[0.2em] ${isDark ? "text-emerald-400" : "text-teal-700"}`}>Practical support</p>
+              <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+                <h2 id="blog-heading" className={`text-4xl font-medium tracking-tight ${isDark ? "text-white" : "text-black"}`}>From the blog</h2>
+                <Link href="/blog" className="font-semibold text-teal-700 underline underline-offset-4">Read all articles</Link>
+              </div>
+              <div className="grid gap-6 md:grid-cols-3">
+                {blogPosts.slice(0, 3).map((post) => (
+                  <article key={post.slug} className={`rounded-3xl border p-6 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-black/5 bg-white/80"}`}>
+                    <p className={`mb-4 text-xs ${isDark ? "text-neutral-500" : "text-neutral-400"}`}>{post.readTime}</p>
+                    <h3 className={`mb-3 text-xl font-semibold ${isDark ? "text-white" : "text-black"}`}>{post.title}</h3>
+                    <p className={`mb-6 text-sm leading-relaxed ${isDark ? "text-neutral-400" : "text-neutral-600"}`}>{post.description}</p>
+                    <Link href={`/blog/${post.slug}`} className="font-semibold text-teal-700 underline underline-offset-4">Read article</Link>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <FaqSection />
 
         {/* ECG AI Heartbeat Wave */}
         <HeartbeatWave />
