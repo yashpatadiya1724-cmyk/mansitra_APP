@@ -48,7 +48,7 @@ export default function InteractiveChatDemo() {
           </div>
           <div>
             <h4 className="text-sm font-semibold text-black">Mansitra AI</h4>
-            <p className="text-[10px] text-teal-700 font-medium">100% Anonymous & Private</p>
+            <p className="text-[10px] text-teal-700 font-medium">A supportive conversation</p>
           </div>
         </div>
         <div className="flex items-center gap-2">

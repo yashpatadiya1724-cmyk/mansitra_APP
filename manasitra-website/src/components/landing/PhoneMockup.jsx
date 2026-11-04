@@ -62,8 +62,8 @@ export default function PhoneMockup() {
           <Lock size={14} className={isDark ? "text-emerald-400" : "text-teal-700"} />
         </div>
         <div>
-          <p className="text-[11px] font-bold leading-tight">100% Anonymous</p>
-          <p className={`text-[9px] font-serif ${isDark ? "text-neutral-400" : "text-neutral-500"}`}>No Chat Logs Stored</p>
+          <p className="text-[11px] font-bold leading-tight">Private by design</p>
+          <p className={`text-[9px] font-serif ${isDark ? "text-neutral-400" : "text-neutral-500"}`}>Privacy-aware conversations</p>
         </div>
       </motion.div>
 
@@ -103,7 +103,7 @@ export default function PhoneMockup() {
         }`}
       >
         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-        <span className="text-[10px] font-bold uppercase tracking-wider">10+ Regional Indian Languages</span>
+        <span className="text-[10px] font-bold uppercase tracking-wider">English support today</span>
       </motion.div>
 
       {/* Realistic 3D Phone Container */}

@@ -45,9 +45,9 @@ export default function Navbar() {
             <img src="/logo.svg" alt="Mansitra Logo" className="w-full h-full object-cover" />
           </motion.div>
           <div>
-            <h1 className={`font-semibold text-lg tracking-tight leading-none transition-colors duration-700 ${
+            <div className={`font-semibold text-lg tracking-tight leading-none transition-colors duration-700 ${
               isDark ? "text-white group-hover:text-emerald-400" : "text-black group-hover:text-teal-700"
-            }`}>Mansitra</h1>
+            }`}>Mansitra</div>
           </div>
         </Link>
 

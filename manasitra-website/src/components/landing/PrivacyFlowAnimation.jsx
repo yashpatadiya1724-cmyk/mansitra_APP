@@ -16,7 +16,7 @@ export default function PrivacyFlowAnimation() {
     <div className="w-full max-w-4xl mx-auto py-12 px-6 bg-white/60 backdrop-blur-2xl border border-black/5 rounded-3xl shadow-xl">
       <div className="text-center mb-8">
         <span className="text-[10px] font-bold text-teal-700 uppercase tracking-widest block mb-2">Zero-Knowledge Architecture</span>
-        <h3 className="text-xl font-medium text-black">How Your Data Stays 100% Private</h3>
+        <h3 className="text-xl font-medium text-black">How Mansitra approaches privacy</h3>
       </div>
 
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 relative">

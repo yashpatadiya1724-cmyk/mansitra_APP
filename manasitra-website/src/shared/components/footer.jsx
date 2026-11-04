@@ -69,7 +69,7 @@ export default function Footer() {
             }`}>Mansitra</span>
           </div>
           <p className="leading-relaxed font-serif text-base">
-            Your anonymous, judgment-free AI companion. Designed to support emotional resilience and student well-being.
+            Your judgment-free AI companion. Designed to support emotional resilience and student well-being.
           </p>
         </div>
 

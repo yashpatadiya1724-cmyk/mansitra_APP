@@ -50,9 +50,7 @@ import PhoneMockup from "../components/landing/PhoneMockup";
 import HeartbeatWave from "../components/landing/HeartbeatWave";
 import Footer from "@/shared/components/footer";
 import FaqSection from "@/components/faq-section";
-import JsonLd from "@/components/json-ld";
-import { SITE_URL, SITE_NAME, DEFAULT_DESCRIPTION, DATA_HANDLING_STATEMENT, STATS } from "@/lib/site-config";
-import { faqData } from "@/lib/faq-data";
+
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -152,15 +150,8 @@ export default function Home() {
   const { scrollYProgress } = useScroll();
   const progressBarWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
-  const structuredData = [
-    { "@context": "https://schema.org", "@type": "Organization", name: SITE_NAME, url: SITE_URL, logo: `${SITE_URL}/opengraph-image`, description: DEFAULT_DESCRIPTION, sameAs: [] },
-    { "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: SITE_URL, inLanguage: "en-IN" },
-    { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqData.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
-  ];
-
   return (
     <EmotionAura>
-      <JsonLd data={structuredData} />
       <div ref={containerRef} className={`min-h-screen font-sans relative transition-colors duration-700 ${
         isDark ? "text-neutral-200 selection:bg-emerald-900 selection:text-emerald-100" : "text-[#333333] selection:bg-teal-100 selection:text-teal-900"
       }`}>
@@ -187,7 +178,7 @@ export default function Home() {
         {/* HERO SECTION */}
         {/* Light: Morning sunlight, warm, hopeful */}
         {/* Dark: Black space, AI orb, neural network, mouse spotlight */}
-        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* ═════════���═════════════════════════════════════════════════ */}
         <section className={`relative pt-32 pb-24 min-h-[90vh] flex items-center justify-center overflow-hidden transition-all duration-700 ${
           isDark ? "border-b border-white/5" : "border-b border-black/5"
         }`}>
@@ -209,7 +200,7 @@ export default function Home() {
               }`}>
                 <Shield size={14} className={isDark ? "text-emerald-400" : "text-teal-700"} />
                 <span className="text-[11px] font-semibold tracking-widest uppercase">
-                  <ShinyText>100% Private & Anonymous</ShinyText>
+                  <ShinyText>Private by design</ShinyText>
                 </span>
               </motion.div>
               
@@ -278,13 +269,10 @@ export default function Home() {
             ? "bg-white/[0.03] border-b border-white/5"
             : "bg-white/80 border-b border-black/5"
         }`}>
-          <div className={`max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center ${
+          <div className={`max-w-5xl mx-auto px-6 grid grid-cols-1 gap-8 text-center ${
             isDark ? "divide-x divide-white/5" : "divide-x divide-black/5"
           }`}>
             {[
-              { num: STATS.studentsInIndia, suffix: "", label: "Students in India" },
-              { num: STATS.mentalHealthRate, suffix: "", label: "Mental health context" },
-              { num: STATS.professionalHelpRate, suffix: "", prefix: "", label: "Professional help context" },
               { num: "24", suffix: "/7", label: "AI Companion Access" }
             ].map((stat, i) => (
               <motion.div 
@@ -311,7 +299,7 @@ export default function Home() {
         {/* ABOUT MANSITRA */}
         {/* Light: Minimal, serif text, clean spacing, nature */}
         {/* Dark: Documentary, glow headings, deeper glass cards */}
-        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* ═════════════════════════════════════════════════��═════════ */}
         <section className="py-32 relative z-10">
           <div className="max-w-5xl mx-auto px-6">
             <motion.div 
@@ -434,7 +422,7 @@ export default function Home() {
                   { num: "01", title: "User Research & Personas", desc: "Studied the emotional journeys of Indian students — IIT/NIT aspirants, college-goers, and placement-year stress. Identified trust barriers and privacy expectations." },
                   { num: "02", title: "Tone & Visual Palette", desc: "Selected calm sage greens, soft warm gradients, and clean typography. The interface minimizes cognitive load for emotionally exhausted users." },
                   { num: "03", title: "Core AI Conversation", desc: "Engineered strict system prompts incorporating Cognitive Behavioral Therapy (CBT) principles, active listening, and deep sensitivity to Indian academic pressures." },
-                  { num: "04", title: "Privacy Architecture", desc: "Implemented zero-knowledge encrypted database triggers, session-only volatile memory, and a layout that allows completely anonymous, login-free usage." }
+                  { num: "04", title: "Privacy Architecture", desc: "Privacy-aware product design with clear information about how data is handled. Read our Privacy Policy to learn more." }
                 ].map((step, idx) => (
                   <motion.div 
                     key={idx} 
@@ -518,7 +506,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { icon: Building2, title: "Campus Pilot Program", desc: "Partner with 5–10 colleges for a structured pilot, gathering feedback and refining the AI model on genuine student use cases." },
-                { icon: Languages, title: "Multilingual Support", desc: "Scale local voice engines in Hindi, Tamil, Telugu, and other regional languages to speak in students' comforting native tongues." },
+                { icon: Languages, title: "English support today", desc: "A calm, accessible companion experience in English, with more Indian languages planned." },
                 { icon: UserCheck, title: "Therapist Handoff", desc: "Build a secure bridge between the AI companion and college counseling departments for seamless clinical escalation." },
                 { icon: Smartphone, title: "Native Mobile App", desc: "Deliver a full-featured iOS and Android application with offline journaling and push-based daily resilience streaks." },
                 { icon: BarChart3, title: "Institutional Dashboard", desc: "Anonymized aggregate insights for college counseling units to identify campus-wide stress trends without compromising student privacy." }
@@ -695,10 +683,10 @@ export default function Home() {
                 className="grid grid-cols-2 gap-3 mb-10 max-w-md mx-auto lg:mx-0 text-left"
               >
                 {[
-                  { title: "Zero Data Logging", desc: "Encrypted ephemeral memory" },
-                  { title: "Voice Companion", desc: "Hands-free regional voice" },
-                  { title: "Available now", desc: "English and currently live product languages" },
-                  { title: "Coming soon", desc: "More Indian languages — TODO: confirm roadmap" },
+                  { title: "Privacy by design", desc: "Clear information about data handling" },
+                  { title: "Voice Companion", desc: "Hands-free English voice" },
+                  { title: "Available now", desc: "English support is live" },
+                  { title: "Growing thoughtfully", desc: "More languages may come later" },
                   { title: "CBT Calming Suite", desc: "4-4-4 breathing & grounding" },
                 ].map((feat, idx) => (
                   <div key={idx} className={`p-3 rounded-2xl border transition-colors duration-700 ${
@@ -734,9 +722,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="relative z-10 px-6 py-16 text-center">
-          <p className="mx-auto max-w-2xl text-neutral-600">{DATA_HANDLING_STATEMENT}</p>
-        </section>
         <FaqSection />
 
         {/* ECG AI Heartbeat Wave */}
