@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -47,13 +48,16 @@ export default function SplitText({
       viewport={{ once: true }}
     >
       {words.map((word, idx) => (
-        <motion.span
-          key={idx}
+        <Fragment key={idx}>
+          {idx > 0 ? " " : null}
+          <motion.span
+          
           variants={child}
           className={cn("inline-block transform-gpu", wordClassName)}
-        >
-          {word}
-        </motion.span>
+          >
+            {word}
+          </motion.span>
+        </Fragment>
       ))}
     </motion.span>
   );

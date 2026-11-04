@@ -66,9 +66,9 @@ export default function SplashScreen({ onFinish }) {
         </svg>
         
         {/* Brand Logo Text */}
-        <div id="brand-text" className="text-4xl md:text-6xl font-extrabold tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00F2FE] to-[#9B51E0] uppercase opacity-0">
+        <p id="brand-text" className="text-4xl md:text-6xl font-extrabold tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00F2FE] to-[#9B51E0] uppercase opacity-0">
           Mansitra
-        </div>
+        </p>
         <p id="tagline-text" className="text-xs tracking-[0.4em] text-gray-400 uppercase mt-2 opacity-0">
           Decoding Emotions
         </p>
