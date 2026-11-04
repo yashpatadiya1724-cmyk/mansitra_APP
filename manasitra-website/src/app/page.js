@@ -49,6 +49,10 @@ import GlassCard from "../components/ui/GlassCard";
 import PhoneMockup from "../components/landing/PhoneMockup";
 import HeartbeatWave from "../components/landing/HeartbeatWave";
 import Footer from "@/shared/components/footer";
+import FaqSection from "@/components/faq-section";
+import JsonLd from "@/components/json-ld";
+import { SITE_URL, SITE_NAME, DEFAULT_DESCRIPTION, DATA_HANDLING_STATEMENT, STATS } from "@/lib/site-config";
+import { faqData } from "@/lib/faq-data";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -129,7 +133,7 @@ export default function Home() {
           trigger: stat,
           start: "top 85%",
           onEnter: () => {
-            gsap.fromTo(stat, { innerHTML: 0, filter: "blur(10px)" }, { 
+            gsap.fromTo(stat, { innerHTML: stat.dataset.val, filter: "blur(10px)" }, { 
               innerHTML: stat.dataset.val, 
               filter: "blur(0px)",
               duration: 2, 
@@ -148,8 +152,15 @@ export default function Home() {
   const { scrollYProgress } = useScroll();
   const progressBarWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
+  const structuredData = [
+    { "@context": "https://schema.org", "@type": "Organization", name: SITE_NAME, url: SITE_URL, logo: `${SITE_URL}/opengraph-image`, description: DEFAULT_DESCRIPTION, sameAs: [] },
+    { "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: SITE_URL, inLanguage: "en-IN" },
+    { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqData.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
+  ];
+
   return (
     <EmotionAura>
+      <JsonLd data={structuredData} />
       <div ref={containerRef} className={`min-h-screen font-sans relative transition-colors duration-700 ${
         isDark ? "text-neutral-200 selection:bg-emerald-900 selection:text-emerald-100" : "text-[#333333] selection:bg-teal-100 selection:text-teal-900"
       }`}>
@@ -206,7 +217,7 @@ export default function Home() {
               <h1 className={`text-4xl sm:text-5xl md:text-7xl font-medium tracking-tight text-balance leading-[1.1] transition-colors duration-700 ${
                 isDark ? "text-white" : "text-black"
               }`}>
-                <SplitText text="Your Private AI Companion" className="justify-center" />
+                <SplitText text="Your Private AI Companion for Exam Stress and Student Wellbeing" className="justify-center" />
               </h1>
               
               <motion.p variants={fadeInUp} className={`text-lg leading-relaxed max-w-lg mx-auto font-serif transition-colors duration-700 ${
@@ -271,9 +282,9 @@ export default function Home() {
             isDark ? "divide-x divide-white/5" : "divide-x divide-black/5"
           }`}>
             {[
-              { num: "300", suffix: "M+", label: "Students in India" },
-              { num: "1", suffix: " in 5", label: "Face Mental Health Issues" },
-              { num: "10", suffix: "%", prefix: "<", label: "Seek Professional Help" },
+              { num: STATS.studentsInIndia, suffix: "", label: "Students in India" },
+              { num: STATS.mentalHealthRate, suffix: "", label: "Mental health context" },
+              { num: STATS.professionalHelpRate, suffix: "", prefix: "", label: "Professional help context" },
               { num: "24", suffix: "/7", label: "AI Companion Access" }
             ].map((stat, i) => (
               <motion.div 
@@ -286,7 +297,7 @@ export default function Home() {
                 <p className={`font-serif text-4xl font-medium mb-2 transition-colors duration-700 ${
                   isDark ? "text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]" : "text-teal-900"
                 }`}>
-                  {stat.prefix}<span className="stat-number" data-val={stat.num}>0</span>{stat.suffix}
+                  {stat.num ? <>{stat.prefix}<span className="stat-number" data-val={stat.num}>{stat.num}</span>{stat.suffix}</> : null}
                 </p>
                 <p className={`text-[10px] font-semibold uppercase tracking-widest transition-colors duration-700 ${
                   isDark ? "text-neutral-500" : "text-neutral-500"
@@ -686,7 +697,8 @@ export default function Home() {
                 {[
                   { title: "Zero Data Logging", desc: "Encrypted ephemeral memory" },
                   { title: "Voice Companion", desc: "Hands-free regional voice" },
-                  { title: "10+ Languages", desc: "Hindi, Guj, Mar, Eng & more" },
+                  { title: "Available now", desc: "English and currently live product languages" },
+                  { title: "Coming soon", desc: "More Indian languages — TODO: confirm roadmap" },
                   { title: "CBT Calming Suite", desc: "4-4-4 breathing & grounding" },
                 ].map((feat, idx) => (
                   <div key={idx} className={`p-3 rounded-2xl border transition-colors duration-700 ${
@@ -721,6 +733,11 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section className="relative z-10 px-6 py-16 text-center">
+          <p className="mx-auto max-w-2xl text-neutral-600">{DATA_HANDLING_STATEMENT}</p>
+        </section>
+        <FaqSection />
 
         {/* ECG AI Heartbeat Wave */}
         <HeartbeatWave />
