@@ -32,7 +32,7 @@ export default function ServicesLayout({ children }) {
           "@type": "Service",
           "position": 1,
           "name": "AI Emotional Companion",
-          "description": "24/7 anonymous, judgment-free conversational support powered by state-of-the-art AI.",
+          "description": "24/7 judgment-free conversational support powered by AI.",
           "provider": {
             "@type": "Organization",
             "name": "Mansitra",

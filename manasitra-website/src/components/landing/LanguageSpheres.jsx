@@ -20,21 +20,13 @@ export default function LanguageSpheres() {
     return () => window.removeEventListener("resize", updateRadius);
   }, []);
 
-  const languages = [
-    { name: "हिंदी", label: "Hindi" },
-    { name: "ગુજરાતી", label: "Gujarati" },
-    { name: "தமிழ்", label: "Tamil" },
-    { name: "తెలుగు", label: "Telugu" },
-    { name: "मराठी", label: "Marathi" },
-    { name: "English", label: "English" },
-    { name: "বাংলা", label: "Bengali" },
-  ];
+  const languages = [{ name: "English", label: "English" }];
 
   return (
     <div className="w-full max-w-4xl mx-auto py-12 px-4 sm:px-6 my-10 relative overflow-hidden flex flex-col items-center">
       <div className="text-center mb-10">
-        <span className="text-[10px] font-bold text-teal-700 uppercase tracking-widest block mb-2">Culturally Aware Support</span>
-        <h3 className="text-xl sm:text-2xl font-medium text-black">Express Yourself in 10+ Indian Languages</h3>
+        <span className="text-[10px] font-bold text-teal-700 uppercase tracking-widest block mb-2">Clear, supportive conversations</span>
+        <h3 className="text-xl sm:text-2xl font-medium text-black">Express Yourself in English</h3>
       </div>
 
       <div className="relative w-full h-[280px] flex items-center justify-center">
