@@ -365,7 +365,7 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { icon: Brain, color: isDark ? "text-rose-400 bg-rose-500/10 border-rose-500/20" : "text-rose-600 bg-rose-50", title: "Stigma & Silence", desc: "Over 80% of students facing mental distress never speak about it due to fear of judgment from family, peers, and society." },
+                { icon: Brain, color: isDark ? "text-rose-400 bg-rose-500/10 border-rose-500/20" : "text-rose-600 bg-rose-50", title: "Stigma & Silence", desc: "Many students facing mental distress hesitate to speak about it due to fear of judgment from family, peers, and society." },
                 { icon: Lock, color: isDark ? "text-indigo-400 bg-indigo-500/10 border-indigo-500/20" : "text-indigo-600 bg-indigo-50", title: "Privacy Fears", desc: "Students distrust digital platforms with sensitive emotional data, fearing data tracking, logs, or social exposure." },
                 { icon: Coins, color: isDark ? "text-amber-400 bg-amber-500/10 border-amber-500/20" : "text-amber-600 bg-amber-50", title: "Inaccessibility", desc: "Professional therapy is unaffordable or unavailable to the majority of Indian students, especially in Tier 2 and Tier 3 cities." }
               ].map((item, i) => (
@@ -672,7 +672,7 @@ export default function Home() {
                   isDark ? "text-neutral-400" : "text-neutral-600"
                 }`}
               >
-                Download the app today. Minimal login is used purely for active user counting. Just you and your private, judgment-free space.
+                Download the app today. An email login may be used for active-user counting and basic service functionality; a real name is not required. Just you and your private, judgment-free space.
               </motion.p>
 
               {/* Feature Micro-Grid */}
