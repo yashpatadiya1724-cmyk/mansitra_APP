@@ -1,4 +1,5 @@
 export const SUPPORTED_LANGUAGES = [
+  { code: 'hg', name: 'Hinglish',  nativeName: 'Hinglish',   script: 'Latin' },
   { code: 'en', name: 'English',   nativeName: 'English',    script: 'Latin' },
   { code: 'hi', name: 'Hindi',     nativeName: 'हिंदी',       script: 'Devanagari' },
   { code: 'gu', name: 'Gujarati',  nativeName: 'ગુજરાતી',    script: 'Gujarati' },
@@ -9,6 +10,7 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'kn', name: 'Kannada',   nativeName: 'ಕನ್ನಡ',       script: 'Kannada' },
   { code: 'ml', name: 'Malayalam', nativeName: 'മലയാളം',     script: 'Malayalam' },
   { code: 'pa', name: 'Punjabi',   nativeName: 'ਪੰਜਾਬੀ',     script: 'Gurmukhi' },
+  { code: 'gj', name: 'Gujalish',  nativeName: 'Gujalish',   script: 'Latin' },
 ]
 
 export const MOOD_STATES = [

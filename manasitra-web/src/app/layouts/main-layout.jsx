@@ -6,36 +6,37 @@ import { useSafetyStore } from '@store/safety-store'
 import { CrisisScreen } from '@features/crisis-support/components/crisis-screen'
 import { motion } from 'framer-motion'
 import { useSessionStore } from '@store/session-store'
-import { ManasitaLogo } from '@components/logo'
+import { MansitraLogo } from '@components/logo'
 
-// 4 tabs on sides + 1 center Voice FAB
-const LEFT_NAV  = [
+const MOBILE_NAV = [
   { to: '/chat',      icon: MessageCircle, key: 'chat' },
   { to: '/mood',      icon: Smile,         key: 'mood' },
-]
-const RIGHT_NAV = [
   { to: '/garden',    icon: Leaf,          key: 'garden' },
   { to: '/settings',  icon: Settings,      key: 'settings' },
 ]
 
-// Desktop sidebar — all routes
 const SIDEBAR_NAV = [
   { to: '/chat',      icon: MessageCircle, key: 'chat' },
   { to: '/mood',      icon: Smile,         key: 'mood' },
-  { to: '/voice',     icon: Mic,           key: 'voice' },
-  { to: '/garden',    icon: Leaf,          key: 'garden' },
   { to: '/dashboard', icon: BarChart2,     key: 'dashboard' },
+  { to: '/garden',    icon: Leaf,          key: 'garden' },
   { to: '/games',     icon: Gamepad2,      key: 'games' },
+  { to: '/voice',     icon: Mic,           key: 'voice' },
   { to: '/settings',  icon: Settings,      key: 'settings' },
 ]
 
 export const MainLayout = () => {
   const { t } = useTranslation()
-  const crisisVisible = useSafetyStore(s => s.crisisScreenVisible)
   const location = useLocation()
   const navigate = useNavigate()
-  const nickname = useSessionStore(s => s.nickname)
-  const isVoice = location.pathname === '/voice'
+  const crisisVisible = useSafetyStore(state => state.crisisVisible)
+  const clearSession = useSessionStore(state => state.clearSession)
+
+  // hide bottom tabs on standalone game screens for focus
+  const isGameRoute = location.pathname.includes('/games/') && location.pathname !== '/games'
+  const isVoiceRoute = location.pathname === '/voice'
+  const isSettingsSub = location.pathname.includes('/settings/') && location.pathname !== '/settings'
+  const hideBottomNav = isGameRoute || isVoiceRoute || isSettingsSub
 
   return (
     <div className="app-shell" style={{ minHeight: '100vh', display: 'flex' }}>
@@ -50,9 +51,9 @@ export const MainLayout = () => {
       }} className="desktop-sidebar">
         <div style={{ padding: '28px 20px 20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 4 }}>
-            <ManasitaLogo size={40} />
+            <MansitraLogo size={40} />
             <div>
-              <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--primary)' }}>Manasitra</p>
+              <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--primary)' }}>Mansitra</p>
               <p style={{ fontSize: 11, color: 'var(--text-3)' }}>Mann Ka Mitra</p>
             </div>
           </div>
@@ -95,63 +96,26 @@ export const MainLayout = () => {
         </main>
 
         {/* ── Mobile Bottom Nav ── */}
-        <nav className="mobile-nav nav-bar" role="navigation" aria-label={t('a11y.menu')}>
-          <div style={{
-            display: 'flex', alignItems: 'center',
-            maxWidth: 600, margin: '0 auto',
-            padding: '4px 8px',
-            position: 'relative',
-          }}>
-
-            {/* Left 2 tabs */}
-            {LEFT_NAV.map(({ to, icon: Icon, key }) => (
-              <NavLink key={to} to={to}
-                className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-                style={{ flex: 1 }}
-              >
-                <Icon size={18} strokeWidth={1.8} />
-                <span>{t(`nav.${key}`)}</span>
-              </NavLink>
-            ))}
-
-            {/* Center Voice FAB */}
-            <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => navigate('/voice')}
-                style={{
-                  width: 56, height: 56,
-                  borderRadius: '50%',
-                  border: 'none',
-                  cursor: 'pointer',
-                  background: isVoice
-                    ? '#7C3AED'
-                    : 'var(--primary)',
-                  color: 'white',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: 'none',
-                  marginTop: -16, // lift above nav bar
-                  position: 'relative', zIndex: 2,
-                  transition: 'all 0.2s',
-                }}
-                aria-label="Voice Assistant"
-              >
-                <Mic size={22} strokeWidth={2} />
-              </motion.button>
+        {!hideBottomNav && (
+          <nav className="mobile-nav nav-bar" role="navigation" aria-label={t('a11y.menu')}>
+            <div style={{
+              display: 'flex', alignItems: 'center',
+              maxWidth: 600, margin: '0 auto',
+              padding: '4px 8px',
+              position: 'relative',
+            }}>
+              {MOBILE_NAV.map(({ to, icon: Icon, key }) => (
+                <NavLink key={to} to={to}
+                  className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+                  style={{ flex: 1 }}
+                >
+                  <Icon size={18} strokeWidth={1.8} />
+                  <span>{t(`nav.${key}`)}</span>
+                </NavLink>
+              ))}
             </div>
-
-            {/* Right 2 tabs */}
-            {RIGHT_NAV.map(({ to, icon: Icon, key }) => (
-              <NavLink key={to} to={to}
-                className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-                style={{ flex: 1 }}
-              >
-                <Icon size={18} strokeWidth={1.8} />
-                <span>{t(`nav.${key}`)}</span>
-              </NavLink>
-            ))}
-          </div>
-        </nav>
+          </nav>
+        )}
       </div>
     </div>
   )

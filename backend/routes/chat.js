@@ -3,6 +3,7 @@ const router = express.Router()
 const { createChatCompletion } = require('../services/groq-client')
 const { buildSystemPrompt, hasCrisisKeyword } = require('../utils/prompt-builder')
 const { sanitizeInput, validateLanguage, validateResponseMode } = require('../services/safety-service')
+const { evaluateCrisisLevel, buildCrisisResponse } = require('../services/crisisEscalation')
 const { chatLimiter } = require('../middleware/rate-limiter')
 
 const extractJSON = (str) => {
@@ -32,7 +33,8 @@ router.post('/', chatLimiter, async (req, res) => {
 
     // Client-side crisis pre-check
     const userText = sanitizedMessages.map(m => m.content).join(' ')
-    const isCrisisInput = hasCrisisKeyword(userText)
+    const crisisEval = evaluateCrisisLevel(userText)
+    const isCrisisInput = hasCrisisKeyword(userText) || crisisEval.isCrisis
 
     const systemPrompt = buildSystemPrompt(lang, isCrisisInput ? 'crisis' : mode, voice_mode)
 
@@ -56,25 +58,30 @@ router.post('/', chatLimiter, async (req, res) => {
     // Check if AI flagged crisis
     const isCrisisResponse = raw.includes('CRISIS_DETECTED') || isCrisisInput
 
+    const baseResult = {
+      detectedMood: parsed?.detectedMood || 'neutral',
+      riskLevel: isCrisisResponse ? 'critical' : (parsed?.riskLevel || 'none'),
+      suggestedTool: (parsed?.suggestedTool === 'null' ? null : parsed?.suggestedTool) || null,
+      escalationRequired: isCrisisResponse || ['high', 'critical'].includes(parsed?.riskLevel),
+      languageVerified: true,
+    }
+
+    // Attach verified helpline cards and medical disclaimer if crisis is triggered
+    if (baseResult.escalationRequired) {
+      baseResult.crisisSupport = buildCrisisResponse(lang, crisisEval.matchedPattern || 'distress')
+    }
+
     if (parsed && parsed.response) {
       return res.json({
         response: parsed.response.replace('CRISIS_DETECTED', '').trim(),
-        detectedMood: parsed.detectedMood || 'neutral',
-        riskLevel: isCrisisResponse ? 'critical' : (parsed.riskLevel || 'none'),
-        suggestedTool: parsed.suggestedTool === 'null' ? null : (parsed.suggestedTool || null),
-        escalationRequired: isCrisisResponse || ['high', 'critical'].includes(parsed.riskLevel),
-        languageVerified: true,
+        ...baseResult,
       })
     }
 
     if (raw && raw.length > 10) {
       return res.json({
         response: raw.replace('CRISIS_DETECTED', '').trim(),
-        detectedMood: 'neutral',
-        riskLevel: isCrisisResponse ? 'critical' : 'none',
-        suggestedTool: null,
-        escalationRequired: isCrisisResponse,
-        languageVerified: true,
+        ...baseResult,
       })
     }
 

@@ -1,7 +1,7 @@
 const LANGUAGE_NAMES = {
   en: 'English', hi: 'Hindi', gu: 'Gujarati', mr: 'Marathi',
   bn: 'Bengali', ta: 'Tamil', te: 'Telugu', kn: 'Kannada',
-  ml: 'Malayalam', pa: 'Punjabi',
+  ml: 'Malayalam', pa: 'Punjabi', hg: 'Hinglish', gj: 'Gujalish',
 }
 
 const PERSONAS = {
@@ -14,6 +14,8 @@ const PERSONAS = {
   kn: { friendWord: 'Geleya', extra: '"Geleya" antha pilisu. Maneyalli anna/akka thara maatanaadu.' },
   ml: { friendWord: 'Koottukaara', extra: '"Koottukaara" ennu vilikku. Veetile chettan/chechi pole samsaarikku.' },
   pa: { friendWord: 'Yaar', extra: '"Yaar" ya "Dost" naal bulaao. Ghar de vade bhai/bhain vali awaz rakho.' },
+  hg: { friendWord: 'Dost', extra: 'Use "Dost" or "Yaar" naturally. Mix Hindi and English words organically just like urban Indian students.' },
+  gj: { friendWord: 'Mitra', extra: 'Use "Mitra" or "Bhai" naturally. Mix Gujarati and English words organically.' },
   en: { friendWord: 'Friend', extra: 'Use "Friend" or "buddy" naturally. Speak like a caring older sibling.' },
 }
 
