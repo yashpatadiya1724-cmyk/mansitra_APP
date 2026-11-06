@@ -1,5 +1,5 @@
 import { Quicksand } from "next/font/google";
-import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -31,12 +31,6 @@ export default function RootLayout({ children }) {
       <body className={`${quicksand.className} antialiased`}>
         {children}
         <Analytics />
-        {gaId ? <>
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
-          <Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${gaId}');`}</Script>
-        </> : null}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <I18nProvider><ThemeProvider><SmoothScroll><CustomCursor /><MobileBottomBar />{children}</SmoothScroll></ThemeProvider></I18nProvider>
       </body>
     </html>
   );
