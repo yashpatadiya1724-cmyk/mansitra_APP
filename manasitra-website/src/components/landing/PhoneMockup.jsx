@@ -84,8 +84,8 @@ export default function PhoneMockup() {
           <Award size={14} className={isDark ? "text-amber-400" : "text-amber-600"} />
         </div>
         <div>
-          <p className="text-[11px] font-bold leading-tight">7-Day Resilience Streak</p>
-          <p className={`text-[9px] font-serif ${isDark ? "text-neutral-400" : "text-neutral-500"}`}>CBT Streak Active</p>
+<p className="text-[11px] font-bold leading-tight">Daily reflection</p>
+            <p className={`text-[9px] font-serif ${isDark ? "text-neutral-400" : "text-neutral-500"}`}>A gentle check-in</p>
         </div>
       </motion.div>
 
