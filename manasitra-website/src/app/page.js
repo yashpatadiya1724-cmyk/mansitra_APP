@@ -1,191 +1,755 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Download, Shield, Gamepad2, Heart, Lock, User, CheckCircle2 } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { motion, useScroll, useTransform } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { 
+  Download, 
+  Shield, 
+  Gamepad2, 
+  Lock, 
+  Globe, 
+  Volume2, 
+  Sparkles, 
+  Film,
+  Brain,
+  Coins,
+  Building2,
+  Languages,
+  UserCheck,
+  Smartphone,
+  BarChart3,
+  AlertCircle,
+  ShieldCheck
+} from "lucide-react";
+
+import Navbar from "@/shared/components/navbar";
+import PageLoadSequence from "../components/animations/PageLoadSequence";
+import EmotionAura from "../components/animations/EmotionAura";
+import HeroSpotlight from "../components/landing/HeroSpotlight";
+
+const Hero3D = dynamic(() => import("../components/landing/Hero3D"), { ssr: false });
+const MultiLayerBackground = dynamic(() => import("../components/landing/MultiLayerBackground"), { ssr: false });
+const MemoryStream = dynamic(() => import("../components/landing/MemoryStream"), { ssr: false });
+import MagneticButton from "../components/ui/MagneticButton";
+import SplitText from "../components/ui/SplitText";
+import ShinyText from "../components/ui/ShinyText";
+import LanguageSpheres from "../components/landing/LanguageSpheres";
+import VoiceCompanionVisualizer from "../components/landing/VoiceCompanionVisualizer";
+import HopeGarden from "../components/landing/HopeGarden";
+import MoodTrackerPreview from "../components/landing/MoodTrackerPreview";
+import MiniGamesPreview from "../components/landing/MiniGamesPreview";
+import InteractiveJourney from "../components/landing/InteractiveJourney";
+import { useEmotionTheme } from "@/context/ThemeContext";
+import TracingBeam from "../components/ui/TracingBeam";
+import GlassCard from "../components/ui/GlassCard";
+import PhoneMockup from "../components/landing/PhoneMockup";
+import HeartbeatWave from "../components/landing/HeartbeatWave";
+import Footer from "@/shared/components/footer";
+import FaqSection from "@/components/faq-section";
+import { blogPosts } from "@/content/blog/posts";
+
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// Icons
+const GithubIcon = ({ size = 24, className = "", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4"></path>
+  </svg>
+);
+const LinkedinIcon = ({ size = 24, className = "", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+    <rect x="2" y="9" width="4" height="12"></rect>
+    <circle cx="4" cy="4" r="2"></circle>
+  </svg>
+);
+const InstagramIcon = ({ size = 24, className = "", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+  </svg>
+);
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+};
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
 
 export default function Home() {
+  const { theme } = useEmotionTheme() || { theme: "light" };
+  const isDark = theme === "dark";
+
+  const [showSplash, setShowSplash] = useState(true);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (showSplash) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showSplash]);
+
+  useEffect(() => {
+    if (showSplash || !containerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(".wave-path", {
+        x: -100,
+        duration: 3,
+        repeat: -1,
+        ease: "linear",
+      });
+
+      gsap.to(".wave-path", {
+        x: -100,
+        duration: 3,
+        repeat: -1,
+        ease: "linear",
+      });
+
+      const stats = document.querySelectorAll(".stat-number");
+      stats.forEach((stat) => {
+        ScrollTrigger.create({
+          trigger: stat,
+          start: "top 85%",
+          onEnter: () => {
+            gsap.fromTo(stat, { innerHTML: stat.dataset.val, filter: "blur(10px)" }, { 
+              innerHTML: stat.dataset.val, 
+              filter: "blur(0px)",
+              duration: 2, 
+              ease: "power3.out",
+              snap: { innerHTML: 1 } 
+            });
+          },
+          once: true
+        });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [showSplash]);
+
+  const { scrollYProgress } = useScroll();
+  const progressBarWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-teal-100 selection:text-teal-900">
-      
-      {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-[14px] bg-transparent flex items-center justify-center overflow-hidden">
-              <img src="/icon-192.png" alt="Manasitra Logo" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <h1 className="font-bold text-xl leading-none">Manasitra</h1>
-              <p className="text-[10px] uppercase tracking-widest text-[var(--text-3)] font-bold mt-1">Mann Ka Mitra</p>
-            </div>
+    <EmotionAura>
+      <div ref={containerRef} className={`min-h-screen font-sans relative transition-colors duration-700 ${
+        isDark ? "text-neutral-200 selection:bg-emerald-900 selection:text-emerald-100" : "text-[#333333] selection:bg-teal-100 selection:text-teal-900"
+      }`}>
+        
+        {showSplash && <PageLoadSequence onFinish={() => setShowSplash(false)} />}
+        
+        {/* Top Scroll Progress Bar */}
+        <motion.div 
+          className={`fixed top-0 left-0 h-1 z-[9000] origin-left transition-all duration-700 ${
+            isDark
+              ? "bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 shadow-[0_0_15px_#10b981]"
+              : "bg-gradient-to-r from-teal-400 via-emerald-500 to-teal-700 shadow-[0_0_10px_#5eead4]"
+          }`}
+          style={{ width: progressBarWidth }}
+        />
+
+        {/* Global Background & Memory Stream */}
+        <MultiLayerBackground />
+        <MemoryStream />
+        
+        <Navbar />
+
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* HERO SECTION */}
+        {/* Light: Morning sunlight, warm, hopeful */}
+        {/* Dark: Black space, AI orb, neural network, mouse spotlight */}
+        {/* ═════════���═════════════════════════════════════════════════ */}
+        <section className={`relative pt-32 pb-24 min-h-[90vh] flex items-center justify-center overflow-hidden transition-all duration-700 ${
+          isDark ? "border-b border-white/5" : "border-b border-black/5"
+        }`}>
+          <HeroSpotlight />
+          <Hero3D />
+          
+          <div className="max-w-3xl mx-auto px-6 relative z-10 text-center">
+            <motion.div 
+              initial="hidden"
+              animate={!showSplash ? "visible" : "hidden"}
+              variants={staggerContainer}
+              className="flex flex-col items-center gap-6"
+            >
+              {/* Privacy Badge — Light: white glass | Dark: dark glass + emerald glow */}
+              <motion.div variants={fadeInUp} className={`inline-flex items-center gap-2 backdrop-blur-md px-4 py-1.5 rounded-full transition-all duration-700 ${
+                isDark
+                  ? "bg-white/[0.06] border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.1)]"
+                  : "bg-white/70 border border-teal-200/50 shadow-[0_8px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(45,212,191,0.2)]"
+              }`}>
+                <Shield size={14} className={isDark ? "text-emerald-400" : "text-teal-700"} />
+                <span className="text-[11px] font-semibold tracking-widest uppercase">
+                  <ShinyText>Private by design</ShinyText>
+                </span>
+              </motion.div>
+              
+              {/* Heading — different text color per theme */}
+              <h1 aria-label="Your Private AI Companion for Exam Stress and Student Wellbeing" className={`text-4xl sm:text-5xl md:text-7xl font-medium tracking-tight text-balance leading-[1.1] transition-colors duration-700 ${
+                isDark ? "text-white" : "text-black"
+              }`}>
+                <SplitText text="Your Private AI Companion for Exam Stress and Student Wellbeing" className="justify-center" />
+              </h1>
+              
+              <motion.p variants={fadeInUp} className={`text-lg leading-relaxed max-w-lg mx-auto font-serif transition-colors duration-700 ${
+                isDark ? "text-neutral-400" : "text-neutral-600"
+              }`}>
+                Mansitra is a judgment-free space designed to help you navigate life's challenges. Track your mood, express your feelings, and play calming mini-games.
+              </motion.p>
+
+              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 mt-6 items-center justify-center">
+                <MagneticButton href="/chat" variant="dark">
+                  Try Web App
+                </MagneticButton>
+                <MagneticButton href="/mansitra.apk" download variant="teal">
+                  <Download size={16} /> Android (.APK)
+                </MagneticButton>
+                <MagneticButton href="/mansitra.ipa" download variant="light">
+                  <Download size={16} /> iOS (.IPA)
+                </MagneticButton>
+              </motion.div>
+              
+              <motion.p variants={fadeInUp} className={`text-xs font-medium mt-4 tracking-wide uppercase transition-colors duration-700 ${
+                isDark ? "text-neutral-600" : "text-neutral-400"
+              }`}>
+                Supports Android 8.0+ and iOS 15.0+ • Completely Free
+              </motion.p>
+            </motion.div>
           </div>
-          <a href="/app-debug.apk" download className="hidden sm:flex items-center gap-2 bg-[var(--surface-2)] border border-[var(--border)] hover:border-[var(--primary)] transition-colors px-5 py-2.5 rounded-full text-sm font-bold text-[var(--foreground)] shadow-sm">
-            <Download size={16} />
-            Get the App
-          </a>
+        </section>
+
+        {/* Wave Divider */}
+        <div className={`w-full h-12 overflow-hidden backdrop-blur-sm relative z-10 transition-all duration-700 ${
+          isDark ? "bg-white/[0.02] border-b border-white/5" : "bg-white/50 border-b border-black/5"
+        }`}>
+          <svg viewBox="0 0 1000 50" className="absolute w-[200%] h-full opacity-30">
+            <path className="wave-path" d="M0,25 Q125,50 250,25 T500,25 T750,25 T1000,25" fill="none" stroke={isDark ? "url(#wave-gradient-dark)" : "url(#wave-gradient)"} strokeWidth="2" />
+            <defs>
+              <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0f766e" />
+                <stop offset="50%" stopColor="#5eead4" />
+                <stop offset="100%" stopColor="#0f766e" />
+              </linearGradient>
+              <linearGradient id="wave-gradient-dark" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#10b981" />
+                <stop offset="50%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="#10b981" />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
-      </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden">
-        {/* Background glow effects */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--primary)]/20 rounded-full blur-[100px] -z-10"></div>
-        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-teal-400/10 rounded-full blur-[100px] -z-10"></div>
-
-        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col gap-6"
-          >
-            <div className="inline-flex items-center gap-2 bg-[var(--primary-soft)] border border-[var(--primary)]/20 px-4 py-2 rounded-full w-max">
-              <Shield size={14} className="text-[var(--primary)]" />
-              <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-wide">100% Private & Anonymous</span>
-            </div>
-            
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-balance">
-              Your Private <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-blue-400">
-                AI Companion
-              </span>
-            </h1>
-            
-            <p className="text-lg sm:text-xl text-[var(--text-2)] leading-relaxed max-w-lg">
-              Manasitra is a judgment-free space designed to help you navigate life's challenges. Track your mood, express your feelings, and play calming mini-games.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 mt-4">
-              <a href="/app-debug.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-8 py-4 rounded-full text-white font-bold shadow-lg shadow-[var(--primary)]/20">
-                <Download size={20} />
-                Download APK
-              </a>
-              <div className="inline-flex items-center justify-center gap-3 bg-[var(--surface)] border border-[var(--border)] px-8 py-4 rounded-full text-[var(--foreground)] font-bold shadow-sm">
-                No Login Required
-              </div>
-            </div>
-            <p className="text-sm text-[var(--text-3)] font-medium mt-2">
-              For Android Devices • 100% Free
-            </p>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative mx-auto lg:ml-auto w-full max-w-[280px] sm:max-w-[320px] aspect-[1/2] bg-[var(--background)] border-[8px] border-[var(--surface-2)] rounded-[48px] shadow-2xl overflow-hidden"
-          >
-            {/* Mockup Screen content */}
-            <div className="w-full h-full bg-[var(--surface-2)] p-4 flex flex-col">
-              <div className="w-full flex justify-between items-center mb-6">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[var(--primary)]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[var(--border-2)]"></div>
-                </div>
-                <div className="w-1/3 h-5 bg-[var(--background)] rounded-full"></div>
-              </div>
-
-              <div className="flex-1 flex flex-col gap-4">
-                <div className="w-3/4 p-4 bg-[var(--primary)] text-white rounded-2xl rounded-tr-sm self-end shadow-sm">
-                  <div className="w-full h-2 bg-white/30 rounded-full mb-2"></div>
-                  <div className="w-2/3 h-2 bg-white/30 rounded-full"></div>
-                </div>
-                
-                <div className="w-3/4 p-4 bg-[var(--background)] border border-[var(--border)] rounded-2xl rounded-tl-sm self-start shadow-sm">
-                  <div className="w-full h-2 bg-[var(--text-3)] rounded-full mb-2"></div>
-                  <div className="w-5/6 h-2 bg-[var(--text-3)] rounded-full mb-2"></div>
-                  <div className="w-1/2 h-2 bg-[var(--text-3)] rounded-full"></div>
-                </div>
-              </div>
-
-              <div className="w-full h-14 bg-[var(--background)] rounded-[24px] border border-[var(--border)] mt-4 p-2 flex gap-2">
-                <div className="flex-1 h-full bg-[var(--surface-2)] rounded-[18px]"></div>
-                <div className="w-10 h-10 rounded-full bg-[var(--primary)] shrink-0"></div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* About Manasitra Section */}
-      <section className="py-24 bg-slate-50 border-y border-slate-200">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="max-w-2xl mx-auto text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">What is Manasitra?</h2>
-            <p className="text-[var(--text-2)] text-lg leading-relaxed">
-              Manasitra was created to be a safe haven. A place where you can share your deepest thoughts without the fear of judgment, data mining, or privacy breaches.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* STATS BAR */}
+        {/* Light: White glass, teal text */}
+        {/* Dark: Dark glass, emerald glow numbers */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        <section className={`backdrop-blur-xl py-16 relative z-10 transition-all duration-700 ${
+          isDark
+            ? "bg-white/[0.03] border-b border-white/5"
+            : "bg-white/80 border-b border-black/5"
+        }`}>
+          <div className={`max-w-5xl mx-auto px-6 grid grid-cols-1 gap-8 text-center ${
+            isDark ? "divide-x divide-white/5" : "divide-x divide-black/5"
+          }`}>
             {[
-              { icon: Lock, title: "Absolute Privacy", desc: "No sign-ups, no cloud sync, no tracking. Everything you type stays exactly where it belongs: on your device." },
-              { icon: Gamepad2, title: "Calming Tools", desc: "When words aren't enough, engage with interactive mini-games designed to ground your senses and relieve anxiety." },
-              { icon: Heart, title: "Emotional Support", desc: "Track your daily moods, build resilience streaks, and receive thoughtful, empathetic responses whenever you need them." }
-            ].map((feature, i) => (
-              <div key={i} className="bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm hover:border-teal-400 transition-colors">
-                <div className="w-14 h-14 rounded-full bg-[var(--primary-soft)] text-[var(--primary)] flex items-center justify-center mb-6">
-                  <feature.icon size={28} />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-[var(--text-2)] leading-relaxed">{feature.desc}</p>
-              </div>
+              { num: "24", suffix: "/7", label: "AI Companion Access" }
+            ].map((stat, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.8 }}
+              >
+                <p className={`font-serif text-4xl font-medium mb-2 transition-colors duration-700 ${
+                  isDark ? "text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]" : "text-teal-900"
+                }`}>
+                  {stat.num ? <>{stat.prefix}<span className="stat-number" data-val={stat.num}>{stat.num}</span>{stat.suffix}</> : null}
+                </p>
+                <p className={`text-[10px] font-semibold uppercase tracking-widest transition-colors duration-700 ${
+                  isDark ? "text-neutral-500" : "text-neutral-500"
+                }`}>{stat.label}</p>
+              </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* About the Creator Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-6 relative z-10">
-          <div className="bg-white p-8 sm:p-12 rounded-[40px] border border-slate-200 shadow-xl relative overflow-hidden">
-            {/* Decorative blob */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -z-10"></div>
-            
-            <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center text-center md:text-left">
-              <div className="w-32 h-32 shrink-0 rounded-full bg-gradient-to-tr from-[var(--primary)] to-blue-400 p-1">
-                <div className="w-full h-full rounded-full border-4 border-[var(--surface)] overflow-hidden bg-[var(--surface-2)]">
-                  <img src="/creator.jpg" alt="Yash - Creator of Manasitra" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              
-              <div>
-                <h2 className="text-3xl font-bold mb-2">Meet the Creator</h2>
-                <h3 className="text-xl text-[var(--primary)] font-bold mb-4">Yash</h3>
-                <p className="text-[var(--text-2)] text-lg leading-relaxed mb-6">
-                  "I built Manasitra because I realized that sometimes, the hardest thing to do is simply talk to someone. We worry about being judged, being a burden, or just not being understood. I wanted to create a tool that is always there—a silent, supportive friend that genuinely cares about your mental well-being while fiercely protecting your privacy."
-                </p>
-                <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold bg-[var(--surface-2)] border border-[var(--border)] px-4 py-2 rounded-full">
-                    <CheckCircle2 size={16} className="text-[var(--primary)]" /> Built with Care
-                  </span>
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold bg-[var(--surface-2)] border border-[var(--border)] px-4 py-2 rounded-full">
-                    <CheckCircle2 size={16} className="text-[var(--primary)]" /> Privacy First
-                  </span>
-                </div>
-              </div>
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* ABOUT MANSITRA */}
+        {/* Light: Minimal, serif text, clean spacing, nature */}
+        {/* Dark: Documentary, glow headings, deeper glass cards */}
+        {/* ═════════════════════════════════════════════════��═════════ */}
+        <section className="py-32 relative z-10">
+          <div className="max-w-5xl mx-auto px-6">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="max-w-2xl mb-20"
+            >
+              <motion.span variants={fadeInUp} className={`text-[10px] font-semibold uppercase tracking-widest block mb-6 transition-colors duration-700 ${
+                isDark ? "text-emerald-400" : "text-teal-700"
+              }`}>01 — Overview</motion.span>
+              <motion.h2 variants={fadeInUp} className={`text-4xl font-medium tracking-tight mb-8 transition-colors duration-700 ${
+                isDark ? "text-white" : "text-black"
+              }`}>What is Mansitra?</motion.h2>
+              <motion.p variants={fadeInUp} className={`text-xl leading-relaxed mb-6 font-serif transition-colors duration-700 ${
+                isDark ? "text-neutral-300" : "text-neutral-600"
+              }`}>
+                Mansitra (मनसित्र) combines the Sanskrit words <strong>Mana</strong> (mind) and <strong>Mitra</strong> (friend). It is a trustworthy, non-judgmental friend for every student navigating the pressures of academic life in India.
+              </motion.p>
+              <motion.p variants={fadeInUp} className={`text-base leading-relaxed mb-12 transition-colors duration-700 ${
+                isDark ? "text-neutral-500" : "text-neutral-500"
+              }`}>
+                Built at the intersection of AI engineering, psychology, and human-centered design, Mansitra is a secure, privacy-first emotional wellness platform that uses real-time AI conversation and culturally-aware support to help students manage stress and anxiety.
+              </motion.p>
+            </motion.div>
+
+
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* CRISIS SECTION */}
+        {/* Light: White cards, soft rose/amber, clean */}
+        {/* Dark: Dark glass, dramatic glow borders, deep shadows */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        <section className={`py-32 backdrop-blur-2xl relative z-10 transition-all duration-700 ${
+          isDark
+            ? "bg-white/[0.02] border-y border-white/5"
+            : "bg-white/40 border-y border-black/5"
+        }`}>
+          <div className="max-w-5xl mx-auto px-6 relative z-10">
+            <motion.div 
+              initial={{ opacity: 0, filter: "blur(10px)" }}
+              whileInView={{ opacity: 1, filter: "blur(0px)" }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="max-w-2xl mb-20"
+            >
+              <span className={`text-[10px] font-semibold uppercase tracking-widest block mb-6 ${
+                isDark ? "text-rose-400" : "text-rose-600"
+              }`}>02 — The Crisis</span>
+              <h2 className={`text-4xl font-medium tracking-tight mb-8 transition-colors duration-700 ${
+                isDark ? "text-white" : "text-black"
+              }`}>A Crisis Hiding in Plain Sight</h2>
+              <p className={`text-xl leading-relaxed font-serif transition-colors duration-700 ${
+                isDark ? "text-neutral-300" : "text-neutral-600"
+              }`}>
+                India has one of the world's largest student populations — yet mental health support remains critically underdeveloped. Stigma, affordability, and privacy concerns create a barrier that prevents students from seeking help.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                { icon: Brain, color: isDark ? "text-rose-400 bg-rose-500/10 border-rose-500/20" : "text-rose-600 bg-rose-50", title: "Stigma & Silence", desc: "Many students facing mental distress hesitate to speak about it due to fear of judgment from family, peers, and society." },
+                { icon: Lock, color: isDark ? "text-indigo-400 bg-indigo-500/10 border-indigo-500/20" : "text-indigo-600 bg-indigo-50", title: "Privacy Fears", desc: "Students distrust digital platforms with sensitive emotional data, fearing data tracking, logs, or social exposure." },
+                { icon: Coins, color: isDark ? "text-amber-400 bg-amber-500/10 border-amber-500/20" : "text-amber-600 bg-amber-50", title: "Inaccessibility", desc: "Professional therapy is unaffordable or unavailable to the majority of Indian students, especially in Tier 2 and Tier 3 cities." }
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 50, rotateX: 20 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 100, damping: 20, delay: i * 0.15 }}
+                  className={`backdrop-blur-xl p-8 rounded-3xl hover:-translate-y-2 transition-all duration-500 ${
+                    isDark
+                      ? "bg-white/[0.04] border border-white/[0.08] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-white/15 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)]"
+                      : "bg-white/90 border border-black/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]"
+                  }`}
+                >
+                  <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center mb-6 shadow-sm ${isDark ? "border" : ""}`}>
+                    <item.icon size={22} />
+                  </div>
+                  <h4 className={`text-base font-semibold mb-3 transition-colors duration-700 ${
+                    isDark ? "text-white" : "text-black"
+                  }`}>{item.title}</h4>
+                  <p className={`text-sm leading-relaxed transition-colors duration-700 ${
+                    isDark ? "text-neutral-400" : "text-neutral-500"
+                  }`}>{item.desc}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-[var(--primary-soft)] border-t border-[var(--primary)]/10 text-center px-6">
-        <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">Ready to find your peace?</h2>
-        <p className="text-[var(--text-2)] text-lg mb-8 max-w-xl mx-auto">
-          Download the app today. No account creation, no subscriptions. Just you and your private space.
-        </p>
-        <a href="/app-debug.apk" download className="inline-flex items-center justify-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary)]/90 transition-transform active:scale-95 px-10 py-5 rounded-full text-white font-bold shadow-xl shadow-[var(--primary)]/20 text-lg">
-          <Download size={24} />
-          Download for Android
-        </a>
-      </section>
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* DESIGN PROCESS */}
+        {/* Light: Soft tracing beam, minimal step cards */}
+        {/* Dark: Glowing timeline, neon step numbers, glass cards */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        <section className="py-32 relative z-10">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="mb-16 text-center max-w-2xl mx-auto">
+              <span className={`text-[10px] font-semibold uppercase tracking-widest block mb-4 transition-colors duration-700 ${
+                isDark ? "text-emerald-400" : "text-teal-700"
+              }`}>03 — Designed with Empathy</span>
+              <h2 className={`text-4xl font-medium tracking-tight mb-6 transition-colors duration-700 ${
+                isDark ? "text-white" : "text-black"
+              }`}>How Mansitra Was Built</h2>
+              <p className={`text-lg font-serif transition-colors duration-700 ${
+                isDark ? "text-neutral-400" : "text-neutral-500"
+              }`}>
+                We mapped user personas, simplified the visual load, and created safe AI prompts to build a product designed explicitly around student stress.
+              </p>
+            </div>
 
-      {/* Footer */}
-      <footer className="py-8 bg-white border-t border-slate-200 text-center text-sm text-slate-500">
-        <p>© {new Date().getFullYear()} Manasitra (Mann Ka Mitra). Created by Yash.</p>
-        <p className="mt-2">Not a substitute for professional mental health care.</p>
-      </footer>
-    </div>
+            <TracingBeam>
+              <div className="space-y-16 pl-6 md:pl-10">
+                {[
+                  { num: "01", title: "User Research & Personas", desc: "Studied the emotional journeys of Indian students — IIT/NIT aspirants, college-goers, and placement-year stress. Identified trust barriers and privacy expectations." },
+                  { num: "02", title: "Tone & Visual Palette", desc: "Selected calm sage greens, soft warm gradients, and clean typography. The interface minimizes cognitive load for emotionally exhausted users." },
+                  { num: "03", title: "Core AI Conversation", desc: "Engineered strict system prompts incorporating Cognitive Behavioral Therapy (CBT) principles, active listening, and deep sensitivity to Indian academic pressures." },
+                  { num: "04", title: "Privacy Architecture", desc: "Privacy-aware product design with clear information about how data is handled. Read our Privacy Policy to learn more." }
+                ].map((step, idx) => (
+                  <motion.div 
+                    key={idx} 
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  >
+                    <GlassCard className="p-8 group hover:scale-[1.02] transition-transform">
+                      <span className={`font-serif text-4xl italic block mb-4 transition-colors duration-700 ${
+                        isDark
+                          ? "text-emerald-500/40 group-hover:text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+                          : "text-teal-200 group-hover:text-teal-400"
+                      }`}>{step.num}</span>
+                      <h4 className={`text-lg font-semibold mb-3 transition-colors duration-700 ${
+                        isDark ? "text-white" : "text-black"
+                      }`}>{step.title}</h4>
+                      <p className={`text-sm leading-relaxed transition-colors duration-700 ${
+                        isDark ? "text-neutral-400" : "text-neutral-500"
+                      }`}>{step.desc}</p>
+                    </GlassCard>
+                  </motion.div>
+                ))}
+              </div>
+            </TracingBeam>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* FUTURE VISION */}
+        {/* Light: Clean white cards, teal accents, minimal */}
+        {/* Dark: Deep space, stars, glass cards, emerald glow */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        <section className={`py-32 relative overflow-hidden z-10 rounded-[40px] mx-4 md:mx-10 my-10 shadow-2xl transition-all duration-700 ${
+          isDark ? "bg-[#0B0F19] text-white" : "bg-gradient-to-b from-teal-50 to-white text-black border border-black/5"
+        }`}>
+          {/* Stars — only in dark mode */}
+          {isDark && (
+            <div className="absolute inset-0 opacity-50" style={{ background: "radial-gradient(circle at center, #1e293b 0%, #0B0F19 70%)" }}>
+              {[...Array(50)].map((_, i) => {
+                const r1 = Math.sin((i + 1) * 12.9898) * 43758.5453;
+                const r2 = Math.sin((i + 50) * 78.233) * 43758.5453;
+                const r3 = Math.sin((i + 100) * 45.164) * 43758.5453;
+                const left = ((r1 - Math.floor(r1)) * 100).toFixed(2);
+                const top = ((r2 - Math.floor(r2)) * 100).toFixed(2);
+                const opacity = Number((0.2 + (r3 - Math.floor(r3)) * 0.8).toFixed(2));
+
+                return (
+                  <motion.div 
+                    key={i}
+                    className="absolute w-1 h-1 bg-white rounded-full"
+                    style={{ left: `${left}%`, top: `${top}%`, opacity }}
+                    animate={{ opacity: [opacity, 1, opacity] }}
+                    transition={{ duration: 2 + (i % 3), repeat: Infinity }}
+                  />
+                );
+              })}
+            </div>
+          )}
+
+          <div className="max-w-6xl mx-auto px-6 relative z-10">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-2xl mb-20 text-center mx-auto"
+            >
+              <span className={`text-[10px] font-semibold uppercase tracking-widest block mb-4 ${
+                isDark ? "text-teal-400" : "text-teal-700"
+              }`}>04 — Future Vision</span>
+              <h2 className={`text-4xl font-medium tracking-tight mb-6 ${
+                isDark ? "text-white" : "text-black"
+              }`}>The Road Ahead</h2>
+              <p className={`text-xl font-serif ${
+                isDark ? "text-neutral-400" : "text-neutral-600"
+              }`}>
+                We plan to expand our features to reach students across campuses and cities in India.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { icon: Building2, title: "Campus Pilot Program", desc: "Partner with 5–10 colleges for a structured pilot, gathering feedback and refining the AI model on genuine student use cases." },
+                { icon: Languages, title: "English support today", desc: "A calm, accessible companion experience in English, with more Indian languages planned." },
+                { icon: UserCheck, title: "Therapist Handoff", desc: "Build a secure bridge between the AI companion and college counseling departments for seamless clinical escalation." },
+                { icon: Smartphone, title: "App Store and Play Store release", desc: "Publish Mansitra on the official app stores for easier installs and updates." },
+                { icon: BarChart3, title: "Institutional Dashboard", desc: "Anonymized aggregate insights for college counseling units to identify campus-wide stress trends without compromising student privacy." }
+              ].map((item, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1, type: "spring", stiffness: 100 }}
+                  className={`backdrop-blur-xl p-8 rounded-3xl transition-all duration-300 group ${
+                    isDark
+                      ? "bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20"
+                      : "bg-white/80 border border-black/5 shadow-sm hover:shadow-md hover:bg-white"
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all ${
+                    isDark
+                      ? "bg-teal-500/10 border border-teal-500/20 text-teal-300 group-hover:bg-teal-500/20"
+                      : "bg-teal-50 text-teal-700 group-hover:bg-teal-100"
+                  }`}>
+                    <item.icon size={20} />
+                  </div>
+                  <h4 className={`text-base font-semibold mb-3 transition-colors ${
+                    isDark ? "text-white group-hover:text-teal-300" : "text-black"
+                  }`}>{item.title}</h4>
+                  <p className={`text-sm leading-relaxed ${
+                    isDark ? "text-neutral-400" : "text-neutral-500"
+                  }`}>{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* HACKATHON DOCUMENTARY */}
+        {/* Light: Clean white, amber accents, minimal quote */}
+        {/* Dark: Film grain, deep navy, spotlight, dramatic quote */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        <section className={`py-32 relative z-10 overflow-hidden transition-all duration-700 ${
+          isDark
+            ? "bg-[#0d131f] text-white border-b border-white/10"
+            : "bg-white text-black border-b border-black/5"
+        }`}>
+          {/* Film Grain — only dark mode */}
+          {isDark && (
+            <div 
+              className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
+              style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')" }}
+            />
+          )}
+
+          <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 ${
+                isDark
+                  ? "bg-amber-500/10 border border-amber-500/30"
+                  : "bg-amber-50 border border-amber-200/50"
+              }`}>
+                <Film size={14} className={isDark ? "text-amber-400" : "text-amber-600"} />
+                <span className={`text-[10px] font-bold uppercase tracking-widest ${
+                  isDark ? "text-amber-400" : "text-amber-700"
+                }`}>06 — Hackathon Experience</span>
+              </div>
+
+              <h2 className={`text-4xl md:text-5xl font-medium tracking-tight mb-8 ${
+                isDark ? "text-white" : "text-black"
+              }`}>Built Under Pressure</h2>
+              <p className={`text-xl leading-relaxed mb-16 font-serif max-w-2xl mx-auto ${
+                isDark ? "text-neutral-300" : "text-neutral-600"
+              }`}>
+                Developed during the <strong>Ideathon Viksit Bharat 2047</strong> at Silver Oak University. Designing stress-management tech under a high-pressure timeline gave us deep empathy for the students we seek to help.
+              </p>
+
+              <div className={`relative p-12 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden ${
+                isDark
+                  ? "bg-white/5 border border-white/10"
+                  : "bg-amber-50/50 border border-amber-200/30"
+              }`}>
+                <motion.div
+                  animate={{ x: ["-100%", "200%"] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "linear", delay: 1 }}
+                  className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+                  style={{ background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%)" }}
+                />
+
+                <span className={`absolute -top-6 -left-2 text-8xl font-serif leading-none ${
+                  isDark ? "text-teal-400/20" : "text-amber-300/40"
+                }`}>"</span>
+                <p className={`text-2xl italic font-serif leading-relaxed relative z-10 ${
+                  isDark ? "text-neutral-200" : "text-neutral-700"
+                }`}>
+                  The hardest part wasn't the code — it was deciding what the AI should say when a student tells it they can't take the pressure anymore. That question, and the weight behind it, shaped every design decision we made.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* CTA + PHONE MOCKUP */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/* CTA + PHONE MOCKUP */}
+        {/* Light: Soft warm cream, sage green badges, white phone */}
+        {/* Dark: Aurora dark bg, emerald glow CTA, black phone */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        <section className={`py-32 relative z-10 overflow-hidden transition-all duration-700 ${
+          isDark ? "bg-[#0a0f1a]" : "bg-gradient-to-b from-[#faf9f8] to-white"
+        }`}>
+          {/* Aurora background — dark mode only */}
+          {isDark && (
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <motion.div
+                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 opacity-30"
+                style={{
+                  background: "radial-gradient(ellipse at top, #0f766e 0%, transparent 50%), radial-gradient(ellipse at bottom right, #4f46e5 0%, transparent 50%)",
+                  backgroundSize: "200% 200%",
+                }}
+              />
+            </div>
+          )}
+
+          <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-16 relative z-10">
+            <div className="flex-1 text-center lg:text-left">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full mb-6 border transition-all duration-700 ${
+                  isDark ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-300" : "bg-teal-50 border-teal-200/60 text-teal-800"
+                }`}
+              >
+                <Sparkles size={13} className={`animate-spin ${isDark ? "text-emerald-400" : "text-teal-700"}`} style={{ animationDuration: "8s" }} />
+                <span className="text-[10px] font-bold uppercase tracking-widest">05 — Take Mansitra Anywhere</span>
+              </motion.div>
+
+              <motion.h2 
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className={`text-5xl md:text-6xl font-medium tracking-tight mb-6 transition-colors duration-700 ${
+                  isDark ? "text-white" : "text-black"
+                }`}
+              >
+                Ready to find your peace?
+              </motion.h2>
+
+              <motion.p 
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className={`text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0 font-serif leading-relaxed transition-colors duration-700 ${
+                  isDark ? "text-neutral-400" : "text-neutral-600"
+                }`}
+              >
+                Download the app today. An email login may be used for active-user counting and basic service functionality; a real name is not required. Just you and your private, judgment-free space.
+              </motion.p>
+
+              {/* Feature Micro-Grid */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
+                className="grid grid-cols-2 gap-3 mb-10 max-w-md mx-auto lg:mx-0 text-left"
+              >
+                {[
+                  { title: "Privacy by design", desc: "Clear information about data handling" },
+                  { title: "Voice Companion", desc: "Hands-free English voice" },
+                  { title: "Available now", desc: "English support is live" },
+                  { title: "Growing thoughtfully", desc: "More languages may come later" },
+                  { title: "CBT Calming Suite", desc: "4-4-4 breathing & grounding" },
+                ].map((feat, idx) => (
+                  <div key={idx} className={`p-3 rounded-2xl border transition-colors duration-700 ${
+                    isDark ? "bg-white/[0.03] border-white/10" : "bg-white border-black/5 shadow-xs"
+                  }`}>
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <ShieldCheck size={13} className={isDark ? "text-emerald-400" : "text-teal-700"} />
+                      <span className={`text-xs font-bold ${isDark ? "text-white" : "text-black"}`}>{feat.title}</span>
+                    </div>
+                    <p className={`text-[10px] font-serif ${isDark ? "text-neutral-400" : "text-neutral-500"}`}>{feat.desc}</p>
+                  </div>
+                ))}
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
+              >
+                <MagneticButton href="/mansitra.apk" download variant="teal">
+                  <Download size={18} /> Download for Android
+                </MagneticButton>
+                <MagneticButton href="/chat" variant="dark">
+                  <Sparkles size={18} /> Open Web App Instantly
+                </MagneticButton>
+              </motion.div>
+            </div>
+            <div className="flex-1 w-full lg:w-auto">
+              <PhoneMockup />
+            </div>
+          </div>
+        </section>
+
+          <section aria-labelledby="blog-heading" className="relative z-10 px-6 py-24">
+            <div className="mx-auto max-w-5xl">
+              <p className={`mb-4 text-xs font-semibold uppercase tracking-[0.2em] ${isDark ? "text-emerald-400" : "text-teal-700"}`}>Practical support</p>
+              <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+                <h2 id="blog-heading" className={`text-4xl font-medium tracking-tight ${isDark ? "text-white" : "text-black"}`}>From the blog</h2>
+                <Link href="/blog" className="font-semibold text-teal-700 underline underline-offset-4">Read all articles</Link>
+              </div>
+              <div className="grid gap-6 md:grid-cols-3">
+                {blogPosts.slice(0, 3).map((post) => (
+                  <article key={post.slug} className={`rounded-3xl border p-6 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-black/5 bg-white/80"}`}>
+                    <p className={`mb-4 text-xs ${isDark ? "text-neutral-500" : "text-neutral-400"}`}>{post.readTime}</p>
+                    <h3 className={`mb-3 text-xl font-semibold ${isDark ? "text-white" : "text-black"}`}>{post.title}</h3>
+                    <p className={`mb-6 text-sm leading-relaxed ${isDark ? "text-neutral-400" : "text-neutral-600"}`}>{post.description}</p>
+                    <Link href={`/blog/${post.slug}`} className="font-semibold text-teal-700 underline underline-offset-4">Read article</Link>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <FaqSection />
+
+        {/* ECG AI Heartbeat Wave */}
+        <HeartbeatWave />
+
+        <Footer />
+      </div>
+    </EmotionAura>
   );
 }

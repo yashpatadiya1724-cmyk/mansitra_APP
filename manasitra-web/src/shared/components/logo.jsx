@@ -1,19 +1,19 @@
-export const ManasitaLogo = ({ size = 44 }) => (
+export const MansitraLogo = ({ size = 44 }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width={size} height={size}>
     <defs>
       <linearGradient id="lg-bubble" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#6ECECE"/>
-        <stop offset="100%" stopColor="#5BBABA"/>
+        <stop offset="0%" stopColor="#333333"/>
+        <stop offset="100%" stopColor="#000000"/>
       </linearGradient>
       <linearGradient id="lg-petal" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%"   stopColor="#7DD4C8"/>
-        <stop offset="45%"  stopColor="#F0B090"/>
-        <stop offset="100%" stopColor="#F08090"/>
+        <stop offset="0%"   stopColor="#666666"/>
+        <stop offset="45%"  stopColor="#333333"/>
+        <stop offset="100%" stopColor="#111111"/>
       </linearGradient>
       <linearGradient id="lg-wave" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%"   stopColor="#7DD4C8"/>
-        <stop offset="50%"  stopColor="#F0B090"/>
-        <stop offset="100%" stopColor="#F08090"/>
+        <stop offset="0%"   stopColor="#666666"/>
+        <stop offset="50%"  stopColor="#333333"/>
+        <stop offset="100%" stopColor="#111111"/>
       </linearGradient>
     </defs>
 

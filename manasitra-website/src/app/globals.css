@@ -1,32 +1,38 @@
 @import "tailwindcss";
 
-@theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
-
 @layer base {
   :root {
-    /* Forced Light Mode Variables (Bobo Theme) */
-    --background: #FFFFFF;
+    --background: #faf9f8;
     --foreground: #111827;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --border-color: rgba(0, 0, 0, 0.08);
+  }
 
-    --surface: #FFFFFF;
-    --surface-2: #F8FAFC;
-    
-    --primary: #00D0A5;
-    --primary-soft: rgba(0, 208, 165, 0.12);
-    
-    --border: #E5E7EB;
-    --border-2: #D1D5DB;
-
-    --text-2: #4B5563;
-    --text-3: #9CA3AF;
+  .dark {
+    --background: #0d131f;
+    --foreground: #f9fafb;
+    --card-bg: rgba(20, 26, 34, 0.85);
+    --border-color: rgba(255, 255, 255, 0.1);
   }
 
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: Arial, Helvetica, sans-serif;
+    transition: background-color 700ms cubic-bezier(0.16, 1, 0.3, 1), color 700ms cubic-bezier(0.16, 1, 0.3, 1);
   }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
 }

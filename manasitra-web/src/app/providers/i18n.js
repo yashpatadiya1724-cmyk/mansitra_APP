@@ -10,9 +10,11 @@ import te from '@data/i18n/te.json'
 import kn from '@data/i18n/kn.json'
 import ml from '@data/i18n/ml.json'
 import pa from '@data/i18n/pa.json'
+import hg from '@data/i18n/hg.json'
 
 i18n.use(initReactI18next).init({
   resources: {
+    hg: { translation: hg },
     en: { translation: en },
     hi: { translation: hi },
     gu: { translation: gu },
@@ -23,6 +25,7 @@ i18n.use(initReactI18next).init({
     kn: { translation: kn },
     ml: { translation: ml },
     pa: { translation: pa },
+
   },
   lng: 'en',
   fallbackLng: 'en',
