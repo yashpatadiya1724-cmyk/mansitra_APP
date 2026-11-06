@@ -1,13 +1,7 @@
 import { Quicksand } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { I18nProvider } from "./providers/i18n-provider";
-import SmoothScroll from "../components/animations/SmoothScroll";
-import CustomCursor from "../components/animations/CustomCursor";
-import MobileBottomBar from "../components/ui/MobileBottomBar";
-import { ThemeProvider } from "../context/ThemeContext";
-import { SITE_URL, SITE_NAME, DEFAULT_TITLE, DEFAULT_DESCRIPTION } from "@/lib/site-config";
-import { faqData } from "@/lib/faq-data";
+import { Analytics } from "@vercel/analytics/next";
 
 const quicksand = Quicksand({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 
@@ -35,6 +29,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${quicksand.className} antialiased`}>
+        {children}
+        <Analytics />
         {gaId ? <>
           <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
           <Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${gaId}');`}</Script>
