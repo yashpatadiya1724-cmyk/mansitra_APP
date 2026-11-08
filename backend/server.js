@@ -41,6 +41,7 @@ app.use(generalLimiter)
 // Routes
 app.use('/api/chat', require('./routes/chat'))
 app.use('/api/safety', require('./routes/safety'))
+app.use('/api/privacy', require('./routes/privacy'))
 app.use('/api/report', require('./routes/report'))
 app.use('/api/memory', require('./routes/memory'))
 

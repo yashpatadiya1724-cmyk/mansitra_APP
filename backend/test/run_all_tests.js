@@ -11,6 +11,7 @@ console.log('====================================================');
 const tests = [
   'test/vector_memory_test.js',
   'test/crisis_escalation_test.js',
+  'test/privacy_disclaimer_test.js',
 ];
 
 let allPassed = true;
