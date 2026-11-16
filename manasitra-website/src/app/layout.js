@@ -2,6 +2,13 @@ import { Quicksand } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { I18nProvider } from "./providers/i18n-provider";
+import SmoothScroll from "../components/animations/SmoothScroll";
+import CustomCursor from "../components/animations/CustomCursor";
+import MobileBottomBar from "../components/ui/MobileBottomBar";
+import { ThemeProvider } from "../context/ThemeContext";
+import { SITE_URL, SITE_NAME, DEFAULT_TITLE, DEFAULT_DESCRIPTION } from "@/lib/site-config";
+import { faqData } from "@/lib/faq-data";
 
 const quicksand = Quicksand({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 
