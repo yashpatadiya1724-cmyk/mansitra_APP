@@ -16,11 +16,11 @@ Empathetic, multilingual AI emotional companion and mental wellness platform bui
 ---
 
 ## Features
-- **10+ Indian Languages & Dialects:** Cultural emotional empathy in Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, and Hinglish.
+- **9 Indian languages plus English (Hinglish via prompt):** Cultural emotional empathy in Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, and Hinglish. Language list is tested; response quality is not evaluated.
 - **RAG Long-Term Vector Memory:** 64-dimensional semantic embedding engine that recalls ongoing student challenges (exam pressure, sleep debt, hostel loneliness) across sessions.
-- **Automated Crisis Escalation:** Deterministic keyword intercept that instantly surfaces 24/7 national helplines (Tele-MANAS `14416`, KIRAN `1800-599-0019`) whenever severe distress or self-harm intent is detected.
-- **Zero-PII Privacy & DPDP Act 2023 Compliance:** Pre-inference regex redaction of student mobile numbers, email addresses, 12-digit Aadhaar IDs, and university roll numbers.
-- **Low-Latency Inference:** Powered by Groq LLaMA 3.3 70B for near-instant conversational responses.
+- **Automated Crisis Escalation:** Deterministic keyword intercept that instantly surfaces 24/7 national helplines (Tele-MANAS `14416`, KIRAN `1800-599-0019`) whenever severe distress or self-harm intent is detected (keyword based, tested on 7 sample inputs, not a substitute for professional help. Keyword matching can miss distress. This is not an emergency service).
+- **DPDP-style consent receipts and redaction:** Regex redaction of phone, email, Aadhaar-format and roll numbers (names and addresses are not redacted).
+- **Inference Engine:** Powered by Groq LLaMA 3.3 70B for conversational responses.
 
 ## Tech Stack
 - **Frontend:** React, Vite, Tailwind CSS, Electron (Desktop), Capacitor (Android / iOS)
@@ -35,10 +35,10 @@ Empathetic, multilingual AI emotional companion and mental wellness platform bui
 flowchart TD
     Client["Student Client (Web / Mobile / Desktop)"]
     Sanitizer["Input Sanitizer & Prompt Injection Guard"]
-    PIIRedactor["Zero-PII Redaction Guard (Phones, Emails, Aadhaar, Student IDs)"]
+    PIIRedactor["PII Redaction Guard (Phones, Emails, Aadhaar, Student IDs)"]
     CrisisGate{"Distress / Crisis Check"}
     Helpline["National Helplines (Tele-MANAS 14416 / KIRAN 1800-599-0019)"]
-    DPDPConsent["DPDP Act 2023 Digital Consent Audit"]
+    DPDPConsent["Consent receipt (DPDP-style)"]
     VectorMem["Vector Memory Engine (64-dim Embeddings)"]
     GroqLLM["Groq LLaMA 3.3 70B (Empathetic Dost Persona)"]
 
@@ -64,11 +64,11 @@ flowchart TD
   - **Vandrevala Foundation:** `+91 9999 666 555` (Free professional tele-counseling)
   - **National Emergency Response:** Dial `112`
 
-### 2. Digital Personal Data Protection (DPDP) Act 2023 Compliance
-- **Zero-PII Storage:** Student phone numbers, email addresses, Indian Aadhaar numbers, and university enrollment IDs are scrubbed on-the-fly (`backend/services/privacyService.js`) using high-performance regex filters before any payload reaches LLM inference.
-- **Client-Side Data Ownership:** Conversations are cached in the browser or on the device using IndexedDB (`localforage`). Raw chat histories are never permanently retained in cloud server databases.
-- **Consent Architecture (Section 6 DPDP):** Every student session receives an immutable cryptographic consent receipt with explicit purpose tracking (`EMOTIONAL_PEER_SUPPORT`) and immediate revocation rights (`/api/privacy/consent/revoke`).
-- **Grievance Redressal:** In compliance with Section 13 of the DPDP Act 2023, privacy inquiries or data erasure requests can be directed to `privacy@mansitra.in`.
+### 2. DPDP-Style Data Governance
+- **PII Scrubbing:** Student phone numbers, email addresses, Indian Aadhaar numbers, and university enrollment IDs are scrubbed on-the-fly (`backend/services/privacyService.js`) using regex filters before any payload reaches LLM inference (names and addresses are not redacted).
+- **Client-Side Data Ownership:** chat history is cached in IndexedDB; server-side storage not audited.
+- **Consent Architecture:** Consent receipts are generated per session with purpose tracking. A revocation endpoint is planned but not implemented.
+- **Grievance Redressal:** Privacy inquiries or data erasure requests can be directed to `privacy@mansitra.in`.
 
 ---
 
@@ -144,8 +144,8 @@ docker compose up -d
 | `GET` | `/api/safety/helplines` | Fetches verified 24/7 Indian crisis helplines and medical disclaimers |
 | `POST` | `/api/safety/classify` | Evaluates message risk classification |
 | `GET` | `/api/privacy/disclaimer` | Returns statutory clinical disclaimer and emergency escalations |
-| `POST` | `/api/privacy/consent/record` | Issues an immutable DPDP Act 2023 digital consent receipt |
-| `POST` | `/api/privacy/sanitize-preview` | Previews zero-PII redaction without triggering LLM calls |
+| `POST` | `/api/privacy/consent/record` | Issues a digital consent receipt |
+| `POST` | `/api/privacy/sanitize-preview` | Previews PII regex redaction without triggering LLM calls |
 | `GET` | `/health` | Service health check |
 
 ## Automated Verification Suite
