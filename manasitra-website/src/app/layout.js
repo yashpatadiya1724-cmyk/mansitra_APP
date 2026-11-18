@@ -36,7 +36,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${quicksand.className} antialiased`}>
-        {children}
         <Analytics />
         {gaId ? <>
           <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
